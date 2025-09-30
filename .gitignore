@@ -6,3 +6,10 @@ manga_app/macos/Flutter/GeneratedPluginRegistrant.swift
 manga_app/windows/flutter/generated_plugin_registrant.cc
 manga_app/windows/flutter/generated_plugin_registrant.h
 manga_app/windows/flutter/generated_plugins.cmake
+manga_app/linux/flutter/generated_plugin_registrant.cc
+manga_app/linux/flutter/generated_plugin_registrant.h
+manga_app/linux/flutter/generated_plugins.cmake
+manga_app/macos/Flutter/GeneratedPluginRegistrant.swift
+manga_app/windows/flutter/generated_plugin_registrant.cc
+manga_app/windows/flutter/generated_plugin_registrant.h
+manga_app/windows/flutter/generated_plugins.cmake
