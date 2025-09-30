@@ -19,7 +19,7 @@ class SwiperWithText extends StatelessWidget {
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
 
     return SizedBox(
-      height: 300,
+      height: 200,
       width: double.infinity,
       child: Swiper(
         itemCount: imagePaths.length,
