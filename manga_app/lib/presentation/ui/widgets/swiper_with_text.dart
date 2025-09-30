@@ -3,6 +3,8 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 
+// Implementare gestione degli errori per immagini mancanti
+
 class SwiperWithText extends StatelessWidget {
   final List<String> imagePaths;
   final List<String> titles;
@@ -19,7 +21,7 @@ class SwiperWithText extends StatelessWidget {
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.24,
+      height: MediaQuery.of(context).size.height * 0.30,
       width: double.infinity,
       child: Swiper(
         itemCount: imagePaths.length,
