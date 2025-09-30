@@ -46,7 +46,7 @@ class SwiperWithText extends StatelessWidget {
                   height: double.infinity,
                   color: colors.imageOverlay,
                 ),
-                // Testo sovrapposto con padding
+                // Testo sovrapposto all'immagine
                 Positioned(
                   bottom: 32,
                   left: 16,
@@ -57,7 +57,7 @@ class SwiperWithText extends StatelessWidget {
                     children: [
                       Text(
                         titles[index],
-                        style: textStyle.h1.copyWith(
+                        style: textStyle.h2.copyWith(
                           color: colors.textSecondary,
                         ),
                       ),
