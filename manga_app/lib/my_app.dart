@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme(dark: false),
       darkTheme: appTheme(dark: true),
       themeMode: ThemeMode.system,
-      home: const HomePage(title: 'Manga App'),
+      home: HomePage(),
     );
   }
 }

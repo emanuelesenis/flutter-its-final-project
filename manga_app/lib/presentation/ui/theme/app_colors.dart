@@ -6,6 +6,7 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color backgroundColor;
   final Color textPrimary;
   final Color textSecondary;
+  final Color imageOverlay;
 
   AppColors({
     required this.primaryColor,
@@ -13,6 +14,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.backgroundColor,
     required this.textPrimary,
     required this.textSecondary,
+    required this.imageOverlay,
   });
 
   @override
@@ -22,6 +24,7 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? backgroundColor,
     Color? textPrimary,
     Color? textSecondary,
+    Color? imageOverlay,
   }) {
     return AppColors(
       primaryColor: primaryColor ?? this.primaryColor,
@@ -29,6 +32,7 @@ class AppColors extends ThemeExtension<AppColors> {
       backgroundColor: backgroundColor ?? this.backgroundColor,
       textPrimary: textPrimary ?? this.textPrimary,
       textSecondary: textSecondary ?? this.textSecondary,
+      imageOverlay: imageOverlay ?? this.imageOverlay,
     );
   }
 
@@ -43,6 +47,7 @@ class AppColors extends ThemeExtension<AppColors> {
       backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t)!,
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
+      imageOverlay: Color.lerp(imageOverlay, other.imageOverlay, t)!,
     );
   }
 
@@ -52,7 +57,8 @@ class AppColors extends ThemeExtension<AppColors> {
     secondaryColor: Color(0x99905D5D),
     backgroundColor: Color(0xFFFFF5F5),
     textPrimary: Colors.black,
-    textSecondary: Colors.black,
+    textSecondary: Colors.white,
+    imageOverlay: Color(0xBF353131), // 353131 con 75% opacity
   );
 
   // Dark theme colors
@@ -62,5 +68,6 @@ class AppColors extends ThemeExtension<AppColors> {
     backgroundColor: Color(0xFF000000),
     textPrimary: Colors.white,
     textSecondary: Colors.white,
+    imageOverlay: Color(0xBF1A1414), // 1A1414 con 75% opacity
   );
 }
