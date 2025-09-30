@@ -10,7 +10,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Manga App',
-      theme: appTheme,
+      theme: appTheme(dark: false),
+      darkTheme: appTheme(dark: true),
+      themeMode: ThemeMode.system,
       home: const HomePage(title: 'Manga App'),
     );
   }
