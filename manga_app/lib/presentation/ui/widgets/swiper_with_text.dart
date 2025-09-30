@@ -19,7 +19,7 @@ class SwiperWithText extends StatelessWidget {
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
 
     return SizedBox(
-      height: 200,
+      height: MediaQuery.of(context).size.height * 0.24,
       width: double.infinity,
       child: Swiper(
         itemCount: imagePaths.length,
@@ -46,19 +46,39 @@ class SwiperWithText extends StatelessWidget {
                 ),
                 // Testo sovrapposto con padding
                 Positioned(
-                  bottom: 24,
-                  left: 24,
-                  right: 24,
-                  child: Text(
-                    titles[index],
-                    style: textStyle.h1.copyWith(color: colors.textSecondary),
+                  bottom: 32,
+                  left: 16,
+                  right: 16,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        titles[index],
+                        style: textStyle.h1.copyWith(
+                          color: colors.textSecondary,
+                        ),
+                      ),
+                      Text(
+                        "New Episode",
+                        style: textStyle.h4.copyWith(
+                          color: colors.textSecondary,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           );
         },
-        pagination: SwiperPagination(),
+        pagination: SwiperPagination(
+          alignment: Alignment.bottomLeft,
+          margin: const EdgeInsets.only(
+            left: 16,
+            bottom: 16,
+          ), // aggiusta il padding
+        ),
         autoplay: true,
       ),
     );

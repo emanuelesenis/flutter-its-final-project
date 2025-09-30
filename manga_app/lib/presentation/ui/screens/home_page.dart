@@ -11,13 +11,39 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: colors.backgroundColor,
-      body: SwiperWithText(
-        imagePaths: [
-          'assets/images/episode1.jpg',
-          'assets/images/episode2.jpg',
-          'assets/images/episode3.jpg',
+      body: Stack(
+        children: [
+          SwiperWithText(
+            imagePaths: [
+              'assets/images/episode1.jpg',
+              'assets/images/episode2.jpg',
+              'assets/images/episode3.jpg',
+            ],
+            titles: ['Titolo Opera 1', 'Titolo Opera 2', 'Titolo Opera 3'],
+          ),
+          // Icona di ricerca in alto a destra
+          Positioned(
+            top: 16,
+            right: 24,
+            child: SafeArea(
+              child: Container(
+                width: 32,
+                height: 32,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: colors.textSecondary,
+                    size: 32,
+                  ),
+                  onPressed: () {
+                    // TODO: Implementare la funzionalità di ricerca
+                    print('Search pressed');
+                  },
+                ),
+              ),
+            ),
+          ),
         ],
-        titles: ['Titolo Opera 1', 'Titolo Opera 2', 'Titolo Opera 3'],
       ),
     );
   }
