@@ -39,15 +39,15 @@ class AppColors extends ThemeExtension<AppColors> {
 
   // Light theme colors
   factory AppColors.light() => AppColors(
-        primaryColor: Colors.blue,
-        secondaryColor: Colors.green,
-        backgroundColor: Colors.white,
+        primaryColor: Color(0xFF905D5D),
+        secondaryColor: Color(0x99905D5D),
+        backgroundColor: Color(0xFFFFF5F5),
       );
 
   // Dark theme colors
   factory AppColors.dark() => AppColors(
-        primaryColor: Colors.blue.shade200,
-        secondaryColor: Colors.green.shade200,
-        backgroundColor: Colors.black,
+        primaryColor: Color(0xFFA87B7B),
+        secondaryColor: Color(0x99A87B7B),
+        backgroundColor: Color(0xFF000000),
       );
 }
