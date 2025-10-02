@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';
+import 'package:card_stack_swiper/card_stack_swiper.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,6 +12,25 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<AppColors>()!;
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
+
+    final CardStackSwiperController _controller = CardStackSwiperController();
+
+    final List<Widget> _cards = [
+      for (int i = 0; i < 10; i++)
+        Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          color: Colors.primaries[i % Colors.primaries.length].shade300,
+          child: Center(
+            child: Text(
+              'Card ${i + 1}',
+              style: const TextStyle(fontSize: 24, color: Colors.white),
+            ),
+          ),
+        ),
+    ];
 
     return Scaffold(
       backgroundColor: colors.backgroundColor,
@@ -82,11 +102,44 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8),
             child: Center(
-              child: Image.asset(
-                'assets/images/brush_circle.png',
-                width: 300,
-                height: 300,
-                fit: BoxFit.contain,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/brush_circle.png',
+                    width: 300,
+                    height: 300,
+                    fit: BoxFit.contain,
+                  ),
+                  SizedBox(
+                    width: 120,
+                    height: 160,
+                    child: CardStackSwiper(
+                      controller: _controller,
+                      cardsCount: _cards.length,
+                      initialIndex: 0,
+                      isLoop: true,
+                      onSwipe: (previousIndex, currentIndex, direction) {
+                        debugPrint(
+                          'Swiped from $previousIndex to $currentIndex in $direction direction',
+                        );
+                        return true;
+                      },
+                      onEnd: () {
+                        debugPrint('Reached end of the stack');
+                      },
+                      cardBuilder:
+                          (
+                            context,
+                            index,
+                            horizontalPercentage,
+                            verticalPercentage,
+                          ) {
+                            return _cards[index];
+                          },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

@@ -76,12 +76,10 @@ class SwiperWithText extends StatelessWidget {
         },
         pagination: SwiperPagination(
           alignment: Alignment.bottomLeft,
-          margin: const EdgeInsets.only(
-            left: 16,
-            bottom: 16,
-          ), // aggiusta il padding
+          margin: const EdgeInsets.only(left: 16, bottom: 16),
         ),
         autoplay: true,
+        loop: true,
       ),
     );
   }
