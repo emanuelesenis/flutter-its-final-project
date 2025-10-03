@@ -8,11 +8,15 @@ import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 class SwiperWithText extends StatelessWidget {
   final List<String> imagePaths;
   final List<String> titles;
+  final double? height;
+  final double? width;
 
   const SwiperWithText({
     Key? key,
     required this.imagePaths,
     required this.titles,
+    this.height,
+    this.width,
   }) : super(key: key);
 
   @override
@@ -21,8 +25,8 @@ class SwiperWithText extends StatelessWidget {
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.30,
-      width: double.infinity,
+      height: height ?? MediaQuery.of(context).size.height * 0.30,
+      width: width ?? double.infinity,
       child: Swiper(
         itemCount: imagePaths.length,
         itemBuilder: (BuildContext context, int index) {
