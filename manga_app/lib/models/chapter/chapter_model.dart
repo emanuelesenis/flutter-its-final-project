@@ -13,5 +13,7 @@ abstract class ChapterModel with _$ChapterModel {
     required List<String> pages,
   }) = _ChapterModel;
 
-  factory ChapterModel.fromJson(Map<String, dynamic> json) => _$ChapterModelFromJson(json); 
+  factory ChapterModel.fromJson(Map<String, dynamic> json) =>
+      _$ChapterModelFromJson(json);
 }
+

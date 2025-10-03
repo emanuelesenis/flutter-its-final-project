@@ -13,6 +13,9 @@ _MangaModel _$MangaModelFromJson(Map<String, dynamic> json) => _MangaModel(
   descrisione: json['descrisione'] as String,
   rating: (json['rating'] as num).toInt(),
   minimumAge: (json['minimumAge'] as num).toInt(),
+  chapters: (json['chapters'] as List<dynamic>)
+      .map((e) => ChapterModel.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$MangaModelToJson(_MangaModel instance) =>
@@ -23,4 +26,5 @@ Map<String, dynamic> _$MangaModelToJson(_MangaModel instance) =>
       'descrisione': instance.descrisione,
       'rating': instance.rating,
       'minimumAge': instance.minimumAge,
+      'chapters': instance.chapters,
     };
