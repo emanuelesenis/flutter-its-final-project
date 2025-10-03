@@ -33,10 +33,10 @@ ThemeData appTheme({bool dark = false}) {
     // TODO: definire altri temi globali come bottoni, input, ecc.
     // TODO: appBar da aggiornare secondo il figma
     appBarTheme: AppBarTheme(
-      backgroundColor: theme.colors.primaryColor, // colore di sfondo
-      foregroundColor: theme.colors.textPrimary, // colore del titolo e icone
-      elevation: 0, // opzionale: app bar flat
-      centerTitle: true, // opzionale: centra il titolo
+      backgroundColor: theme.colors.primaryColor,
+      foregroundColor: theme.colors.textPrimary,
+      elevation: 0,
+      centerTitle: true,
     ),
 
     floatingActionButtonTheme: FloatingActionButtonThemeData(

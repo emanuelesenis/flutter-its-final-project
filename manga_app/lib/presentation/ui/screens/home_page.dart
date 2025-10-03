@@ -89,7 +89,7 @@ class HomePage extends StatelessWidget {
           ),
           // Sezione "IN EVIDENZA"
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -100,15 +100,15 @@ class HomePage extends StatelessWidget {
           ),
           // Immagine brush_circle centrata
           Padding(
-            padding: const EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.only(top: 0),
             child: Center(
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   Image.asset(
                     'assets/images/brush_circle.png',
-                    width: 300,
-                    height: 300,
+                    width: 400,
+                    height: 400,
                     fit: BoxFit.contain,
                   ),
                   SizedBox(
