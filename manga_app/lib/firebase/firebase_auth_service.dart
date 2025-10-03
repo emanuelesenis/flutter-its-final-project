@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:manga_app/firebase/firestore_service.dart';
 import 'package:manga_app/models/user/user_model.dart';
 
-class FirebaseService {
+class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirestoreService _firestore = FirestoreService();
 
   /// REGISTRA UN NUOVO UTENTE
   Future<UserModel?> registerWithEmail({required UserModel user}) async {
@@ -17,7 +17,7 @@ class FirebaseService {
       user = user.copyWith(id: result.user?.uid);
 
       // Salva i dati utente nel Firestore
-      await _firestore.collection('users').doc(user.id).set(user.toJson());
+      _firestore.saveCollectionDocument('users', user.toJson());
 
       return user;
     } on FirebaseAuthException catch (e) {
@@ -40,23 +40,34 @@ class FirebaseService {
     }
   }
 
+  /// ELIMINA UTENTE
+  Future<void> deleteUser() async {
+    try {
+      final currentUser = _auth.currentUser;
+
+      if (currentUser != null) {
+        _firestore.deleteCollectionDocument('users', currentUser.uid);
+        await currentUser.delete();
+      } else {
+        throw FirebaseAuthException(
+          code: 'no-current-user',
+          message: 'Nessun utente attualmente autenticato.',
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      print('Errore durante l\'eliminazione dell\'utente: ${e.code}');
+      rethrow;
+    }
+  }
+
   /// LOGOUT UTENTE
   Future<void> signOut() async {
     await _auth.signOut();
   }
 
-  /// OTTIENI ID UTENTE CORRENTE
+  /// OTTIENE ID UTENTE CORRENTE
   String? getCurrentUser() {
     return _auth.currentUser?.uid;
-  }
-
-  /// OTTIENI UTENTE DAL FIRESTORE
-  Future<UserModel> getUserDetails(String uid) async {
-    return await _firestore
-        .collection('users')
-        .doc(uid)
-        .get()
-        .then((json) => UserModel.fromJson(json.data()!));
   }
 
   /// STREAM PER MONITORARE AUTENTICAZIONE
