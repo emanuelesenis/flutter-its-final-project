@@ -4,6 +4,7 @@ import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';
 import 'package:manga_app/presentation/ui/widgets/highlighted_section.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:manga_app/presentation/ui/widgets/app_bar_custom.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,25 +17,12 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colors.backgroundColor,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: SvgPicture.asset(
-            'assets/icons/app_logo.svg',
-            width: 24,
-            height: 24,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: colors.textSecondary, size: 32),
-            onPressed: () {
-              // Implementare la logica di ricerca
-            },
-          ),
-        ],
+      appBar: AppBarHome(
+        showSearch: true,
+        onSearch: () {
+          // Azione da eseguire quando si preme l'icona di ricerca
+          print('Icona di ricerca premuta');
+        },
       ),
       body: Column(
         children: [
