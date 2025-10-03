@@ -1,31 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:manga_app/models/user/user_model.dart';
 
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   /// REGISTRA UN NUOVO UTENTE
-  Future<User?> registerWithEmail({
-    required String email,
-    required String password,
-    required String fullName,
-  }) async {
+  Future<UserModel?> registerWithEmail({required UserModel user}) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       );
 
-      User? user = result.user;
+      user = user.copyWith(id: result.user?.uid);
 
       // Salva i dati utente nel Firestore
-      await _firestore.collection('users').doc(user!.uid).set({
-        'uid': user.uid,
-        'email': email,
-        'fullName': fullName,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
+      await _firestore.collection('users').doc(user.id).set(user.toJson());
 
       return user;
     } on FirebaseAuthException catch (e) {
@@ -35,16 +27,13 @@ class FirebaseService {
   }
 
   /// LOGIN UTENTE
-  Future<User?> loginWithEmail({
-    required String email,
-    required String password,
-  }) async {
+  Future<UserModel?> loginWithEmail({required UserModel user}) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       );
-      return result.user;
+      return user.copyWith(id: result.user?.uid);
     } on FirebaseAuthException catch (e) {
       print('Errore di login: ${e.code}');
       rethrow;
@@ -56,14 +45,18 @@ class FirebaseService {
     await _auth.signOut();
   }
 
-  /// OTTIENI UTENTE CORRENTE
-  User? getCurrentUser() {
-    return _auth.currentUser;
+  /// OTTIENI ID UTENTE CORRENTE
+  String? getCurrentUser() {
+    return _auth.currentUser?.uid;
   }
 
-  /// OTTIENI I DETTAGLI DELL'UTENTE DAL FIRESTORE
-  Future<DocumentSnapshot> getUserDetails(String uid) async {
-    return await _firestore.collection('users').doc(uid).get();
+  /// OTTIENI UTENTE DAL FIRESTORE
+  Future<UserModel> getUserDetails(String uid) async {
+    return await _firestore
+        .collection('users')
+        .doc(uid)
+        .get()
+        .then((json) => UserModel.fromJson(json.data()!));
   }
 
   /// STREAM PER MONITORARE AUTENTICAZIONE
