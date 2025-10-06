@@ -13,9 +13,9 @@ class HomePage extends StatelessWidget {
     final colors = Theme.of(context).extension<AppColors>()!;
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
 
-    final CardStackSwiperController _controller = CardStackSwiperController();
+    final CardStackSwiperController controller = CardStackSwiperController();
 
-    final List<Widget> _cards = [
+    final List<Widget> cards = [
       for (int i = 0; i < 10; i++)
         Card(
           elevation: 4,
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                 top: 16,
                 left: 24,
                 child: SafeArea(
-                  child: Container(
+                  child: SizedBox(
                     width: 32,
                     height: 32,
                     child: SvgPicture.asset(
@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                 top: 16,
                 right: 24,
                 child: SafeArea(
-                  child: Container(
+                  child: SizedBox(
                     width: 32,
                     height: 32,
                     child: IconButton(
@@ -115,8 +115,8 @@ class HomePage extends StatelessWidget {
                     width: 120,
                     height: 160,
                     child: CardStackSwiper(
-                      controller: _controller,
-                      cardsCount: _cards.length,
+                      controller: controller,
+                      cardsCount: cards.length,
                       initialIndex: 0,
                       isLoop: true,
                       onSwipe: (previousIndex, currentIndex, direction) {
@@ -135,7 +135,7 @@ class HomePage extends StatelessWidget {
                             horizontalPercentage,
                             verticalPercentage,
                           ) {
-                            return _cards[index];
+                            return cards[index];
                           },
                     ),
                   ),
