@@ -3,7 +3,6 @@ import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';
 import 'package:manga_app/presentation/ui/widgets/highlighted_section.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:manga_app/presentation/ui/widgets/app_bar_custom.dart';
 
 class HomePage extends StatelessWidget {
