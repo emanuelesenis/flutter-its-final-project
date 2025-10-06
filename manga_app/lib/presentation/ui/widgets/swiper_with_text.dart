@@ -10,10 +10,10 @@ class SwiperWithText extends StatelessWidget {
   final List<String> titles;
 
   const SwiperWithText({
-    Key? key,
+    super.key,
     required this.imagePaths,
     required this.titles,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +26,12 @@ class SwiperWithText extends StatelessWidget {
       child: Swiper(
         itemCount: imagePaths.length,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
+          return SizedBox(
             width: double.infinity,
             child: Stack(
               children: [
                 // Immagine di sfondo
-                Container(
+                SizedBox(
                   width: double.infinity,
                   height: double.infinity,
                   child: Image.asset(

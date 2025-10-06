@@ -2,23 +2,26 @@
 Guida rapida – Temi Manga App
 ========================================
 
-Scopo:
+Scopo
 ------
+
 Il sistema di temi permette di centralizzare colori e stili dei testi in un unico posto, così da:
+
 - Cambiare rapidamente look & feel (es. light/dark mode)
 - Garantire coerenza visiva in tutta l’app
 - Semplificare l’aggiornamento di font, colori o dimensioni dei testi
 
-File principali:
+File principali
 ----------------
+
 1. app_colors.dart
    - Definisce i colori principali dell’app (light/dark theme)
    - Accesso: Theme.of(context).extension<AppColors>()!
-   
+
 2. app_text_style.dart
    - Definisce tutti gli stili di testo (h1, h2, h3, h4, body)
    - Accesso: Theme.of(context).extension<AppTextStyle>()!
-   
+
 3. app_theme.dart
    - Combina colori e testi in un unico ThemeData
    - Include configurazioni per AppBar e FloatingActionButton
@@ -29,8 +32,9 @@ File principali:
          themeMode: ThemeMode.system,
        )
 
-Accesso rapido ai temi:
+Accesso rapido ai temi
 -----------------------
+
 Metodo consigliato (con estensione BuildContext):
 
 import 'package:flutter/material.dart';
@@ -46,28 +50,31 @@ Esempi di utilizzo:
 
 - Colori:
   Container(color: context.colors.primaryColor);
-  
+
 - Testi:
   Text("Titolo", style: context.style.h1);
 
-Colori disponibili:
+Colori disponibili
 -------------------
+
 primaryColor   -> Elementi principali, bottoni, AppBar
 secondaryColor -> Elementi secondari, highlights
 backgroundColor-> Sfondo generale
 textPrimary    -> Testi principali
 textSecondary  -> Testi secondari
 
-TextStyle disponibili:
+TextStyle disponibili
 ----------------------
+
 h1    -> Aboreto, 30, Titoli principali
 h2    -> Aboreto, 24, Sottotitoli
 h3    -> Montserrat, 20, Sezioni importanti
 h4    -> Montserrat, 16, Testi secondari non body
 body  -> Montserrat, 16, Testi principali del contenuto
 
-FloatingActionButton:
+FloatingActionButton
 --------------------------------
+
 FloatingActionButton(
   onPressed: () {},
   backgroundColor: context.colors.primaryColor,
@@ -75,16 +82,18 @@ FloatingActionButton(
   child: Icon(Icons.add),
 );
 
-Come aggiungere nuovi colori o stili:
+Come aggiungere nuovi colori o stili
 ------------------------------------
+
 1. Colore → aggiungi in AppColors (light e dark)
 2. Testo → aggiungi in AppTextStyle con fontFamily, fontSize, color
 3. Richiama i nuovi colori/stili tramite:
    context.colors.nuovoColore
    context.style.nuovoStile
 
-Consigli rapidi:
+Consigli rapidi
 ----------------
+
 - Usa context.style per tutti i testi → coerenza tra pagine.
 - Usa context.colors per sfondi, bottoni e AppBar.
 - Per dark/light mode, basta cambiare ThemeMode in MaterialApp.
