@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCarousel extends StatelessWidget {
@@ -6,10 +5,10 @@ class CategoryCarousel extends StatelessWidget {
   final List<Widget> cards;
 
   const CategoryCarousel({
-    Key? key,
+    super.key,
     required this.title,
     required this.cards,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,6 @@ class CategoryCarousel extends StatelessWidget {
           
           )
       ],
-    )
+    );
   }
-  
 }

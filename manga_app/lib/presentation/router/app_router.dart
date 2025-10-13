@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:manga_app/presentation/ui/screens/home_page.dart';
+import 'package:manga_app/presentation/ui/screens/details_page.dart';
+
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+/// Router configuration for the app
+final GoRouter appRouter = GoRouter(
+  routerNeglect: true,
+  initialLocation: '/',
+  navigatorKey: navigatorKey,
+  routes: [
+    GoRoute(
+      path: '/',
+      name: 'home',
+      builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: '/details',
+      name: 'details',
+      builder: (context, state) {
+        final mangaId = state.uri.queryParameters['id'];
+        return DetailsPage(mangaId: mangaId);
+      },
+    ),
+    GoRoute(
+      path: '/details/:id',
+      name: 'details_with_id',
+      builder: (context, state) {
+        final id = state.pathParameters['id'];
+        return DetailsPage(mangaId: id);
+      },
+    ),
+  ],
+  errorBuilder: (context, state) => Scaffold(
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.error_outline, size: 64),
+          const SizedBox(height: 16),
+          Text(
+            'Pagina non trovata',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () => context.go('/'),
+            child: const Text('Torna alla Home'),
+          ),
+        ],
+      ),
+    ),
+  ),
+);

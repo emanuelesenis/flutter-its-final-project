@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:card_stack_swiper/card_stack_swiper.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
+import 'package:go_router/go_router.dart';
 
 class HighlightedSection extends StatefulWidget {
   const HighlightedSection({super.key});
@@ -102,6 +103,33 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+        // Button to view details
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Center(
+            child: ElevatedButton(
+              onPressed: () {
+                context.push('/details?id=highlighted');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colors.primaryColor,
+                foregroundColor: colors.textSecondary,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 12,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                elevation: 2,
+              ),
+              child: Text(
+                'Vedi Dettagli',
+                style: textStyle.body.copyWith(color: colors.textSecondary),
+              ),
             ),
           ),
         ),
