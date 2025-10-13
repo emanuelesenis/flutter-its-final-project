@@ -35,30 +35,27 @@ class _HighlightedSectionState extends State<HighlightedSection> {
 
     return Column(
       children: [
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-              child: Align(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+          child: Row(
+            children: [
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'IN EVIDENZA',
                   style: textStyle.h2.copyWith(color: colors.textPrimary),
                 ),
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-              child: Align(
+              const Spacer(),
+              Align(
                 alignment: Alignment.centerRight,
                 child: Text(
                   'Vedi Tutto',
                   style: textStyle.body.copyWith(color: colors.textPrimary),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         // Immagine brush_circle centrata
         Padding(
