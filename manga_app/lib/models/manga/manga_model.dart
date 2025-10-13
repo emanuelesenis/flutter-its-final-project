@@ -10,12 +10,12 @@ part 'manga_model.g.dart';
 abstract class MangaModel with _$MangaModel {
   const factory MangaModel({
     String? id,
-    required String cover,
-    required String status,
-    required String descrisione,
-    required int rating,
-    required int minimumAge,
-    required List<ChapterModel> chapters,
+    @Default("") String cover,
+    @Default("") String status,
+    @Default("") String descrisione,
+    @Default(0) int rating,
+    @Default(0) int minimumAge,
+    @Default([]) List<ChapterModel> chapters,
   }) = _MangaModel;
 
   factory MangaModel.fromJson(Map<String, dynamic> json) =>

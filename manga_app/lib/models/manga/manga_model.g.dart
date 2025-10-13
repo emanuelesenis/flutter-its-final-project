@@ -8,14 +8,16 @@ part of 'manga_model.dart';
 
 _MangaModel _$MangaModelFromJson(Map<String, dynamic> json) => _MangaModel(
   id: json['id'] as String?,
-  cover: json['cover'] as String,
-  status: json['status'] as String,
-  descrisione: json['descrisione'] as String,
-  rating: (json['rating'] as num).toInt(),
-  minimumAge: (json['minimumAge'] as num).toInt(),
-  chapters: (json['chapters'] as List<dynamic>)
-      .map((e) => ChapterModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  cover: json['cover'] as String? ?? "",
+  status: json['status'] as String? ?? "",
+  descrisione: json['descrisione'] as String? ?? "",
+  rating: (json['rating'] as num?)?.toInt() ?? 0,
+  minimumAge: (json['minimumAge'] as num?)?.toInt() ?? 0,
+  chapters:
+      (json['chapters'] as List<dynamic>?)
+          ?.map((e) => ChapterModel.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$MangaModelToJson(_MangaModel instance) =>

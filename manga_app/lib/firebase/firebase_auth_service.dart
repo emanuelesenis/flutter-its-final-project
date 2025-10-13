@@ -7,14 +7,27 @@ class FirebaseAuthService {
   final FirestoreService _firestore = FirestoreService();
 
   /// REGISTRA UN NUOVO UTENTE
-  Future<UserModel?> registerWithEmail({required UserModel user}) async {
+  Future<UserModel?> registerWithEmail({
+    required String username,
+    required String email,
+    required String password,
+  }) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
-        email: user.email,
-        password: user.password,
+        email: email,
+        password: password,
       );
 
-      user = user.copyWith(id: result.user?.uid);
+      print(result);
+
+      final user = UserModel(
+        id: result.user?.uid,
+        username: username,
+        email: email,
+        password: password,
+        profilePicure: "",
+        readedMangas: [],
+      );
 
       // Salva i dati utente nel Firestore
       _firestore.saveCollectionDocument('users', user.toJson());
@@ -27,13 +40,23 @@ class FirebaseAuthService {
   }
 
   /// LOGIN UTENTE
-  Future<UserModel?> loginWithEmail({required UserModel user}) async {
+  Future<UserModel?> loginWithEmail({
+    required String email,
+    required String password,
+  }) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
-        email: user.email,
-        password: user.password,
+        email: email,
+        password: password,
       );
-      return user.copyWith(id: result.user?.uid);
+      return UserModel(
+        id: result.user?.uid,
+        username: "",
+        email: email,
+        password: password,
+        profilePicure: "",
+        readedMangas: [],
+      );
     } on FirebaseAuthException catch (e) {
       print('Errore di login: ${e.code}');
       rethrow;

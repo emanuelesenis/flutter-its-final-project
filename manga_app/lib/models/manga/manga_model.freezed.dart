@@ -221,17 +221,17 @@ return $default(_that.id,_that.cover,_that.status,_that.descrisione,_that.rating
 @JsonSerializable()
 
 class _MangaModel with DiagnosticableTreeMixin implements MangaModel {
-  const _MangaModel({this.id, required this.cover, required this.status, required this.descrisione, required this.rating, required this.minimumAge, required final  List<ChapterModel> chapters}): _chapters = chapters;
+  const _MangaModel({this.id, this.cover = "", this.status = "", this.descrisione = "", this.rating = 0, this.minimumAge = 0, final  List<ChapterModel> chapters = const []}): _chapters = chapters;
   factory _MangaModel.fromJson(Map<String, dynamic> json) => _$MangaModelFromJson(json);
 
 @override final  String? id;
-@override final  String cover;
-@override final  String status;
-@override final  String descrisione;
-@override final  int rating;
-@override final  int minimumAge;
+@override@JsonKey() final  String cover;
+@override@JsonKey() final  String status;
+@override@JsonKey() final  String descrisione;
+@override@JsonKey() final  int rating;
+@override@JsonKey() final  int minimumAge;
  final  List<ChapterModel> _chapters;
-@override List<ChapterModel> get chapters {
+@override@JsonKey() List<ChapterModel> get chapters {
   if (_chapters is EqualUnmodifiableListView) return _chapters;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_chapters);
