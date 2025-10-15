@@ -12,6 +12,7 @@ import 'package:manga_app/presentation/signup.dart';
 // import 'package:manga_app/presentation/login.dart';
 import 'package:manga_app/presentation/test_api_cubit.dart';
 import 'package:manga_app/providers/providers.dart';
+import 'package:manga_app/presentation/ui/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
+        theme: appTheme(dark: false), // Tema light
+        darkTheme: appTheme(dark: true), // Tema dark
+        themeMode: ThemeMode.system, // Segue le impostazioni del sistema
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             if (state is AuthInitial) {
