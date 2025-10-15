@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_event.dart';
 import 'package:manga_app/bloc/auth/auth_state.dart';
-import 'package:manga_app/presentation/altra_pagina.dart';
+import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/signup.dart';
 
 class LoginPage extends StatefulWidget {
@@ -104,9 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                         );
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => AltraPagina(),
-                          ),
+                          MaterialPageRoute(builder: (context) => HomePage()),
                         );
                       }
                     },
