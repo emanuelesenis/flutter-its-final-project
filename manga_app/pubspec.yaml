@@ -40,6 +40,7 @@ dependencies:
   carousel_slider: ^5.1.1
   go_router: ^14.6.2
   be_widgets: ^1.2.1
+  flutter_expandable_fab: ^2.5.2
 
 dev_dependencies:
   flutter_test:

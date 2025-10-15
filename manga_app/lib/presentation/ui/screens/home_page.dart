@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
+import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
+//import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
 import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';
 import 'package:manga_app/presentation/ui/widgets/highlighted_section.dart';
 import 'package:manga_app/presentation/ui/widgets/app_bar_custom.dart';
@@ -12,13 +16,17 @@ class HomePage extends StatelessWidget {
     final colors = Theme.of(context).extension<AppColors>()!;
 
     return Scaffold(
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: CustomFab(),
       backgroundColor: colors.backgroundColor,
       extendBodyBehindAppBar: true,
       appBar: AppBarHome(
         showSearch: true,
         onSearch: () {
           // Azione da eseguire quando si preme l'icona di ricerca
-          print('Icona di ricerca premuta');
+          if (kDebugMode) {
+            print('Icona di ricerca premuta');
+          }
         },
       ),
       body: Column(
@@ -44,3 +52,4 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
