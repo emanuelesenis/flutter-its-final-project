@@ -6,7 +6,6 @@ import 'package:manga_app/bloc/auth/auth_event.dart';
 import 'package:manga_app/bloc/auth/auth_state.dart';
 // import 'package:manga_app/firebase/firebase_auth_service.dart';
 import 'package:manga_app/firebase/firebase_options.dart';
-import 'package:manga_app/presentation/altra_pagina.dart';
 import 'package:manga_app/presentation/login.dart';
 import 'package:manga_app/presentation/signup.dart';
 // import 'package:manga_app/presentation/login.dart';

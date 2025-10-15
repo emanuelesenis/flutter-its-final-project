@@ -8,7 +8,7 @@ class CategoryCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Lista di esempio, sostituisci con i tuoi dati reali
+    // TODO: Lista di esempio
     final mangaList = List.generate(
       6,
       (index) => {
@@ -55,6 +55,7 @@ class CategoryCarousel extends StatelessWidget {
             itemBuilder: (context, index) {
               final manga = mangaList[index];
               return MangaCard(
+                // TODO: Sostituire con valori reali e rimuovere !
                 imageUrl: manga['image']!,
                 title: manga['title']!,
               );

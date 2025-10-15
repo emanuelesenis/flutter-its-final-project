@@ -40,9 +40,7 @@ class MangaCard extends StatelessWidget {
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: context.textStyles.body.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: context.textStyles.h4.copyWith(fontWeight: FontWeight.w600),
             overflow: TextOverflow.ellipsis,
           ),
         ),
