@@ -11,6 +11,7 @@ import 'package:manga_app/presentation/login.dart';
 import 'package:manga_app/presentation/signup.dart';
 // import 'package:manga_app/presentation/login.dart';
 import 'package:manga_app/presentation/test_api_cubit.dart';
+import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/providers/providers.dart';
 import 'package:manga_app/presentation/ui/theme/app_theme.dart';
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
             }
 
             if (state is AuthSuccess) {
-              return AltraPagina();
+              return HomePage();
             } else if (state is AuthFailure) {
               return LoginPage();
             } else {

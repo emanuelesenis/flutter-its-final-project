@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'package:manga_app/presentation/ui/theme/app_theme.dart';
+import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 // Implementare gestione degli errori per immagini mancanti
 
@@ -20,11 +20,8 @@ class SwiperWithText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppThemeData.colorsOf(context);
-    final textStyle = AppThemeData.textStyleOf(context);
-
     return SizedBox(
-      height: height ?? MediaQuery.of(context).size.height * 0.30,
+      height: height ?? context.screenHeight * 0.30,
       width: width ?? double.infinity,
       child: Swiper(
         itemCount: imagePaths.length,
@@ -47,7 +44,7 @@ class SwiperWithText extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  color: colors.imageOverlay,
+                  color: context.colors.imageOverlay,
                 ),
                 // Testo sovrapposto all'immagine
                 Positioned(
@@ -60,14 +57,14 @@ class SwiperWithText extends StatelessWidget {
                     children: [
                       Text(
                         titles[index],
-                        style: textStyle.h2.copyWith(
-                          color: colors.textSecondary,
+                        style: context.textStyles.h2.copyWith(
+                          color: context.colors.textSecondary,
                         ),
                       ),
                       Text(
                         "New Episode",
-                        style: textStyle.h4.copyWith(
-                          color: colors.textSecondary,
+                        style: context.textStyles.h4.copyWith(
+                          color: context.colors.textSecondary,
                         ),
                       ),
                     ],

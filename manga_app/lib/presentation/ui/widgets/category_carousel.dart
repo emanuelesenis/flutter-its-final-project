@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manga_app/presentation/ui/theme/app_theme.dart';
+import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 import 'package:manga_app/presentation/ui/widgets/manga_card.dart';
 
 class CategoryCarousel extends StatelessWidget {
@@ -8,9 +8,6 @@ class CategoryCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppThemeData.colorsOf(context);
-    final textStyle = AppThemeData.textStyleOf(context);
-
     // TODO: Lista di esempio, sostituisci con i tuoi dati reali
     final mangaList = List.generate(
       6,
@@ -30,13 +27,15 @@ class CategoryCarousel extends StatelessWidget {
             children: [
               Text(
                 categoryName.toUpperCase(),
-                style: textStyle.h2.copyWith(color: colors.textPrimary),
+                style: context.textStyles.h2.copyWith(
+                  color: context.colors.textPrimary,
+                ),
               ),
               const Spacer(),
               Text(
                 'Vedi Tutto',
-                style: textStyle.body.copyWith(
-                  color: colors.textPrimary,
+                style: context.textStyles.body.copyWith(
+                  color: context.colors.textPrimary,
                   decoration: TextDecoration.underline,
                 ),
               ),

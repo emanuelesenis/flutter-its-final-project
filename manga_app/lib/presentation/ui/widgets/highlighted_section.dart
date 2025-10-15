@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:card_stack_swiper/card_stack_swiper.dart';
-import 'package:manga_app/presentation/ui/theme/app_theme.dart';
+import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 class HighlightedSection extends StatefulWidget {
   const HighlightedSection({super.key});
@@ -29,9 +29,6 @@ class _HighlightedSectionState extends State<HighlightedSection> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppThemeData.colorsOf(context);
-    final textStyle = AppThemeData.textStyleOf(context);
-
     return Column(
       children: [
         Padding(
@@ -42,7 +39,9 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'IN EVIDENZA',
-                  style: textStyle.h2.copyWith(color: colors.textPrimary),
+                  style: context.textStyles.h2.copyWith(
+                    color: context.colors.textPrimary,
+                  ),
                 ),
               ),
               const Spacer(),
@@ -50,8 +49,8 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                 alignment: Alignment.centerRight,
                 child: Text(
                   'Vedi Tutto',
-                  style: textStyle.body.copyWith(
-                    color: colors.textPrimary,
+                  style: context.textStyles.body.copyWith(
+                    color: context.colors.textPrimary,
                     decoration: TextDecoration.underline,
                   ),
                 ),

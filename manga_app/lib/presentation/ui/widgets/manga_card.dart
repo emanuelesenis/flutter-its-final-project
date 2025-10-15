@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 class MangaCard extends StatelessWidget {
   final String imageUrl;
@@ -8,12 +9,9 @@ class MangaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    // Mantiene le proporzioni da Figma
-    final cardWidth = screenWidth * 0.274; // ≈ 108 su 393
-    final cardHeight = screenHeight * 0.18; // ≈ 153 su 852
+    // Usa le estensioni per accedere alle dimensioni dello schermo
+    final cardWidth = context.screenWidth * 0.274; // ≈ 108 su 393
+    final cardHeight = context.screenHeight * 0.18; // ≈ 153 su 852
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -42,9 +40,9 @@ class MangaCard extends StatelessWidget {
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+            style: context.textStyles.body.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
             overflow: TextOverflow.ellipsis,
           ),
         ),

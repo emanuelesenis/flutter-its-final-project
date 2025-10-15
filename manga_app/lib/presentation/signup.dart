@@ -5,8 +5,6 @@ import 'package:manga_app/bloc/auth/auth_event.dart';
 import 'package:manga_app/presentation/login.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
 
-import 'altra_pagina.dart';
-
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
