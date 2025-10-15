@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:manga_app/firebase/firebase_auth_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manga_app/bloc/auth/auth_bloc.dart';
+import 'package:manga_app/bloc/auth/auth_event.dart';
+import 'package:manga_app/presentation/login.dart';
+
+import 'altra_pagina.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -130,13 +135,23 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => _formKey.currentState!.validate()
-                        ? FirebaseAuthService().registerWithEmail(
-                            username: _emailController.text,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                          RegisterRequest(
+                            username: _nameController.text,
                             email: _emailController.text,
                             password: _passwordController.text,
-                          )
-                        : null,
+                          ),
+                        );
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AltraPagina(),
+                          ),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -154,12 +169,18 @@ class _RegisterPageState extends State<RegisterPage> {
                     const Text('Hai già un account?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
                       },
                       child: const Text('Accedi'),
                     ),
                   ],
                 ),
+                SizedBox(height: 30),
               ],
             ),
           ),
