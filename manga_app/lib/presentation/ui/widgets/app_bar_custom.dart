@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:manga_app/presentation/ui/theme/app_colors.dart';
+import 'package:manga_app/presentation/ui/theme/app_theme.dart';
 
 class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
   final bool showSearch; // controllo visibilità icona di ricerca
@@ -10,7 +10,8 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
+    final colors = AppThemeData.colorsOf(context);
+    // final textStyle = AppThemeData.textStyleOf(context);
 
     return AppBar(
       backgroundColor: Colors.transparent,

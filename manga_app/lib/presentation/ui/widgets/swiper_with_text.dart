@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'package:manga_app/presentation/ui/theme/app_colors.dart';
-import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
+import 'package:manga_app/presentation/ui/theme/app_theme.dart';
 
 // Implementare gestione degli errori per immagini mancanti
 
@@ -21,8 +20,8 @@ class SwiperWithText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
+    final colors = AppThemeData.colorsOf(context);
+    final textStyle = AppThemeData.textStyleOf(context);
 
     return SizedBox(
       height: height ?? MediaQuery.of(context).size.height * 0.30,
