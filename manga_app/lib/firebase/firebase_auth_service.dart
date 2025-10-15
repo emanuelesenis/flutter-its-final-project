@@ -26,11 +26,11 @@ class FirebaseAuthService {
         email: email,
         password: password,
         profilePicure: "",
-        readedMangas: [],
+        readMangas: [],
       );
 
       // Salva i dati utente nel Firestore
-      _firestore.saveCollectionDocument('users', user.toJson());
+      _firestore.saveCollectionDocument('users', user.copyWith(password: password.replaceAll(password, '*' * password.length)).toJson());
 
       return user;
     } on FirebaseAuthException catch (e) {
@@ -55,7 +55,7 @@ class FirebaseAuthService {
         email: email,
         password: password,
         profilePicure: "",
-        readedMangas: [],
+        readMangas: [],
       );
     } on FirebaseAuthException catch (e) {
       print('Errore di login: ${e.code}');
