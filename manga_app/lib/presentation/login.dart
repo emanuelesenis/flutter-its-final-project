@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manga_app/bloc/auth/auth_bloc.dart';
+import 'package:manga_app/bloc/auth/auth_event.dart';
+import 'package:manga_app/bloc/auth/auth_state.dart';
+import 'package:manga_app/presentation/altra_pagina.dart';
 import 'package:manga_app/presentation/signup.dart';
 
 class LoginPage extends StatefulWidget {
@@ -89,7 +94,22 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                          LoginRequest(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          ),
+                        );
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AltraPagina(),
+                          ),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -107,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                     const Text('Non hai un account?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => RegisterPage(),
@@ -118,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+                SizedBox(height: 30),
               ],
             ),
           ),
