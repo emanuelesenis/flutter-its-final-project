@@ -3,6 +3,7 @@ import 'package:card_stack_swiper/card_stack_swiper.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 class HighlightedSection extends StatefulWidget {
   const HighlightedSection({super.key});
@@ -31,35 +32,34 @@ class _HighlightedSectionState extends State<HighlightedSection> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
     return Column(
       children: [
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-              child: Align(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+          child: Row(
+            children: [
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'IN EVIDENZA',
-                  style: textStyle.h2.copyWith(color: colors.textPrimary),
+                  style: context.textStyles.h2.copyWith(
+                    color: context.colors.textPrimary,
+                  ),
                 ),
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-              child: Align(
+              const Spacer(),
+              Align(
                 alignment: Alignment.centerRight,
                 child: Text(
                   'Vedi Tutto',
-                  style: textStyle.body.copyWith(color: colors.textPrimary),
+                  style: context.textStyles.body.copyWith(
+                    color: context.colors.textPrimary,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         // Immagine brush_circle centrata
         Padding(
@@ -115,8 +115,8 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                 context.push('/details?id=highlighted');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: colors.primaryColor,
-                foregroundColor: colors.textSecondary,
+                backgroundColor: context.colors.primaryColor,
+                foregroundColor: context.colors.textSecondary,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,
                   vertical: 12,
@@ -128,7 +128,7 @@ class _HighlightedSectionState extends State<HighlightedSection> {
               ),
               child: Text(
                 'Vedi Dettagli',
-                style: textStyle.body.copyWith(color: colors.textSecondary),
+                style: context.textStyles.body.copyWith(color: context.colors.textSecondary),
               ),
             ),
           ),
