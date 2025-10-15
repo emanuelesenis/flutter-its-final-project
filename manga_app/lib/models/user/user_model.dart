@@ -13,7 +13,7 @@ abstract class UserModel with _$UserModel {
     required String email,
     required String password,
     required String profilePicure,
-    required List<String> readedMangas,
+    required List<String> readMangas,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

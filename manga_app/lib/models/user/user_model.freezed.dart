@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserModel implements DiagnosticableTreeMixin {
 
- String? get id; String get username; String get email; String get password; String get profilePicure; List<String> get readedMangas;
+ String? get id; String get username; String get email; String get password; String get profilePicure; List<String> get readMangas;
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,21 +29,21 @@ $UserModelCopyWith<UserModel> get copyWith => _$UserModelCopyWithImpl<UserModel>
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UserModel'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('username', username))..add(DiagnosticsProperty('email', email))..add(DiagnosticsProperty('password', password))..add(DiagnosticsProperty('profilePicure', profilePicure))..add(DiagnosticsProperty('readedMangas', readedMangas));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('username', username))..add(DiagnosticsProperty('email', email))..add(DiagnosticsProperty('password', password))..add(DiagnosticsProperty('profilePicure', profilePicure))..add(DiagnosticsProperty('readMangas', readMangas));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.profilePicure, profilePicure) || other.profilePicure == profilePicure)&&const DeepCollectionEquality().equals(other.readedMangas, readedMangas));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.profilePicure, profilePicure) || other.profilePicure == profilePicure)&&const DeepCollectionEquality().equals(other.readMangas, readMangas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,username,email,password,profilePicure,const DeepCollectionEquality().hash(readedMangas));
+int get hashCode => Object.hash(runtimeType,id,username,email,password,profilePicure,const DeepCollectionEquality().hash(readMangas));
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UserModel(id: $id, username: $username, email: $email, password: $password, profilePicure: $profilePicure, readedMangas: $readedMangas)';
+  return 'UserModel(id: $id, username: $username, email: $email, password: $password, profilePicure: $profilePicure, readMangas: $readMangas)';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $UserModelCopyWith<$Res>  {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) _then) = _$UserModelCopyWithImpl;
 @useResult
 $Res call({
- String? id, String username, String email, String password, String profilePicure, List<String> readedMangas
+ String? id, String username, String email, String password, String profilePicure, List<String> readMangas
 });
 
 
@@ -71,14 +71,14 @@ class _$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? username = null,Object? email = null,Object? password = null,Object? profilePicure = null,Object? readedMangas = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? username = null,Object? email = null,Object? password = null,Object? profilePicure = null,Object? readMangas = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,profilePicure: null == profilePicure ? _self.profilePicure : profilePicure // ignore: cast_nullable_to_non_nullable
-as String,readedMangas: null == readedMangas ? _self.readedMangas : readedMangas // ignore: cast_nullable_to_non_nullable
+as String,readMangas: null == readMangas ? _self.readMangas : readMangas // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
 }
@@ -164,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String username,  String email,  String password,  String profilePicure,  List<String> readedMangas)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String username,  String email,  String password,  String profilePicure,  List<String> readMangas)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.id,_that.username,_that.email,_that.password,_that.profilePicure,_that.readedMangas);case _:
+return $default(_that.id,_that.username,_that.email,_that.password,_that.profilePicure,_that.readMangas);case _:
   return orElse();
 
 }
@@ -185,10 +185,10 @@ return $default(_that.id,_that.username,_that.email,_that.password,_that.profile
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String username,  String email,  String password,  String profilePicure,  List<String> readedMangas)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String username,  String email,  String password,  String profilePicure,  List<String> readMangas)  $default,) {final _that = this;
 switch (_that) {
 case _UserModel():
-return $default(_that.id,_that.username,_that.email,_that.password,_that.profilePicure,_that.readedMangas);case _:
+return $default(_that.id,_that.username,_that.email,_that.password,_that.profilePicure,_that.readMangas);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +205,10 @@ return $default(_that.id,_that.username,_that.email,_that.password,_that.profile
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String username,  String email,  String password,  String profilePicure,  List<String> readedMangas)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String username,  String email,  String password,  String profilePicure,  List<String> readMangas)?  $default,) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.id,_that.username,_that.email,_that.password,_that.profilePicure,_that.readedMangas);case _:
+return $default(_that.id,_that.username,_that.email,_that.password,_that.profilePicure,_that.readMangas);case _:
   return null;
 
 }
@@ -220,7 +220,7 @@ return $default(_that.id,_that.username,_that.email,_that.password,_that.profile
 @JsonSerializable()
 
 class _UserModel with DiagnosticableTreeMixin implements UserModel {
-  const _UserModel({this.id, required this.username, required this.email, required this.password, required this.profilePicure, required final  List<String> readedMangas}): _readedMangas = readedMangas;
+  const _UserModel({this.id, required this.username, required this.email, required this.password, required this.profilePicure, required final  List<String> readMangas}): _readMangas = readMangas;
   factory _UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
 @override final  String? id;
@@ -228,11 +228,11 @@ class _UserModel with DiagnosticableTreeMixin implements UserModel {
 @override final  String email;
 @override final  String password;
 @override final  String profilePicure;
- final  List<String> _readedMangas;
-@override List<String> get readedMangas {
-  if (_readedMangas is EqualUnmodifiableListView) return _readedMangas;
+ final  List<String> _readMangas;
+@override List<String> get readMangas {
+  if (_readMangas is EqualUnmodifiableListView) return _readMangas;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_readedMangas);
+  return EqualUnmodifiableListView(_readMangas);
 }
 
 
@@ -250,21 +250,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UserModel'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('username', username))..add(DiagnosticsProperty('email', email))..add(DiagnosticsProperty('password', password))..add(DiagnosticsProperty('profilePicure', profilePicure))..add(DiagnosticsProperty('readedMangas', readedMangas));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('username', username))..add(DiagnosticsProperty('email', email))..add(DiagnosticsProperty('password', password))..add(DiagnosticsProperty('profilePicure', profilePicure))..add(DiagnosticsProperty('readMangas', readMangas));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.profilePicure, profilePicure) || other.profilePicure == profilePicure)&&const DeepCollectionEquality().equals(other._readedMangas, _readedMangas));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.profilePicure, profilePicure) || other.profilePicure == profilePicure)&&const DeepCollectionEquality().equals(other._readMangas, _readMangas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,username,email,password,profilePicure,const DeepCollectionEquality().hash(_readedMangas));
+int get hashCode => Object.hash(runtimeType,id,username,email,password,profilePicure,const DeepCollectionEquality().hash(_readMangas));
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UserModel(id: $id, username: $username, email: $email, password: $password, profilePicure: $profilePicure, readedMangas: $readedMangas)';
+  return 'UserModel(id: $id, username: $username, email: $email, password: $password, profilePicure: $profilePicure, readMangas: $readMangas)';
 }
 
 
@@ -275,7 +275,7 @@ abstract mixin class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Re
   factory _$UserModelCopyWith(_UserModel value, $Res Function(_UserModel) _then) = __$UserModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String username, String email, String password, String profilePicure, List<String> readedMangas
+ String? id, String username, String email, String password, String profilePicure, List<String> readMangas
 });
 
 
@@ -292,14 +292,14 @@ class __$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? username = null,Object? email = null,Object? password = null,Object? profilePicure = null,Object? readedMangas = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? username = null,Object? email = null,Object? password = null,Object? profilePicure = null,Object? readMangas = null,}) {
   return _then(_UserModel(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,profilePicure: null == profilePicure ? _self.profilePicure : profilePicure // ignore: cast_nullable_to_non_nullable
-as String,readedMangas: null == readedMangas ? _self._readedMangas : readedMangas // ignore: cast_nullable_to_non_nullable
+as String,readMangas: null == readMangas ? _self._readMangas : readMangas // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
 }
