@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manga_app/presentation/ui/theme/app_colors.dart';
-// import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
+import 'package:manga_app/presentation/ui/theme/app_theme.dart';
 import 'package:manga_app/presentation/ui/widgets/category_carousel.dart';
 import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';
 import 'package:manga_app/presentation/ui/widgets/highlighted_section.dart';
@@ -11,8 +10,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    // final textStyle = Theme.of(context).extension<AppTextStyle>()!;
+    final colors = AppThemeData.colorsOf(context);
+    // final textStyle = AppThemeData.textStyleOf(context);
 
     return Scaffold(
       backgroundColor: colors.backgroundColor,

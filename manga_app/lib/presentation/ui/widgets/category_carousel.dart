@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manga_app/presentation/ui/theme/app_colors.dart';
-import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
+import 'package:manga_app/presentation/ui/theme/app_theme.dart';
 import 'package:manga_app/presentation/ui/widgets/manga_card.dart';
 
 class CategoryCarousel extends StatelessWidget {
@@ -9,8 +8,8 @@ class CategoryCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
+    final colors = AppThemeData.colorsOf(context);
+    final textStyle = AppThemeData.textStyleOf(context);
 
     // TODO: Lista di esempio, sostituisci con i tuoi dati reali
     final mangaList = List.generate(
