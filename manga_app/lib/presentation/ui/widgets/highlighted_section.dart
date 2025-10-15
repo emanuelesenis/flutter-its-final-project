@@ -51,7 +51,10 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                 alignment: Alignment.centerRight,
                 child: Text(
                   'Vedi Tutto',
-                  style: textStyle.body.copyWith(color: colors.textPrimary),
+                  style: textStyle.body.copyWith(
+                    color: colors.textPrimary,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ],

@@ -36,7 +36,10 @@ class CategoryCarousel extends StatelessWidget {
               const Spacer(),
               Text(
                 'Vedi Tutto',
-                style: textStyle.body.copyWith(color: colors.textPrimary),
+                style: textStyle.body.copyWith(
+                  color: colors.textPrimary,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ],
           ),
