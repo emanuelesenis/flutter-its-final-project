@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "29357367109",
+    "project_id": "manga-flutter-d6c4e",
+    "storage_bucket": "manga-flutter-d6c4e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29357367109:android:cb33fe648291c9c323e82c",
+        "android_client_info": {
+          "package_name": "com.example.manga_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29357367109-jab5hn79atpp12eegeaqc106bnkc01c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ7q_TC81Q5jKD9KHLRd6K6E7Q74-JnXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29357367109-jab5hn79atpp12eegeaqc106bnkc01c2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "29357367109-rsgobuenau9pdpsfau7h4lmajlt7n6mc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mangaApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

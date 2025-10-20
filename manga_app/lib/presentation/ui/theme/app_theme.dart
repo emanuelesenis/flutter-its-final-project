@@ -20,6 +20,16 @@ class AppThemeData {
     AppColors.dark(),
     AppTextStyle(AppColors.dark()),
   );
+
+  // Helper methods per accesso sicuro
+  static AppColors colorsOf(BuildContext context) {
+    return Theme.of(context).extension<AppColors>() ?? AppColors.light();
+  }
+
+  static AppTextStyle textStyleOf(BuildContext context) {
+    return Theme.of(context).extension<AppTextStyle>() ??
+        AppTextStyle(AppColors.light());
+  }
 }
 
 ThemeData appTheme({bool dark = false}) {
