@@ -8,6 +8,7 @@ import 'package:manga_app/bloc/auth/auth_state.dart';
 import 'package:manga_app/firebase/firebase_options.dart';
 import 'package:manga_app/presentation/login.dart';
 import 'package:manga_app/presentation/signup.dart';
+import 'package:manga_app/presentation/test_api.dart';
 // import 'package:manga_app/presentation/login.dart';
 import 'package:manga_app/presentation/test_api_cubit.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
@@ -37,21 +38,22 @@ class MyApp extends StatelessWidget {
         theme: appTheme(dark: false), // Tema light
         darkTheme: appTheme(dark: true), // Tema dark
         themeMode: ThemeMode.system, // Segue le impostazioni del sistema
-        home: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            if (state is AuthInitial) {
-              context.read<AuthBloc>().add(CheckAuthStatus());
-            }
-
-            if (state is AuthSuccess) {
-              return HomePage();
-            } else if (state is AuthFailure) {
-              return LoginPage();
-            } else {
-              return RegisterPage();
-            }
-          },
-        ),
+        home: TestApi(),
+        // home: BlocBuilder<AuthBloc, AuthState>(
+        //   builder: (context, state) {
+        //     if (state is AuthInitial) {
+        //       context.read<AuthBloc>().add(CheckAuthStatus());
+        //     }
+        //
+        //     if (state is AuthSuccess) {
+        //       return HomePage();
+        //     } else if (state is AuthFailure) {
+        //       return LoginPage();
+        //     } else {
+        //       return RegisterPage();
+        //     }
+        //   },
+        // ),
       ),
     );
   }

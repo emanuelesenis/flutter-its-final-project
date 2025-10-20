@@ -23,28 +23,31 @@ class _TestApiState extends State<TestApi> {
       body: SafeArea(
         child: BlocBuilder<TestApiCubit, List<MangaModel>>(
           builder: (context, mangas) {
+            print(mangas.toString());
             if (mangas.isEmpty) {
               return Center(child: CircularProgressIndicator());
             } else {
-              // return ListView(
-              //   children: List.generate(
-              //     1,
-              //     (index) => Column(
-              //       spacing: 20,
-              //       children: [
-              //         Text(mangas[index].chapters[0].toString())
-              //       ],
-              //     ),
-              //   ),
-              // );
-              return SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    mangas[2].chapters[0].pages.length,
-                    (index) => Image.network(mangas[2].chapters[0].pages[index]),
+              return ListView(
+                children: List.generate(
+                  mangas.length,
+                  (index) => Column(
+                    children: [
+                      Text(mangas[index].title!),
+                      Text(mangas[index].rating),
+                      Text('${mangas[index].minimumAge}+'),
+                      SizedBox(height: 20),
+                    ],
                   ),
                 ),
               );
+              // return SingleChildScrollView(
+              //   child: Column(
+              //     children: List.generate(
+              //       mangas[2].chapters[0].pages.length,
+              //       (index) => Image.network(mangas[2].chapters[0].pages[index]),
+              //     ),
+              //   ),
+              // );
             }
           },
         ),
