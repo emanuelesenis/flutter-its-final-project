@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/tutorial/tutorial_swiper.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart'; // Import per AppColors
 
@@ -55,7 +56,7 @@ class TutorialScreen extends StatelessWidget {
                     // Pulsante LOGIN
                     ElevatedButton(
                       onPressed: () {
-                        // Azione per il pulsante LOGIN
+                        context.push('/login');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context)
@@ -78,10 +79,9 @@ class TutorialScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    // Pulsante "O crea un account"
                     TextButton(
                       onPressed: () {
-                        // Azione per il pulsante "O crea un account"
+                        context.push('/registration');
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero, // Rimuove il padding
