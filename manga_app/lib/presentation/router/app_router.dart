@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page.dart';
+import 'package:manga_app/presentation/ui/screens/search_page.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 /// Router configuration for the app
@@ -29,6 +30,13 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final id = state.pathParameters['id'];
         return DetailsPage(mangaId: id);
+      },
+    ),
+    GoRoute(
+      path: '/search',
+      name: 'search',
+      builder: (context, state) {
+        return SearchPage();
       },
     ),
   ],

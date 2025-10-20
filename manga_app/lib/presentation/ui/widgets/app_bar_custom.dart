@@ -25,13 +25,16 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         if (showSearch)
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: context.colors.textSecondary,
-              size: 32,
+          Container(
+            margin: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: Icon(
+                Icons.search,
+                color: context.colors.textSecondary,
+                size: 32,
+              ),
+              onPressed: onSearch,
             ),
-            onPressed: onSearch,
           ),
       ],
     );

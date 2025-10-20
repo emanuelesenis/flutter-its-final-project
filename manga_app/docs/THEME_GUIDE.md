@@ -5,12 +5,16 @@
 Il sistema di temi è organizzato in 4 file principali nella cartella `lib/presentation/ui/theme/`:
 
 ### 1. `app_colors.dart`
+
 Definisce tutti i colori per tema chiaro e scuro:
+
 - `AppColors.light()` - Colori per il tema chiaro
 - `AppColors.dark()` - Colori per il tema scuro
 
 ### 2. `app_text_style.dart`
+
 Definisce gli stili di testo:
+
 - `h1` - Aboreto 30px
 - `h2` - Aboreto 24px  
 - `h3` - Montserrat 20px
@@ -18,9 +22,11 @@ Definisce gli stili di testo:
 - `body` - Montserrat 16px
 
 ### 3. `app_theme.dart`
+
 Contiene la configurazione principale del tema e i metodi helper per accedere ai colori e stili in modo sicuro.
 
 ### 4. `theme_extensions.dart` ⭐ **NUOVO**
+
 Estensioni per semplificare l'accesso al tema.
 
 ## Come Usare il Tema
@@ -83,6 +89,7 @@ class MyWidget extends StatelessWidget {
 ## Proprietà Disponibili
 
 ### Colori (`context.colors`)
+
 - `primaryColor` - Colore primario dell'app
 - `secondaryColor` - Colore secondario
 - `backgroundColor` - Sfondo principale
@@ -91,6 +98,7 @@ class MyWidget extends StatelessWidget {
 - `imageOverlay` - Overlay per immagini
 
 ### Stili di Testo (`context.textStyles`)
+
 - `h1` - Titoli principali (Aboreto 30px)
 - `h2` - Titoli secondari (Aboreto 24px)
 - `h3` - Titoli minori (Montserrat 20px)
@@ -98,6 +106,7 @@ class MyWidget extends StatelessWidget {
 - `body` - Testo del corpo (Montserrat 16px)
 
 ### Utility (`context`)
+
 - `isDarkMode` - Verifica se è attivo il tema scuro
 - `isLightMode` - Verifica se è attivo il tema chiaro
 - `screenWidth` - Larghezza dello schermo

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:card_stack_swiper/card_stack_swiper.dart';
-import 'package:manga_app/presentation/ui/theme/app_colors.dart';
-import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 

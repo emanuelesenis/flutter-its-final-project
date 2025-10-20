@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:manga_app/firebase/firestore_service.dart';
 import 'package:manga_app/models/user/user_model.dart';
+import 'package:flutter/foundation.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -18,7 +19,9 @@ class FirebaseAuthService {
         password: password,
       );
 
-      print(result);
+      if (kDebugMode) {
+        print(result);
+      }
 
       final user = UserModel(
         id: result.user?.uid,
@@ -34,7 +37,9 @@ class FirebaseAuthService {
 
       return user;
     } on FirebaseAuthException catch (e) {
-      print('Errore di registrazione: ${e.code}');
+      if (kDebugMode) {
+        print('Errore di registrazione: ${e.code}');
+      }
       rethrow;
     }
   }
@@ -58,7 +63,9 @@ class FirebaseAuthService {
         readMangas: [],
       );
     } on FirebaseAuthException catch (e) {
-      print('Errore di login: ${e.code}');
+      if (kDebugMode) {
+        print('Errore di login: ${e.code}');
+      }
       rethrow;
     }
   }
@@ -78,7 +85,9 @@ class FirebaseAuthService {
         );
       }
     } on FirebaseAuthException catch (e) {
-      print('Errore durante l\'eliminazione dell\'utente: ${e.code}');
+      if (kDebugMode) {
+        print('Errore durante l\'eliminazione dell\'utente: ${e.code}');
+      }
       rethrow;
     }
   }
