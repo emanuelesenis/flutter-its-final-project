@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:manga_app/presentation/ui/screens/home_page.dart';
+import 'package:manga_app/presentation/ui/screens/login_registration/tutorial/tutorial_screen.dart';
+
 import 'package:manga_app/presentation/ui/theme/app_theme.dart';
 
 class MyApp extends StatelessWidget {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme(dark: false),
       darkTheme: appTheme(dark: true),
       themeMode: ThemeMode.system,
-      home: HomePage(),
+      home: TutorialScreen(),
     );
   }
 }
