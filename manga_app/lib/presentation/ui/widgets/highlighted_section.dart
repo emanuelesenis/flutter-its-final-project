@@ -106,33 +106,6 @@ class _HighlightedSectionState extends State<HighlightedSection> {
             ),
           ),
         ),
-        // Button to view details
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Center(
-            child: ElevatedButton(
-              onPressed: () {
-                context.push('/details?id=highlighted');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: context.colors.primaryColor,
-                foregroundColor: context.colors.textSecondary,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 12,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                elevation: 2,
-              ),
-              child: Text(
-                'Vedi Dettagli',
-                style: context.textStyles.body.copyWith(color: context.colors.textSecondary),
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }
