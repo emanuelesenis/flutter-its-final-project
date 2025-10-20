@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:card_stack_swiper/card_stack_swiper.dart';
-import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 class HighlightedSection extends StatefulWidget {
@@ -32,6 +31,7 @@ class _HighlightedSectionState extends State<HighlightedSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 16),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
           child: Row(

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
 //import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
@@ -53,18 +53,18 @@ class HomePage extends StatelessWidget {
               ),
             ),
             actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: context.colors.textSecondary,
-                  size: 32,
+              Container(
+                margin: const EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: context.colors.textSecondary,
+                    size: 32,
+                  ),
+                  onPressed: () {
+                    context.push("/search");
+                  },
                 ),
-                onPressed: () {
-                  // Azione da eseguire quando si preme l'icona di ricerca
-                  if (kDebugMode) {
-                    print('Icona di ricerca premuta');
-                  }
-                },
               ),
             ],
           ),
