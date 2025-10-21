@@ -47,8 +47,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           backgroundColor: Colors.transparent,
 
           appBar: CustomAppBar(
-            title: "Registrazione",
-            subtitle: "Inserisci i dati richiesti per completare l'iscrizione",
+            title: "Registration",
+            subtitle:
+                "Please enter the required information to complete the registration",
           ),
 
           body: SingleChildScrollView(
@@ -72,7 +73,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'Inserisci il tuo nome';
+                            return 'Please enter your name';
                           }
                           return null;
                         },
@@ -93,11 +94,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Inserisci l\'email';
+                            return 'Please enter your email';
                           }
                           final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
                           if (!emailRegex.hasMatch(value)) {
-                            return 'Inserisci un\'email valida';
+                            return 'Please enter a valid email';
                           }
                           return null;
                         },
@@ -118,10 +119,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Inserisci una password';
+                            return 'Please enter a password';
                           }
                           if (value.length < 6) {
-                            return 'La password deve contenere almeno 6 caratteri';
+                            return 'Password must be at least 6 characters long';
                           }
                           return null;
                         },
@@ -142,7 +143,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                         validator: (value) {
                           if (value != _passwordController.text) {
-                            return 'Le password non coincidono';
+                            return 'Passwords do not match';
                           }
                           return null;
                         },
@@ -179,7 +180,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                           ),
                           child: Text(
-                            'REGISTRATI',
+                            'REGISTRATION',
                             style: context.textStyles.h4.copyWith(
                               fontSize: 16,
                               color: Theme.of(
@@ -195,7 +196,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Hai già un account?',
+                            'Already have an account?',
                             style: context.textStyles.body,
                           ),
                           TextButton(
@@ -203,7 +204,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               Navigator.pop(context);
                             },
                             child: Text(
-                              'ACCEDI',
+                              'LOG IN',
                               style: context.textStyles.body.copyWith(
                                 color: Theme.of(
                                   context,

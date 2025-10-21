@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //CUSTOM APP BAR
           appBar: CustomAppBar(
             title: "Login",
-            subtitle: "Hai già un account? Inserisci i tuoi dati",
+            subtitle: "Already have an account? Enter your details",
           ),
 
           body: SingleChildScrollView(
@@ -69,11 +69,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Inserisci l\'email';
+                            return 'Please enter your email';
                           }
                           final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
                           if (!emailRegex.hasMatch(value)) {
-                            return 'Inserisci un\'email valida';
+                            return 'Please enter a valid email';
                           }
                           return null;
                         },
@@ -93,10 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Inserisci la password';
+                            return 'Please enter your password';
                           }
                           if (value.length < 6) {
-                            return 'La password deve contenere almeno 6 caratteri';
+                            return 'Password must be at least 6 characters long';
                           }
                           return null;
                         },
@@ -143,13 +143,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Non hai un account?', style: context.textStyles.body),
+                    Text('Don\'t have an account?', style: context.textStyles.body),
                     TextButton(
                       onPressed: () {
                         context.push('/registration');
                       },
                       child: Text(
-                        'REGISTRATI',
+                        'REGISTRATION',
                         style: context.textStyles.body.copyWith(
                           color: Theme.of(
                             context,

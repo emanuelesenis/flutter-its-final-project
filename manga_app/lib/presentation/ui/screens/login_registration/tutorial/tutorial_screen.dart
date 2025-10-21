@@ -20,9 +20,9 @@ class TutorialScreen extends StatelessWidget {
               'assets/images/tutorial3.png',
             ],
             titles: [
-              'Immergiti nelle tue storie preferite con un\'esperienza di lettura veloce e senza interruzioni.',
-              'Esplora un vasto catalogo di opere: trova scan aggiornate e scegli il titolo che più ti ispira.',
-              'Accedi facilmente all\'elenco dei capitoli e riprendi sempre la lettura da dove l\'hai lasciata.',
+              'Dive into your favorite stories with a fast and uninterrupted reading experience.',
+              'Explore a vast catalog of works: find updated scans and choose the title that inspires you the most.',
+              'Easily access the chapter list and always resume reading where you left off.',
             ],
           ),
           Scaffold(
@@ -93,7 +93,7 @@ class TutorialScreen extends StatelessWidget {
                             .shrinkWrap, // Riduce l'area cliccabile
                       ),
                       child: Text(
-                        'O crea un account →',
+                        'Or create an account →',
                         style: TextStyle(
                           color: Theme.of(
                             context,
