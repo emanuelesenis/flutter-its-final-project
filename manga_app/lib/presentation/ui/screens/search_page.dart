@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 import 'package:manga_app/presentation/ui/widgets/category_carousel.dart';
 
@@ -25,6 +26,11 @@ class SearchPage extends StatelessWidget {
                   labelText: 'Cerca un titolo',
                   suffixIcon: Icon(Icons.search),
                 ),
+                onSubmitted: (String value) => {
+                  if(value.isNotEmpty){
+                    context.go("")
+                  }
+                },
               ),
               SizedBox(height: 16),
               SingleChildScrollView(

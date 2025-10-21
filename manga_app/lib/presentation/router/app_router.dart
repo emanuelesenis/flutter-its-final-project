@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_page.dart';
+import 'package:manga_app/presentation/ui/screens/search_results_page.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 /// Router configuration for the app
@@ -37,6 +38,14 @@ final GoRouter appRouter = GoRouter(
       name: 'search',
       builder: (context, state) {
         return SearchPage();
+      },
+    ),
+    GoRoute(
+      path: '/search_results/:searched_title',
+      name: 'search_results',
+      builder: (context, state) {
+        final String? searchedTitle = state.pathParameters['searched_title'];
+        return SearchResultsPage(searchedTitle: searchedTitle ?? '');
       },
     ),
   ],

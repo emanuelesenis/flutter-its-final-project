@@ -7,5 +7,6 @@ class SearchApi {
   Future<List<MangaModel>> findRelatedMangas(String searchQuery) async {
     final mangas = await getIt<MangaDexApi>().getAllMangas(10);
     return mangas;
+    //todo: waiting for title
   }
 }
