@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manga_app/bloc/auth/auth_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_event.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/custom_app_bar.dart';
@@ -59,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: 'Email',
+                          prefixIcon: const Icon(Icons.email),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -82,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Password',
+                          prefixIcon: const Icon(Icons.lock),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -143,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text('Non hai un account?', style: context.textStyles.body),
                     TextButton(
                       onPressed: () {
-                        // Navigazione alla schermata di registrazione
+                        context.push('/registration');
                       },
                       child: Text(
                         'REGISTRATI',
