@@ -9,6 +9,7 @@ import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/splash_page.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 /// Router configuration for the app
 final GoRouter appRouter = GoRouter(
   routerNeglect: true,

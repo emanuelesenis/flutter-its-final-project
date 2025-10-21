@@ -6,12 +6,13 @@ import 'package:manga_app/firebase/firebase_options.dart';
 import 'package:manga_app/my_app.dart';
 import 'package:manga_app/presentation/test_api_cubit.dart';
 import 'package:manga_app/providers/providers.dart';
+import 'package:manga_app/firebase/firebase_auth_service.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //await FirebaseAuthService().signOut();
+  await FirebaseAuthService().signOut();
   setup();
   runApp(
     MultiBlocProvider(
