@@ -127,7 +127,7 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             children: [
               SizedBox(height: 64),
-              TextField(
+               TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
