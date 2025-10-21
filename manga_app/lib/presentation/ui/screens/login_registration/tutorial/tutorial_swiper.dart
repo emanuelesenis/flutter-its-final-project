@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:manga_app/presentation/ui/theme/app_colors.dart';
+import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 class TutorialSwiper extends StatefulWidget {
   final List<String> imagePaths;
@@ -53,15 +55,14 @@ class _TutorialSwiperState extends State<TutorialSwiper> {
         Positioned(
           bottom:
               MediaQuery.of(context).size.height *
-              0.25, // Posiziona sopra il box
+              0.35, // Posiziona sopra il box
           left: 16,
           right: 64,
           child: Text(
             widget.titles[currentIndex],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+            style: context.textStyles.h3.copyWith(
+              fontSize: 16,
+              color: Theme.of(context).extension<AppColors>()!.textSecondary,
             ),
             //textAlign: TextAlign.center,
           ),

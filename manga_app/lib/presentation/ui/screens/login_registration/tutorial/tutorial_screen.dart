@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/tutorial/tutorial_swiper.dart';
-import 'package:manga_app/presentation/ui/theme/app_colors.dart'; // Import per AppColors
+import 'package:manga_app/presentation/ui/theme/app_colors.dart';
+import 'package:manga_app/presentation/ui/theme/theme_extensions.dart'; // Import per AppColors
 
 class TutorialScreen extends StatelessWidget {
   const TutorialScreen({super.key});
@@ -35,7 +36,6 @@ class TutorialScreen extends StatelessWidget {
               ),
             ),
             backgroundColor: Colors.transparent,
-
 
             bottomNavigationBar: Container(
               padding: const EdgeInsets.all(16),
@@ -72,10 +72,11 @@ class TutorialScreen extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'LOGIN',
-                          style: TextStyle(
-                            color: Colors.white,
+                          style: context.textStyles.h4.copyWith(
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            color: Theme.of(
+                              context,
+                            ).extension<AppColors>()!.textSecondary,
                           ),
                         ),
                       ),
