@@ -38,8 +38,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       if (user != null) {
         emit(AuthSuccess());
+        print("Utente autenticato: ${user}");
       } else {
         emit(AuthFailure());
+        print("Nessun utente autenticato.");
       }
     });
   }

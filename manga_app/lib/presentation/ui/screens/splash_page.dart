@@ -39,12 +39,16 @@ class _SplashPageState extends State<SplashPage> {
           context.read<AuthBloc>().add(CheckAuthStatus());
         }
 
+        print("Stato AuthBloc in SplashPage: ${state.runtimeType}");
+
         Future.delayed(const Duration(seconds: 4), () {
-         if (state is AuthSuccess) {
-           return HomePage();
-         } else if (state is AuthFailure) {
-           return TutorialScreen();
-         }
+          if (!mounted) return;
+
+          if (state is AuthSuccess) {
+            context.go('/home');
+          } else if (state is AuthFailure) {
+            context.go('/tutorial');
+          }
         });
 
         return Scaffold(
@@ -59,7 +63,9 @@ class _SplashPageState extends State<SplashPage> {
               ),
               // Logo con animazione di fade-out
               AnimatedOpacity(
-                duration: const Duration(seconds: 1), // Durata della transizione
+                duration: const Duration(
+                  seconds: 1,
+                ), // Durata della transizione
                 opacity: _opacity, // Opacità dinamica
                 child: Center(
                   child: SvgPicture.asset(
@@ -72,8 +78,7 @@ class _SplashPageState extends State<SplashPage> {
             ],
           ),
         );
-
-      }
+      },
     );
   }
 }
