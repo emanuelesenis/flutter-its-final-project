@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MangaModel implements DiagnosticableTreeMixin {
 
- String? get id; String get cover; String get status; String get descrisione; int get rating; int get minimumAge; List<ChapterModel> get chapters;
+ String? get id; String? get title; String get cover; String get status; String get description; String get rating; int get minimumAge; List<String> get tags; List<ChapterModel> get chapters;
 /// Create a copy of MangaModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,21 +29,21 @@ $MangaModelCopyWith<MangaModel> get copyWith => _$MangaModelCopyWithImpl<MangaMo
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'MangaModel'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('cover', cover))..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('descrisione', descrisione))..add(DiagnosticsProperty('rating', rating))..add(DiagnosticsProperty('minimumAge', minimumAge))..add(DiagnosticsProperty('chapters', chapters));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('title', title))..add(DiagnosticsProperty('cover', cover))..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('rating', rating))..add(DiagnosticsProperty('minimumAge', minimumAge))..add(DiagnosticsProperty('tags', tags))..add(DiagnosticsProperty('chapters', chapters));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MangaModel&&(identical(other.id, id) || other.id == id)&&(identical(other.cover, cover) || other.cover == cover)&&(identical(other.status, status) || other.status == status)&&(identical(other.descrisione, descrisione) || other.descrisione == descrisione)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.minimumAge, minimumAge) || other.minimumAge == minimumAge)&&const DeepCollectionEquality().equals(other.chapters, chapters));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MangaModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.cover, cover) || other.cover == cover)&&(identical(other.status, status) || other.status == status)&&(identical(other.description, description) || other.description == description)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.minimumAge, minimumAge) || other.minimumAge == minimumAge)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.chapters, chapters));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,cover,status,descrisione,rating,minimumAge,const DeepCollectionEquality().hash(chapters));
+int get hashCode => Object.hash(runtimeType,id,title,cover,status,description,rating,minimumAge,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(chapters));
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MangaModel(id: $id, cover: $cover, status: $status, descrisione: $descrisione, rating: $rating, minimumAge: $minimumAge, chapters: $chapters)';
+  return 'MangaModel(id: $id, title: $title, cover: $cover, status: $status, description: $description, rating: $rating, minimumAge: $minimumAge, tags: $tags, chapters: $chapters)';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $MangaModelCopyWith<$Res>  {
   factory $MangaModelCopyWith(MangaModel value, $Res Function(MangaModel) _then) = _$MangaModelCopyWithImpl;
 @useResult
 $Res call({
- String? id, String cover, String status, String descrisione, int rating, int minimumAge, List<ChapterModel> chapters
+ String? id, String? title, String cover, String status, String description, String rating, int minimumAge, List<String> tags, List<ChapterModel> chapters
 });
 
 
@@ -71,15 +71,17 @@ class _$MangaModelCopyWithImpl<$Res>
 
 /// Create a copy of MangaModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? cover = null,Object? status = null,Object? descrisione = null,Object? rating = null,Object? minimumAge = null,Object? chapters = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? title = freezed,Object? cover = null,Object? status = null,Object? description = null,Object? rating = null,Object? minimumAge = null,Object? tags = null,Object? chapters = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as String,descrisione: null == descrisione ? _self.descrisione : descrisione // ignore: cast_nullable_to_non_nullable
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,rating: null == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
-as int,minimumAge: null == minimumAge ? _self.minimumAge : minimumAge // ignore: cast_nullable_to_non_nullable
-as int,chapters: null == chapters ? _self.chapters : chapters // ignore: cast_nullable_to_non_nullable
+as String,minimumAge: null == minimumAge ? _self.minimumAge : minimumAge // ignore: cast_nullable_to_non_nullable
+as int,tags: null == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>,chapters: null == chapters ? _self.chapters : chapters // ignore: cast_nullable_to_non_nullable
 as List<ChapterModel>,
   ));
 }
@@ -165,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String cover,  String status,  String descrisione,  int rating,  int minimumAge,  List<ChapterModel> chapters)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? title,  String cover,  String status,  String description,  String rating,  int minimumAge,  List<String> tags,  List<ChapterModel> chapters)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MangaModel() when $default != null:
-return $default(_that.id,_that.cover,_that.status,_that.descrisione,_that.rating,_that.minimumAge,_that.chapters);case _:
+return $default(_that.id,_that.title,_that.cover,_that.status,_that.description,_that.rating,_that.minimumAge,_that.tags,_that.chapters);case _:
   return orElse();
 
 }
@@ -186,10 +188,10 @@ return $default(_that.id,_that.cover,_that.status,_that.descrisione,_that.rating
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String cover,  String status,  String descrisione,  int rating,  int minimumAge,  List<ChapterModel> chapters)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? title,  String cover,  String status,  String description,  String rating,  int minimumAge,  List<String> tags,  List<ChapterModel> chapters)  $default,) {final _that = this;
 switch (_that) {
 case _MangaModel():
-return $default(_that.id,_that.cover,_that.status,_that.descrisione,_that.rating,_that.minimumAge,_that.chapters);case _:
+return $default(_that.id,_that.title,_that.cover,_that.status,_that.description,_that.rating,_that.minimumAge,_that.tags,_that.chapters);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +208,10 @@ return $default(_that.id,_that.cover,_that.status,_that.descrisione,_that.rating
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String cover,  String status,  String descrisione,  int rating,  int minimumAge,  List<ChapterModel> chapters)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? title,  String cover,  String status,  String description,  String rating,  int minimumAge,  List<String> tags,  List<ChapterModel> chapters)?  $default,) {final _that = this;
 switch (_that) {
 case _MangaModel() when $default != null:
-return $default(_that.id,_that.cover,_that.status,_that.descrisione,_that.rating,_that.minimumAge,_that.chapters);case _:
+return $default(_that.id,_that.title,_that.cover,_that.status,_that.description,_that.rating,_that.minimumAge,_that.tags,_that.chapters);case _:
   return null;
 
 }
@@ -221,15 +223,23 @@ return $default(_that.id,_that.cover,_that.status,_that.descrisione,_that.rating
 @JsonSerializable()
 
 class _MangaModel with DiagnosticableTreeMixin implements MangaModel {
-  const _MangaModel({this.id, this.cover = "", this.status = "", this.descrisione = "", this.rating = 0, this.minimumAge = 0, final  List<ChapterModel> chapters = const []}): _chapters = chapters;
+  const _MangaModel({this.id, this.title, this.cover = "", this.status = "", this.description = "", this.rating = "", this.minimumAge = 0, final  List<String> tags = const [], final  List<ChapterModel> chapters = const []}): _tags = tags,_chapters = chapters;
   factory _MangaModel.fromJson(Map<String, dynamic> json) => _$MangaModelFromJson(json);
 
 @override final  String? id;
+@override final  String? title;
 @override@JsonKey() final  String cover;
 @override@JsonKey() final  String status;
-@override@JsonKey() final  String descrisione;
-@override@JsonKey() final  int rating;
+@override@JsonKey() final  String description;
+@override@JsonKey() final  String rating;
 @override@JsonKey() final  int minimumAge;
+ final  List<String> _tags;
+@override@JsonKey() List<String> get tags {
+  if (_tags is EqualUnmodifiableListView) return _tags;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tags);
+}
+
  final  List<ChapterModel> _chapters;
 @override@JsonKey() List<ChapterModel> get chapters {
   if (_chapters is EqualUnmodifiableListView) return _chapters;
@@ -252,21 +262,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'MangaModel'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('cover', cover))..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('descrisione', descrisione))..add(DiagnosticsProperty('rating', rating))..add(DiagnosticsProperty('minimumAge', minimumAge))..add(DiagnosticsProperty('chapters', chapters));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('title', title))..add(DiagnosticsProperty('cover', cover))..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('rating', rating))..add(DiagnosticsProperty('minimumAge', minimumAge))..add(DiagnosticsProperty('tags', tags))..add(DiagnosticsProperty('chapters', chapters));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MangaModel&&(identical(other.id, id) || other.id == id)&&(identical(other.cover, cover) || other.cover == cover)&&(identical(other.status, status) || other.status == status)&&(identical(other.descrisione, descrisione) || other.descrisione == descrisione)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.minimumAge, minimumAge) || other.minimumAge == minimumAge)&&const DeepCollectionEquality().equals(other._chapters, _chapters));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MangaModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.cover, cover) || other.cover == cover)&&(identical(other.status, status) || other.status == status)&&(identical(other.description, description) || other.description == description)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.minimumAge, minimumAge) || other.minimumAge == minimumAge)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._chapters, _chapters));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,cover,status,descrisione,rating,minimumAge,const DeepCollectionEquality().hash(_chapters));
+int get hashCode => Object.hash(runtimeType,id,title,cover,status,description,rating,minimumAge,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_chapters));
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MangaModel(id: $id, cover: $cover, status: $status, descrisione: $descrisione, rating: $rating, minimumAge: $minimumAge, chapters: $chapters)';
+  return 'MangaModel(id: $id, title: $title, cover: $cover, status: $status, description: $description, rating: $rating, minimumAge: $minimumAge, tags: $tags, chapters: $chapters)';
 }
 
 
@@ -277,7 +287,7 @@ abstract mixin class _$MangaModelCopyWith<$Res> implements $MangaModelCopyWith<$
   factory _$MangaModelCopyWith(_MangaModel value, $Res Function(_MangaModel) _then) = __$MangaModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String cover, String status, String descrisione, int rating, int minimumAge, List<ChapterModel> chapters
+ String? id, String? title, String cover, String status, String description, String rating, int minimumAge, List<String> tags, List<ChapterModel> chapters
 });
 
 
@@ -294,15 +304,17 @@ class __$MangaModelCopyWithImpl<$Res>
 
 /// Create a copy of MangaModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? cover = null,Object? status = null,Object? descrisione = null,Object? rating = null,Object? minimumAge = null,Object? chapters = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? title = freezed,Object? cover = null,Object? status = null,Object? description = null,Object? rating = null,Object? minimumAge = null,Object? tags = null,Object? chapters = null,}) {
   return _then(_MangaModel(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,cover: null == cover ? _self.cover : cover // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as String,descrisione: null == descrisione ? _self.descrisione : descrisione // ignore: cast_nullable_to_non_nullable
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,rating: null == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
-as int,minimumAge: null == minimumAge ? _self.minimumAge : minimumAge // ignore: cast_nullable_to_non_nullable
-as int,chapters: null == chapters ? _self._chapters : chapters // ignore: cast_nullable_to_non_nullable
+as String,minimumAge: null == minimumAge ? _self.minimumAge : minimumAge // ignore: cast_nullable_to_non_nullable
+as int,tags: null == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>,chapters: null == chapters ? _self._chapters : chapters // ignore: cast_nullable_to_non_nullable
 as List<ChapterModel>,
   ));
 }
