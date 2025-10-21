@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manga_app/bloc/auth/auth_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_event.dart';
-import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/custom_app_bar.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
@@ -47,8 +47,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           backgroundColor: Colors.transparent, // Sfondo trasparente
           appBar: CustomAppBar(
             title: "Registration",
-            subtitle:
-                "Please enter the required information to complete the registration",
+            subtitle: "Please enter the required information",
           ),
           body: Center(
             // Centra il contenuto verticalmente
@@ -159,12 +158,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     password: _passwordController.text,
                                   ),
                                 );
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomePage(),
-                                  ),
-                                );
+                                GoRouter.of(context).go('/home');
                               }
                             },
                             style: ElevatedButton.styleFrom(
