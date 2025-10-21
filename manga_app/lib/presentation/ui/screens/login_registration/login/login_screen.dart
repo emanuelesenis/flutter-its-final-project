@@ -31,136 +31,140 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        //IMMAGINE DI SFONDO
+        // Immagine di sfondo
         Positioned.fill(
           child: Image.asset('assets/images/login.png', fit: BoxFit.cover),
         ),
 
         Scaffold(
-          backgroundColor: Colors
-              .transparent, //TRASPARENTE COSÌ NON COPRE L'IMMAGINE NELL'ANGOLO CURVO
-          //CUSTOM APP BAR
+          backgroundColor:
+              Colors.transparent, // Trasparente per mostrare lo sfondo
           appBar: CustomAppBar(
             title: "Login",
             subtitle: "Already have an account? Enter your details",
           ),
-
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
-            child: Column(
-              children: [
-                const SizedBox(height: 64),
-                // Form di login
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          prefixIcon: const Icon(Icons.email),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+          body: Center(
+            // Centra il contenuto verticalmente
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // Adatta il contenuto
+                children: [
+                  // Form di login
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            prefixIcon: const Icon(Icons.email),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            filled: true,
+                            fillColor: const Color.fromRGBO(255, 245, 245, 0.9),
                           ),
-                          filled: true,
-                          fillColor: const Color.fromRGBO(255, 245, 245, 0.9),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                          if (!emailRegex.hasMatch(value)) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          prefixIcon: const Icon(Icons.lock),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          filled: true,
-                          fillColor: const Color.fromRGBO(255, 245, 245, 0.9),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          if (value.length < 6) {
-                            return 'Password must be at least 6 characters long';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              context.read<AuthBloc>().add(
-                                LoginRequest(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                ),
-                              );
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
                             }
+                            final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                            if (!emailRegex.hasMatch(value)) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            prefixIcon: const Icon(Icons.lock),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            filled: true,
+                            fillColor: const Color.fromRGBO(255, 245, 245, 0.9),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least 6 characters long';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 30),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<AuthBloc>().add(
+                                  LoginRequest(
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  ),
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(
+                                context,
+                              ).extension<AppColors>()!.primaryColor,
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: Text(
+                              'LOGIN',
+                              style: context.textStyles.h4.copyWith(
+                                fontSize: 16,
+                                color: Theme.of(
+                                  context,
+                                ).extension<AppColors>()!.textSecondary,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  // Link per registrarsi
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account?',
+                        style: context.textStyles.body,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.push('/registration');
+                        },
+                        child: Text(
+                          'REGISTRATION',
+                          style: context.textStyles.body.copyWith(
+                            color: Theme.of(
                               context,
                             ).extension<AppColors>()!.primaryColor,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: Text(
-                            'LOGIN',
-                            style: context.textStyles.h4.copyWith(
-                              fontSize: 16,
-                              color: Theme.of(
-                                context,
-                              ).extension<AppColors>()!.textSecondary,
-                            ),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 16),
-                // Link per registrarsi
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Don\'t have an account?', style: context.textStyles.body),
-                    TextButton(
-                      onPressed: () {
-                        context.push('/registration');
-                      },
-                      child: Text(
-                        'REGISTRATION',
-                        style: context.textStyles.body.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).extension<AppColors>()!.primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
