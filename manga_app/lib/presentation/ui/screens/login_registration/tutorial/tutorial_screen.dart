@@ -35,6 +35,8 @@ class TutorialScreen extends StatelessWidget {
               ),
             ),
             backgroundColor: Colors.transparent,
+
+
             bottomNavigationBar: Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
