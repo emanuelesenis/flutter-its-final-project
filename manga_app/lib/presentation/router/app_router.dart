@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manga_app/presentation/ui/screens/favorites_page.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/login/login_screen.dart';
@@ -67,6 +68,13 @@ final GoRouter appRouter = GoRouter(
         return SearchPage();
       },
     ),
+    GoRoute(
+      path: '/favorites',
+      name: 'favorites',
+      builder: (context, state) {
+        return FavoritesPage();
+      },
+    ),
   ],
   errorBuilder: (context, state) => Scaffold(
     body: Center(
@@ -76,13 +84,13 @@ final GoRouter appRouter = GoRouter(
           const Icon(Icons.error_outline, size: 64),
           const SizedBox(height: 16),
           Text(
-            'Pagina non trovata',
+            'Page not found',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () => context.go('/'),
-            child: const Text('Torna alla Home'),
+            child: const Text('Back to Home'),
           ),
         ],
       ),

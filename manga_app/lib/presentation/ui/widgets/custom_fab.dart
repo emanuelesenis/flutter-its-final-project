@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 
 class CustomFab extends StatelessWidget {
@@ -7,7 +8,6 @@ class CustomFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final colors = Theme.of(context).extension<AppColors>()!;
 
     return ExpandableFab(
@@ -28,13 +28,15 @@ class CustomFab extends StatelessWidget {
       ),
       children: [
         FloatingActionButton.small(
-          heroTag: null,
-          onPressed: () {},
+          heroTag: "favoritesButton",
+          onPressed: () {
+            context.push('/favorites');
+          },
           foregroundColor: Colors.white,
           child: const Icon(Icons.favorite_border),
         ),
         FloatingActionButton.small(
-          heroTag: null,
+          heroTag: "profileButton",
           onPressed: () {},
           foregroundColor: Colors.white,
           child: const Icon(Icons.account_circle_outlined),
