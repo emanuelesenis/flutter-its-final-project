@@ -1,8 +1,11 @@
 import 'package:be_widgets/be_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:manga_app/api/manga_api.dart';
+import 'package:manga_app/models/manga/manga_model.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manga_app/providers/providers.dart';
 
 class DetailsPage extends StatefulWidget {
   final String? mangaId;
@@ -17,11 +20,68 @@ class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool _isFavorite = false;
+  MangaModel? _manga;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _loadMangaData();
+  }
+
+  Future<void> _loadMangaData() async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+
+      // For demo purposes, we'll use the fallback data
+      // In a real app, you'd fetch the specific manga by ID
+      final mangaApi = getIt<MangaDexApi>();
+      final mangas = await mangaApi.fetchFeaturedManga(limit: 1);
+
+      if (mangas.isNotEmpty) {
+        setState(() {
+          _manga = mangas.first;
+          _isLoading = false;
+        });
+      } else {
+        // Fallback to demo data
+        setState(() {
+          _manga = MangaModel(
+            id: widget.mangaId ?? 'demo',
+            title: 'Attack on Titan',
+            cover: '',
+            status: 'completed',
+            description:
+                'In un mondo in cui l\'umanità vive circondata da gigantesche mura per difendersi da creature colossali chiamate Titani, la pace sembra solo un fragile equilibrio. La storia segue un gruppo di giovani determinati a scoprire la verità dietro l\'esistenza dei Titani e a lottare per la libertà.',
+            rating: 'suggestive',
+            minimumAge: 14,
+            tags: ['action', 'drama', 'fantasy'],
+            chapters: [],
+          );
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        // Set fallback data
+        _manga = MangaModel(
+          id: widget.mangaId ?? 'demo',
+          title: 'Attack on Titan',
+          cover: '',
+          status: 'completed',
+          description:
+              'In un mondo in cui l\'umanità vive circondata da gigantesche mura per difendersi da creature colossali chiamate Titani, la pace sembra solo un fragile equilibrio.',
+          rating: 'suggestive',
+          minimumAge: 14,
+          tags: ['action', 'drama', 'fantasy'],
+          chapters: [],
+        );
+      });
+    }
   }
 
   @override
@@ -35,6 +95,61 @@ class _DetailsPageState extends State<DetailsPage>
     final colors = Theme.of(context).extension<AppColors>()!;
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
 
+    if (_isLoading) {
+      return Scaffold(
+        backgroundColor: colors.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          foregroundColor: Colors.white,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/search');
+              }
+            },
+          ),
+        ),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (_manga == null) {
+      return Scaffold(
+        backgroundColor: colors.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          foregroundColor: Colors.white,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/search');
+              }
+            },
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, size: 64),
+              const SizedBox(height: 16),
+              Text('Errore nel caricamento del manga'),
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: _loadMangaData, child: Text('Riprova')),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: colors.backgroundColor,
       extendBodyBehindAppBar: true,
@@ -44,7 +159,13 @@ class _DetailsPageState extends State<DetailsPage>
         foregroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/search');
+            }
+          },
         ),
         actions: [
           Container(
@@ -70,11 +191,19 @@ class _DetailsPageState extends State<DetailsPage>
           Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.3,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/episode1.jpg'),
-                fit: BoxFit.cover,
-              ),
+            decoration: BoxDecoration(
+              image: _manga!.cover.isNotEmpty
+                  ? DecorationImage(
+                      image: NetworkImage(_manga!.cover),
+                      fit: BoxFit.cover,
+                      onError: (exception, stackTrace) {
+                        // Handle image load error
+                      },
+                    )
+                  : const DecorationImage(
+                      image: AssetImage('assets/images/episode1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
             ),
             child: Container(
               decoration: BoxDecoration(
@@ -113,10 +242,22 @@ class _DetailsPageState extends State<DetailsPage>
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/images/episode1.jpg',
-                                fit: BoxFit.cover,
-                              ),
+                              child: _manga!.cover.isNotEmpty
+                                  ? Image.network(
+                                      _manga!.cover,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                            return Image.asset(
+                                              'assets/images/episode1.jpg',
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                    )
+                                  : Image.asset(
+                                      'assets/images/episode1.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                           // Title and Metadata
@@ -124,7 +265,8 @@ class _DetailsPageState extends State<DetailsPage>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'ATTACK ON TITAN',
+                                _manga!.title?.toUpperCase() ??
+                                    'TITOLO NON DISPONIBILE',
                                 style: textStyle.h1.copyWith(
                                   color: Colors.white,
                                   fontSize: 24,
@@ -132,14 +274,14 @@ class _DetailsPageState extends State<DetailsPage>
                                 ),
                               ),
                               Text(
-                                'Author',
+                                'Autore',
                                 style: textStyle.body.copyWith(
                                   color: Colors.white.withValues(alpha: 0.8),
                                 ),
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'Status',
+                                _manga!.status.toUpperCase(),
                                 style: textStyle.body.copyWith(
                                   color: Colors.white.withValues(alpha: 0.8),
                                 ),
@@ -186,6 +328,7 @@ class _DetailsPageState extends State<DetailsPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Chapter Button and Rating
+          SizedBox(height: 32),
           Row(
             children: [
               Expanded(
@@ -239,7 +382,7 @@ class _DetailsPageState extends State<DetailsPage>
           ),
           const SizedBox(height: 32),
           // Tags Section
-          TagsSection(),
+          TagsSection(tags: _manga!.tags),
 
           const SizedBox(height: 32),
           Text(
@@ -495,7 +638,9 @@ class TagWithIcon extends StatelessWidget {
 }
 
 class TagsSection extends StatelessWidget {
-  const TagsSection({super.key});
+  final List<String> tags;
+
+  const TagsSection({super.key, required this.tags});
 
   @override
   Widget build(BuildContext context) {
@@ -517,11 +662,7 @@ class TagsSection extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: [
-            TagWithIcon(label: 'Sport', icon: Icons.sports_baseball),
-            Tag(label: 'Azione'),
-            Tag(label: 'Drama'),
-          ],
+          children: tags.map((tag) => Tag(label: tag)).toList(),
         ),
       ],
     );

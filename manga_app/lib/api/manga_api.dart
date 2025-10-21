@@ -4,6 +4,8 @@ import 'package:manga_app/models/manga/manga_model.dart';
 
 class MangaDexApi {
   final Dio _dio;
+  final Map<String, List<MangaModel>> _cache = {};
+  final Map<String, DateTime> _cacheTimestamps = {};
 
   MangaDexApi({Dio? dio})
     : _dio =
@@ -12,10 +14,42 @@ class MangaDexApi {
             BaseOptions(
               baseUrl: 'https://api.mangadex.org',
               headers: {'Accept': 'application/json'},
+              connectTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30),
             ),
-          );
+          ) {
+    // Add retry interceptor for rate limiting
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (error, handler) async {
+          if (error.response?.statusCode == 429) {
+            // Wait before retrying
+            await Future.delayed(const Duration(seconds: 2));
+            try {
+              final response = await _dio.fetch(error.requestOptions);
+              handler.resolve(response);
+            } catch (e) {
+              handler.next(error);
+            }
+          } else {
+            handler.next(error);
+          }
+        },
+      ),
+    );
+  }
 
   Future<List<MangaModel>> fetchFeaturedManga({int limit = 10}) async {
+    final cacheKey = 'featured_$limit';
+    final now = DateTime.now();
+
+    // Check cache (valid for 5 minutes)
+    if (_cache.containsKey(cacheKey) &&
+        _cacheTimestamps.containsKey(cacheKey) &&
+        now.difference(_cacheTimestamps[cacheKey]!).inMinutes < 5) {
+      return _cache[cacheKey]!;
+    }
+
     final resp = await _dio.get(
       '/manga',
       queryParameters: {
@@ -51,11 +85,18 @@ class MangaDexApi {
       // Capitoli
       final chapters = await fetchChaptersForManga(mangaId);
 
-      final title = attr['title']['en'] ?? attr['altTitles'].firstWhere((e) => e['en'] != null)['en'] ?? '';
+      final title =
+          attr['title']['en'] ??
+          attr['altTitles'].firstWhere((e) => e['en'] != null)['en'] ??
+          '';
 
       final contentRating = attr['contentRating'];
 
-      final minimumAge = contentRating == 'safe' ? 10 : contentRating == 'suggestive' ? 14 : 18;
+      final minimumAge = contentRating == 'safe'
+          ? 10
+          : contentRating == 'suggestive'
+          ? 14
+          : 18;
 
       result.add(
         MangaModel(
@@ -73,6 +114,10 @@ class MangaDexApi {
         ),
       );
     }
+
+    // Cache the result
+    _cache[cacheKey] = result;
+    _cacheTimestamps[cacheKey] = now;
 
     print(result);
 
