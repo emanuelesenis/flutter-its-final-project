@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manga_app/bloc/auth/auth_bloc.dart';
+import 'package:manga_app/bloc/auth/auth_event.dart';
+import 'package:manga_app/bloc/auth/auth_state.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/login/login_screen.dart';
@@ -9,6 +13,7 @@ import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/splash_page.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 /// Router configuration for the app
 final GoRouter appRouter = GoRouter(
   routerNeglect: true,
@@ -18,12 +23,21 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       name: 'splash',
-      builder: (context, state) => const SplashPage(),
+      builder: (context, state) => BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthSuccess) {
+            context.go('/home');
+          } else if (state is AuthFailure) {
+            context.go('/tutorial');
+          }
+        },
+        child: SplashPage(),
+      ),
     ),
     GoRoute(
       path: '/tutorial',
       name: 'tutorial',
-      builder: (context, state) => const TutorialScreen(),
+      builder: (context, state) => const TutorialScreen()
     ),
     GoRoute(
       path: '/home',
@@ -41,16 +55,34 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/login',
       name: 'login',
-      builder: (context, state) {
-        return LoginScreen();
-      },
+      builder: (context, state) => BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthInitial) {
+            context.read<AuthBloc>().add(CheckAuthStatus());
+          }
+
+          if (state is AuthSuccess) {
+            context.go('/home');
+          }
+        },
+        child: LoginScreen(),
+      ),
     ),
     GoRoute(
       path: '/registration',
       name: 'registration',
-      builder: (context, state) {
-        return RegistrationScreen();
-      },
+      builder: (context, state) => BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthInitial) {
+            context.read<AuthBloc>().add(CheckAuthStatus());
+          }
+
+          if (state is AuthSuccess) {
+            context.go('/home');
+          }
+        },
+        child: RegistrationScreen(),
+      ),
     ),
     GoRoute(
       path: '/details/:id',

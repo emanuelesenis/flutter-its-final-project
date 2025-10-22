@@ -15,7 +15,7 @@ class MangaDexApi {
             ),
           );
 
-  Future<List<MangaModel>> fetchFeaturedManga({int limit = 10}) async {
+  Future<List<MangaModel>> fetchFeaturedManga({int limit = 100}) async {
     final resp = await _dio.get(
       '/manga',
       queryParameters: {
@@ -49,13 +49,20 @@ class MangaDexApi {
       }
 
       // Capitoli
-      final chapters = await fetchChaptersForManga(mangaId);
+      // final chapters = await fetchChaptersForManga(mangaId);
 
-      final title = attr['title']['en'] ?? attr['altTitles'].firstWhere((e) => e['en'] != null)['en'] ?? '';
+      final title =
+          attr['title']['en'] ??
+          attr['altTitles'].firstWhere((e) => e['en'] != null)['en'] ??
+          '';
 
       final contentRating = attr['contentRating'];
 
-      final minimumAge = contentRating == 'safe' ? 10 : contentRating == 'suggestive' ? 14 : 18;
+      final minimumAge = contentRating == 'safe'
+          ? 10
+          : contentRating == 'suggestive'
+          ? 14
+          : 18;
 
       result.add(
         MangaModel(
@@ -69,7 +76,7 @@ class MangaDexApi {
           tags: List<String>.from(
             attr['tags'].map((e) => e['attributes']['name']['en']),
           ),
-          chapters: chapters,
+          // chapters: chapters,
         ),
       );
     }
