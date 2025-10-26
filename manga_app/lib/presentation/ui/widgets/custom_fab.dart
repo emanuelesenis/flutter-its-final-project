@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 
 class CustomFab extends StatelessWidget {
-  final String userId;
-  CustomFab({super.key, required this.userId}) : assert(userId.isNotEmpty, 'L\'ID utente non può essere vuoto');
+  const CustomFab({super.key});
 
   @override
   Widget build(BuildContext context) {
 
     final colors = Theme.of(context).extension<AppColors>()!;
+
     return ExpandableFab(
       distance: 64,
       openButtonBuilder: RotateFloatingActionButtonBuilder(
@@ -36,9 +35,7 @@ class CustomFab extends StatelessWidget {
         ),
         FloatingActionButton.small(
           heroTag: null,
-          onPressed: () {
-            context.push("/profile/$userId");
-          },
+          onPressed: () {},
           foregroundColor: Colors.white,
           child: const Icon(Icons.account_circle_outlined),
         ),

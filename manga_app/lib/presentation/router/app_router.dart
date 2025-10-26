@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page.dart';
-import 'package:manga_app/presentation/ui/screens/profile_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_results_page.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/login/login_screen.dart';
@@ -75,14 +74,6 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final String? searchedTitle = state.pathParameters['searched_title'];
         return SearchResultsPage(searchedTitle: searchedTitle ?? '');
-      },
-    ),
-    GoRoute(
-      path: '/profile/:user_id',
-      name: 'profile',
-      builder: (context, state) {
-        final userId = state.pathParameters['user_id'];
-        return ProfilePage(userId: userId ?? '');
       },
     ),
   ],

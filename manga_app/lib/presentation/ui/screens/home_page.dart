@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:manga_app/firebase/firebase_auth_service.dart';
 import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 import 'package:manga_app/presentation/ui/widgets/category_carousel.dart';
 import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';
 import 'package:manga_app/presentation/ui/widgets/highlighted_section.dart';
-import 'package:manga_app/providers/providers.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,7 +15,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: ExpandableFab.location,
-      floatingActionButton: CustomFab(userId: getIt.get<FirebaseAuthService>().getCurrentUser() ?? ''),
+      floatingActionButton: CustomFab(),
       backgroundColor: context.colors.backgroundColor,
       body: CustomScrollView(
         slivers: [
