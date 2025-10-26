@@ -5,6 +5,10 @@ import 'package:manga_app/presentation/ui/screens/details_page.dart';
 import 'package:manga_app/presentation/ui/screens/profile_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_results_page.dart';
+import 'package:manga_app/presentation/ui/screens/login_registration/login/login_screen.dart';
+import 'package:manga_app/presentation/ui/screens/login_registration/registration/registration_screen.dart';
+import 'package:manga_app/presentation/ui/screens/login_registration/tutorial/tutorial_screen.dart';
+import 'package:manga_app/presentation/ui/screens/splash_page.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 /// Router configuration for the app
@@ -15,6 +19,16 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
+      name: 'splash',
+      builder: (context, state) => const SplashPage(),
+    ),
+    GoRoute(
+      path: '/tutorial',
+      name: 'tutorial',
+      builder: (context, state) => const TutorialScreen(),
+    ),
+    GoRoute(
+      path: '/home',
       name: 'home',
       builder: (context, state) => const HomePage(),
     ),
@@ -24,6 +38,20 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final mangaId = state.uri.queryParameters['id'];
         return DetailsPage(mangaId: mangaId);
+      },
+    ),
+    GoRoute(
+      path: '/login',
+      name: 'login',
+      builder: (context, state) {
+        return LoginScreen();
+      },
+    ),
+    GoRoute(
+      path: '/registration',
+      name: 'registration',
+      builder: (context, state) {
+        return RegistrationScreen();
       },
     ),
     GoRoute(
