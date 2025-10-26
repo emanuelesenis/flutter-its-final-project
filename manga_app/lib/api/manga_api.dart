@@ -69,13 +69,14 @@ class MangaDexApi {
           id: mangaId,
           title: title,
           cover: coverUrl,
-          status: attr['status'] ?? 'unknown',
-          description: attr['description']?['en'] ?? '',
+          status: attr['status'],
+          description: attr['description']?['en'], 
           rating: contentRating,
           minimumAge: minimumAge,
           tags: List<String>.from(
             attr['tags'].map((e) => e['attributes']['name']['en']),
           ),
+          releaseYear: "${attr['year'] ?? "unknown"}" 
           // chapters: chapters,
         ),
       );

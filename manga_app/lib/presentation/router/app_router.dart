@@ -57,10 +57,6 @@ final GoRouter appRouter = GoRouter(
       name: 'login',
       builder: (context, state) => BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthInitial) {
-            context.read<AuthBloc>().add(CheckAuthStatus());
-          }
-
           if (state is AuthSuccess) {
             context.go('/home');
           }
@@ -73,10 +69,6 @@ final GoRouter appRouter = GoRouter(
       name: 'registration',
       builder: (context, state) => BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthInitial) {
-            context.read<AuthBloc>().add(CheckAuthStatus());
-          }
-
           if (state is AuthSuccess) {
             context.go('/home');
           }

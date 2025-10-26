@@ -11,12 +11,13 @@ abstract class MangaModel with _$MangaModel {
     String? id,
     String? title,
     @Default("") String cover,
-    @Default("") String status,
+    @Default("unknown") String status,
     @Default("") String description,
     @Default("") String rating,
     @Default(0) int minimumAge,
     @Default([]) List<String> tags,
     @Default([]) List<ChapterModel> chapters,
+    @Default("") String releaseYear,
   }) = _MangaModel;
 
   factory MangaModel.fromJson(Map<String, dynamic> json) =>
