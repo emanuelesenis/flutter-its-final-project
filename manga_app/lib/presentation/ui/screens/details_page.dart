@@ -273,12 +273,6 @@ class _DetailsPageState extends State<DetailsPage>
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                'Autore',
-                                style: textStyle.body.copyWith(
-                                  color: Colors.white.withValues(alpha: 0.8),
-                                ),
-                              ),
                               const SizedBox(height: 4),
                               Text(
                                 _manga!.status.toUpperCase(),
@@ -386,7 +380,7 @@ class _DetailsPageState extends State<DetailsPage>
 
           const SizedBox(height: 32),
           Text(
-            'In un mondo in cui l’umanità vive circondata da gigantesche mura per difendersi da creature colossali chiamate Titani, la pace sembra solo un fragile equilibrio. La storia segue un gruppo di giovani determinati a scoprire la verità dietro l’esistenza dei Titani e a lottare per la libertà. Tra battaglie spettacolari, misteri e colpi di scena, il manga intreccia azione e dramma in un racconto epico sulla sopravvivenza e sul desiderio di libertà.',
+            _manga!.description,
             style: textStyle.body.copyWith(
               color: colors.textPrimary,
               height: 1.6,

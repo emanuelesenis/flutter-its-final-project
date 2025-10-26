@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:manga_app/models/chapter/chapter_model.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
 
@@ -119,7 +120,9 @@ class MangaDexApi {
     _cache[cacheKey] = result;
     _cacheTimestamps[cacheKey] = now;
 
-    print(result);
+    if (kDebugMode) {
+      print(result);
+    }
 
     return result;
   }

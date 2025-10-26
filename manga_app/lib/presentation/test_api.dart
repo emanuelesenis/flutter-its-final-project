@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
@@ -23,7 +24,9 @@ class _TestApiState extends State<TestApi> {
       body: SafeArea(
         child: BlocBuilder<TestApiCubit, List<MangaModel>>(
           builder: (context, mangas) {
-            print(mangas.toString());
+            if (kDebugMode) {
+              print(mangas.toString());
+            }
             if (mangas.isEmpty) {
               return Center(child: CircularProgressIndicator());
             } else {
