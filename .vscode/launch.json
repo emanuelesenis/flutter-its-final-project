@@ -4,20 +4,28 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
+        {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },
         {
             "name": "manga_app",
+            "cwd": "manga_app",
             "request": "launch",
             "type": "dart"
         },
         {
             "name": "manga_app (profile mode)",
+            "cwd": "manga_app",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
             "name": "manga_app (release mode)",
+            "cwd": "manga_app",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
