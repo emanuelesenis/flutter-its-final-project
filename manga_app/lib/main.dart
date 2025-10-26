@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_bloc.dart';
 import 'package:manga_app/firebase/firebase_options.dart';
-import 'package:manga_app/presentation/router/app_router.dart';
 // import 'package:manga_app/presentation/login.dart';
 import 'package:manga_app/my_app.dart';
 import 'package:manga_app/presentation/test_api_cubit.dart';
-import 'package:manga_app/presentation/ui/theme/app_theme.dart';
 import 'package:manga_app/providers/providers.dart';
 
 
