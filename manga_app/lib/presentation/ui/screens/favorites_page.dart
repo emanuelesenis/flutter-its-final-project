@@ -111,12 +111,10 @@ class FavoritesPage extends StatelessWidget {
                     onTap: () {
                       // Azione quando si tocca la card
                       //TODO: navigare alla pagina dei dettagli del manga
-                      print('Tapped on ${manga['title']}');
                     },
                     onFavoriteToggle: () {
                       // Azione quando si tocca il cuore
                       //TODO: implementare funzione di rimozione dai preferiti
-                      print('Favorite toggled for ${manga['title']}');
                     },
                   );
                 },

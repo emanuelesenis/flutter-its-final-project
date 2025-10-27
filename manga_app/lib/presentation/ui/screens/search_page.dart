@@ -159,12 +159,12 @@ class _SearchPageState extends State<SearchPage> {
                   decoration: InputDecoration(
                     hintText: 'Search for a title...',
                     hintStyle: TextStyle(
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 16,
                     ),
                     suffixIcon: Icon(
                       Icons.search,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25),

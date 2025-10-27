@@ -24,7 +24,7 @@ class BadgeWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: isUnlocked
                 ? const Color.fromRGBO(255, 245, 245, 0.9)
-                : Colors.grey.withOpacity(0.6),
+                : Colors.grey.withValues(alpha: 0.6),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: isUnlocked ? Colors.brown : Colors.grey,
