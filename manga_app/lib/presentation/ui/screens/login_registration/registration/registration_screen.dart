@@ -36,7 +36,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Immagine di sfondo
+
         Positioned.fill(
           child: Image.asset(
             'assets/images/registrazione.png',
@@ -44,17 +44,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
         Scaffold(
-          backgroundColor: Colors.transparent, // Sfondo trasparente
+          backgroundColor: Colors.transparent,
           appBar: CustomAppBar(
             title: "Registration",
             subtitle: "Please enter the required information",
           ),
           body: Center(
-            // Centra il contenuto verticalmente
+
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Column(
-                mainAxisSize: MainAxisSize.min, // Adatta il contenuto
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Form(
                     key: _formKey,
@@ -63,7 +63,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         TextFormField(
                           controller: _nameController,
                           decoration: InputDecoration(
-                            labelText: 'Nome',
+                            labelText: 'Name',
                             prefixIcon: const Icon(Icons.person),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -130,7 +130,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           controller: _confirmPasswordController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: 'Conferma Password',
+                            labelText: 'Confirm Password',
                             prefixIcon: const Icon(Icons.lock_outline),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
