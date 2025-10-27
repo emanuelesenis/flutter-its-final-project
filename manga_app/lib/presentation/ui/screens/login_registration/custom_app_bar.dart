@@ -61,7 +61,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  subtitle ?? '',
+                  subtitle,
                   style: context.textStyles.h4.copyWith(
                     fontSize: 16,
                     color: Theme.of(

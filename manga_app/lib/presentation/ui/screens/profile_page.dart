@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:manga_app/bloc/auth/auth_bloc.dart';
-import 'package:manga_app/bloc/auth/auth_event.dart';
 import 'package:manga_app/firebase/firebase_auth_service.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/custom_app_bar.dart';
-import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 import 'package:manga_app/presentation/ui/widgets/badge_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,6 +14,40 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String? userNickname;
+  String? userEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  // Metodo per caricare i dati dell'utente
+  void _loadUserData() {
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+    print('Current user: $currentUser'); // Debug
+
+    if (currentUser != null) {
+      print('User email: ${currentUser.email}'); // Debug
+      print('User displayName: ${currentUser.displayName}'); // Debug
+
+      setState(() {
+        userEmail = currentUser.email;
+        userNickname =
+            currentUser.displayName ??
+            currentUser.email?.split('@').first ??
+            'User';
+      });
+    } else {
+      // Se non c'è utente loggato, mostra valori di default
+      setState(() {
+        userNickname = 'Guest';
+        userEmail = 'Not logged in';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,14 +58,11 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
 
         Scaffold(
-          backgroundColor: Colors
-              .transparent, //TRASPARENTE COSÌ NON COPRE L'IMMAGINE NELL'ANGOLO CURVO
-          //CUSTOM APP BAR
+          backgroundColor: Colors.transparent,
           appBar: CustomAppBar(
             title: "Profile",
             subtitle: "Check your account details",
           ),
-
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
             child: Column(
@@ -44,22 +72,44 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 // NICKNAME Section
                 Center(
-                  child: Text(
-                    'NICKNAME',
-                    style: context.textStyles.h2.copyWith(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Column(
+                    children: [
+                      Text(
+                        userNickname ?? 'Loading...',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          //letterSpacing: 1.2,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(1.0, 1.0),
+                              blurRadius: 3.0,
+                              color: Colors.black45,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      if (userEmail != null)
+                        Text(
+                          userEmail!,
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                    ],
                   ),
                 ),
 
                 const SizedBox(height: 40),
 
                 // BADGES Section
-                Text(
+                const Text(
                   'Badges',
-                  style: context.textStyles.h3.copyWith(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -69,9 +119,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 16),
 
                 // Grid di badge
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
+                  children: [
                     BadgeWidget(
                       badgeName: 'Badge 1',
                       icon: Icons.star,
@@ -95,10 +145,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 const SizedBox(height: 40),
 
-                // LA MIA LISTA Section
-                Text(
-                  'La mia lista',
-                  style: context.textStyles.h3.copyWith(
+                // MY LIST Section
+                const Text(
+                  'My list',
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -107,10 +157,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 const SizedBox(height: 20),
 
-                // IMPOSTAZIONI Section
-                Text(
-                  'Impostazioni',
-                  style: context.textStyles.h3.copyWith(
+                // SETTINGS Section
+                const Text(
+                  'Settings',
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -135,9 +185,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Logout',
-                        style: context.textStyles.h4.copyWith(
+                        style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
