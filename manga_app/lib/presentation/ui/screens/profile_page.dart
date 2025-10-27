@@ -31,8 +31,8 @@ class _ProfilePageState extends State<ProfilePage> {
               .transparent, //TRASPARENTE COSÌ NON COPRE L'IMMAGINE NELL'ANGOLO CURVO
           //CUSTOM APP BAR
           appBar: CustomAppBar(
-            title: "Login",
-            subtitle: "Hai già un account? Inserisci i tuoi dati",
+            title: "Profile",
+            subtitle: "Check your account details",
           ),
 
           body: SingleChildScrollView(
@@ -41,69 +41,8 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 const SizedBox(height: 64),
                 // Form di login
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      /*SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              context.read<AuthBloc>().add(
-                                LoginRequest(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                ),
-                              );
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(
-                              context,
-                            ).extension<AppColors>()!.primaryColor,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: Text(
-                            'LOGIN',
-                            style: context.textStyles.h4.copyWith(
-                              fontSize: 16,
-                              color: Theme.of(
-                                context,
-                              ).extension<AppColors>()!.textSecondary,
-                            ),
-                          ),
-                        ),
-                      ),*/
-                    ],
-                  ),
-                ),
+                Column(children: [const SizedBox(height: 30)]),
                 const SizedBox(height: 16),
-                // Link per registrarsi
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Non hai un account?', style: context.textStyles.body),
-                    TextButton(
-                      onPressed: () {
-                        context.push('/registration');
-                      },
-                      child: Text(
-                        'REGISTRATI',
-                        style: context.textStyles.body.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).extension<AppColors>()!.primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),

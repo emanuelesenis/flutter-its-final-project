@@ -37,7 +37,9 @@ class CustomFab extends StatelessWidget {
         ),
         FloatingActionButton.small(
           heroTag: "profileButton",
-          onPressed: () {},
+          onPressed: () {
+            context.push('/profile');
+          },
           foregroundColor: Colors.white,
           child: const Icon(Icons.account_circle_outlined),
         ),
