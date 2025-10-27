@@ -24,7 +24,6 @@ class _TutorialSwiperState extends State<TutorialSwiper> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Swiper per immagini
         Swiper(
           itemCount: widget.imagePaths.length,
           itemBuilder: (BuildContext context, int index) {
@@ -35,27 +34,16 @@ class _TutorialSwiperState extends State<TutorialSwiper> {
               height: double.infinity,
             );
           },
-          autoplay: true, // Abilita autoplay
-          //loop: true, // Abilita il loop
+          autoplay: true,
           onIndexChanged: (index) {
             setState(() {
               currentIndex = index;
             });
           },
-          //TODO: gesitone dell'indice su un pagination custom
-          /*pagination: SwiperPagination(
-            alignment: Alignment.bottomCenter, // Posiziona i pallini
-            builder: DotSwiperPaginationBuilder(
-              color: Colors.grey,
-              activeColor: Colors.brown,
-            ),
-          ),*/
         ),
-        // Testo sovrapposto
+
         Positioned(
-          bottom:
-              MediaQuery.of(context).size.height *
-              0.35, // Posiziona sopra il box
+          bottom: MediaQuery.of(context).size.height * 0.35,
           left: 16,
           right: 64,
           child: Text(
@@ -64,7 +52,6 @@ class _TutorialSwiperState extends State<TutorialSwiper> {
               fontSize: 16,
               color: Theme.of(context).extension<AppColors>()!.textSecondary,
             ),
-            //textAlign: TextAlign.center,
           ),
         ),
       ],
