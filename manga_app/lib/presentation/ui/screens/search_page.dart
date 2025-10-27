@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/api/search_api.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
+import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 import 'package:manga_app/presentation/ui/widgets/category_carousel.dart';
 
@@ -122,9 +123,20 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Esplora"),
+        title: Text(
+          'Explore',
+          style: context.textStyles.h1.copyWith(
+            color: Theme.of(context).extension<AppColors>()!.primaryColor,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color.fromRGBO(255, 245, 245, 0.9),
+        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).extension<AppColors>()!.primaryColor,
+          ),
           onPressed: () {
             if (context.canPop()) {
               context.pop();
@@ -140,99 +152,69 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             children: [
               SizedBox(height: 64),
-              TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Search for a title...',
+                    hintStyle: TextStyle(
+                      color: Colors.white.withOpacity(0.8),
+                      fontSize: 16,
+                    ),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: const Color.fromARGB(175, 176, 128, 128),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 16,
+                    ),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                  labelText: 'Cerca un titolo',
-                  suffixIcon: _isSearching
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Icon(Icons.search),
-                ),
-                onSubmitted: _performSearch,
-                onChanged: (value) {
-                  // Cancel previous timer
-                  _debounceTimer?.cancel();
+                  onSubmitted: _performSearch,
+                  onChanged: (value) {
+                    // Cancel previous timer
+                    _debounceTimer?.cancel();
 
-                  // Start new timer for debounced search
-                  if (value.length >= 2) {
-                    _debounceTimer = Timer(
-                      const Duration(milliseconds: 500),
-                      () {
-                        if (mounted && _searchController.text == value) {
-                          _performSearch(value);
-                        }
-                      },
-                    );
-                  } else if (value.isEmpty) {
-                    if (mounted) {
-                      setState(() {
-                        _searchResults = [];
-                        _currentQuery = '';
-                      });
+                    // Start new timer for debounced search
+                    if (value.length >= 2) {
+                      _debounceTimer = Timer(
+                        const Duration(milliseconds: 500),
+                        () {
+                          if (mounted && _searchController.text == value) {
+                            _performSearch(value);
+                          }
+                        },
+                      );
+                    } else if (value.isEmpty) {
+                      if (mounted) {
+                        setState(() {
+                          _searchResults = [];
+                          _currentQuery = '';
+                        });
+                      }
                     }
-                  }
-                },
+                  },
+                ),
               ),
               SizedBox(height: 16),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  spacing: 8,
-                  children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-                      onPressed: () => {},
-                      child: Text("Categoria 1"),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-                      onPressed: () => {},
-                      child: Text("Categoria 2"),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-                      onPressed: () => {},
-                      child: Text("Categoria 3"),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-                      onPressed: () => {},
-                      child: Text("Categoria 4"),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-
-                      onPressed: () => {},
-                      child: Text("Categoria 5"),
-                    ),
-                  ],
-                ),
               ),
               SizedBox(height: 16),
 
