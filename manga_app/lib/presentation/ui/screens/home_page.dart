@@ -3,7 +3,6 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
-//import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 import 'package:manga_app/presentation/ui/widgets/category_carousel.dart';
 import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';

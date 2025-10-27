@@ -5,12 +5,14 @@ import 'package:manga_app/bloc/auth/auth_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_event.dart';
 import 'package:manga_app/bloc/auth/auth_state.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
-import 'package:manga_app/presentation/ui/screens/details_page.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/login/login_screen.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/registration/registration_screen.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/tutorial/tutorial_screen.dart';
 import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/splash_page.dart';
+import 'package:manga_app/presentation/ui/screens/details_page/details_page.dart';
+import 'package:manga_app/presentation/ui/screens/search_page.dart';
+import 'package:manga_app/presentation/ui/screens/search_results_page.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -97,6 +99,14 @@ final GoRouter appRouter = GoRouter(
       name: 'search',
       builder: (context, state) {
         return SearchPage();
+      },
+    ),
+    GoRoute(
+      path: '/search_results/:searched_title',
+      name: 'search_results',
+      builder: (context, state) {
+        final String? searchedTitle = state.pathParameters['searched_title'];
+        return SearchResultsPage(searchedTitle: searchedTitle ?? '');
       },
     ),
   ],

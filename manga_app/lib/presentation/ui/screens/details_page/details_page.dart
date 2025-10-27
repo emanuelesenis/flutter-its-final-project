@@ -1,8 +1,13 @@
 import 'package:be_widgets/be_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:manga_app/api/manga_api.dart';
+import 'package:manga_app/models/manga/manga_model.dart';
+import 'package:manga_app/presentation/ui/screens/details_page/rating_section.dart';
+import 'package:manga_app/presentation/ui/screens/details_page/tags_section.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manga_app/providers/providers.dart';
 
 class DetailsPage extends StatefulWidget {
   final String? mangaId;
@@ -17,11 +22,52 @@ class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool _isFavorite = false;
+  MangaModel? _manga;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _loadMangaData();
+  }
+
+  Future<void> _loadMangaData() async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+
+      // For demo purposes, we'll use the fallback data
+      // In a real app, you'd fetch the specific manga by ID
+      final mangaApi = getIt<MangaDexApi>();
+      final mangas = await mangaApi.fetchFeaturedManga(limit: 10);
+
+      if (mangas.isEmpty) {
+        throw Exception('Manga not found');
+      }
+      setState(() {
+        _manga = mangas.where((manga) => manga.id == widget.mangaId).first;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        // Set fallback data
+        _manga = MangaModel(
+          id: widget.mangaId ?? 'demo',
+          title: 'not found',
+          cover: '',
+          status: 'not found',
+          description:
+              'not found',
+          rating: '',
+          minimumAge: 14,
+          tags: ['not', 'found'],
+          chapters: [],
+        );
+      });
+    }
   }
 
   @override
@@ -35,6 +81,61 @@ class _DetailsPageState extends State<DetailsPage>
     final colors = Theme.of(context).extension<AppColors>()!;
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
 
+    if (_isLoading) {
+      return Scaffold(
+        backgroundColor: colors.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          foregroundColor: Colors.white,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/search');
+              }
+            },
+          ),
+        ),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (_manga == null) {
+      return Scaffold(
+        backgroundColor: colors.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          foregroundColor: Colors.white,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/search');
+              }
+            },
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, size: 64),
+              const SizedBox(height: 16),
+              Text('Errore nel caricamento del manga'),
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: _loadMangaData, child: Text('Riprova')),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: colors.backgroundColor,
       extendBodyBehindAppBar: true,
@@ -44,7 +145,13 @@ class _DetailsPageState extends State<DetailsPage>
         foregroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/search');
+            }
+          },
         ),
         actions: [
           Container(
@@ -70,11 +177,19 @@ class _DetailsPageState extends State<DetailsPage>
           Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.3,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/episode1.jpg'),
-                fit: BoxFit.cover,
-              ),
+            decoration: BoxDecoration(
+              image: _manga!.cover.isNotEmpty
+                  ? DecorationImage(
+                      image: NetworkImage(_manga!.cover),
+                      fit: BoxFit.cover,
+                      onError: (exception, stackTrace) {
+                        // Handle image load error
+                      },
+                    )
+                  : const DecorationImage(
+                      image: AssetImage('assets/images/episode1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
             ),
             child: Container(
               decoration: BoxDecoration(
@@ -113,10 +228,22 @@ class _DetailsPageState extends State<DetailsPage>
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/images/episode1.jpg',
-                                fit: BoxFit.cover,
-                              ),
+                              child: _manga!.cover.isNotEmpty
+                                  ? Image.network(
+                                      _manga!.cover,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                            return Image.asset(
+                                              'assets/images/episode1.jpg',
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                    )
+                                  : Image.asset(
+                                      'assets/images/episode1.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                           // Title and Metadata
@@ -124,22 +251,17 @@ class _DetailsPageState extends State<DetailsPage>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'ATTACK ON TITAN',
+                                _manga!.title?.toUpperCase() ??
+                                    'TITOLO NON DISPONIBILE',
                                 style: textStyle.h1.copyWith(
                                   color: Colors.white,
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                'Author',
-                                style: textStyle.body.copyWith(
-                                  color: Colors.white.withValues(alpha: 0.8),
-                                ),
-                              ),
                               const SizedBox(height: 4),
                               Text(
-                                'Status',
+                                _manga!.status.toUpperCase(),
                                 style: textStyle.body.copyWith(
                                   color: Colors.white.withValues(alpha: 0.8),
                                 ),
@@ -186,6 +308,7 @@ class _DetailsPageState extends State<DetailsPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Chapter Button and Rating
+          SizedBox(height: 32),
           Row(
             children: [
               Expanded(
@@ -239,11 +362,11 @@ class _DetailsPageState extends State<DetailsPage>
           ),
           const SizedBox(height: 32),
           // Tags Section
-          TagsSection(),
+          TagsSection(tags: _manga!.tags),
 
           const SizedBox(height: 32),
           Text(
-            'In un mondo in cui l’umanità vive circondata da gigantesche mura per difendersi da creature colossali chiamate Titani, la pace sembra solo un fragile equilibrio. La storia segue un gruppo di giovani determinati a scoprire la verità dietro l’esistenza dei Titani e a lottare per la libertà. Tra battaglie spettacolari, misteri e colpi di scena, il manga intreccia azione e dramma in un racconto epico sulla sopravvivenza e sul desiderio di libertà.',
+            _manga!.description,
             style: textStyle.body.copyWith(
               color: colors.textPrimary,
               height: 1.6,
@@ -425,153 +548,6 @@ class _DetailsPageState extends State<DetailsPage>
           ),
         );
       },
-    );
-  }
-}
-
-class Tag extends StatelessWidget {
-  final String label;
-
-  const Tag({super.key, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: colors.primaryColor.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: colors.primaryColor.withValues(alpha: 0.5)),
-      ),
-      child: Text(
-        label,
-        style: textStyle.body.copyWith(
-          color: colors.primaryColor,
-          fontSize: 14,
-        ),
-      ),
-    );
-  }
-}
-
-class TagWithIcon extends StatelessWidget {
-  final String label;
-  final IconData icon;
-
-  const TagWithIcon({super.key, required this.label, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: colors.primaryColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: colors.primaryColor.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: colors.primaryColor),
-          const SizedBox(width: 6),
-          Text(
-            label,
-            style: textStyle.body.copyWith(
-              color: colors.primaryColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TagsSection extends StatelessWidget {
-  const TagsSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'TAG',
-          style: textStyle.h3.copyWith(
-            color: colors.textPrimary,
-            fontWeight: FontWeight.normal,
-            fontFamily: 'Aboreto',
-          ),
-        ),
-        const SizedBox(height: 12),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            TagWithIcon(label: 'Sport', icon: Icons.sports_baseball),
-            Tag(label: 'Azione'),
-            Tag(label: 'Drama'),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class RatingSection extends StatelessWidget {
-  const RatingSection({super.key, required this.rating, required this.stars});
-
-  final int rating;
-  final int stars;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(12, 8, 20, 8),
-          margin: const EdgeInsets.fromLTRB(12, 0, 0, 4),
-          transform: Matrix4.skewX(-.3),
-          decoration: BoxDecoration(
-            color: colors.primaryColor.withValues(alpha: 0.4),
-          ),
-          child: Container(
-            transform: Matrix4.skewX(.3),
-            child: Text(
-              '+$rating',
-
-              style: textStyle.body.copyWith(
-                color: colors.backgroundColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Row(
-          children: List.generate(stars, (index) {
-            return Icon(
-              index < stars ? Icons.star : Icons.star_border,
-              color: colors.primaryColor,
-              size: 16,
-            );
-          }),
-        ),
-      ],
     );
   }
 }

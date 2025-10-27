@@ -5,6 +5,7 @@ import 'package:manga_app/models/manga/manga_model.dart';
 class MangaDexApi {
   final Dio _dio;
 
+
   MangaDexApi({Dio? dio})
     : _dio =
           dio ??
@@ -12,8 +13,30 @@ class MangaDexApi {
             BaseOptions(
               baseUrl: 'https://api.mangadex.org',
               headers: {'Accept': 'application/json'},
+              connectTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30),
             ),
-          );
+          ) {
+    // Add retry interceptor for rate limiting
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (error, handler) async {
+          if (error.response?.statusCode == 429) {
+            // Wait before retrying
+            await Future.delayed(const Duration(seconds: 2));
+            try {
+              final response = await _dio.fetch(error.requestOptions);
+              handler.resolve(response);
+            } catch (e) {
+              handler.next(error);
+            }
+          } else {
+            handler.next(error);
+          }
+        },
+      ),
+    );
+  }
 
   Future<List<MangaModel>> fetchFeaturedManga({int limit = 100}) async {
     final resp = await _dio.get(
@@ -80,8 +103,6 @@ class MangaDexApi {
         ),
       );
     }
-
-    print(result);
 
     return result;
   }
