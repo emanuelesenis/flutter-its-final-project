@@ -55,15 +55,14 @@ class TutorialScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Pulsante LOGIN
                     ElevatedButton(
                       onPressed: () {
                         context.push('/login');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context)
-                            .extension<AppColors>()!
-                            .primaryColor, // Usa il colore primary
+                        backgroundColor: Theme.of(
+                          context,
+                        ).extension<AppColors>()!.primaryColor,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -87,10 +86,9 @@ class TutorialScreen extends StatelessWidget {
                         context.push('/registration');
                       },
                       style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero, // Rimuove il padding
-                        minimumSize: Size.zero, // Rimuove la dimensione minima
-                        tapTargetSize: MaterialTapTargetSize
-                            .shrinkWrap, // Riduce l'area cliccabile
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                       child: Text(
                         'Or create an account →',
