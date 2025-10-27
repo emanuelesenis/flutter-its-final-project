@@ -294,29 +294,30 @@ class _DetailsPageState extends State<DetailsPage>
                             ),
                           ),
                           // Title and Metadata
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                _manga!.title?.toUpperCase() != null
-                                    ? (_manga!.title!.length > 12
-                                          ? '${_manga!.title!.toUpperCase().substring(0, 12)}...'
-                                          : _manga!.title!.toUpperCase())
-                                    : 'TITOLO NON DISPONIBILE',
-                                style: textStyle.h1.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _manga?.title?.toUpperCase() ??
+                                      'TITOLO NON DISPONIBILE',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: textStyle.h1.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                _manga!.status.toUpperCase(),
-                                style: textStyle.body.copyWith(
-                                  color: Colors.white.withValues(alpha: 0.8),
+                                const SizedBox(height: 4),
+                                Text(
+                                  _manga!.status.toUpperCase(),
+                                  style: textStyle.body.copyWith(
+                                    color: Colors.white.withValues(alpha: 0.8),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -424,7 +425,10 @@ class _DetailsPageState extends State<DetailsPage>
           const SizedBox(height: 32),
           Text(
             _manga!.description.contains('---')
-                ? _manga!.description.substring(0, _manga!.description.indexOf('---'))
+                ? _manga!.description.substring(
+                    0,
+                    _manga!.description.indexOf('---'),
+                  )
                 : _manga!.description,
             style: textStyle.body.copyWith(
               color: colors.textPrimary,
