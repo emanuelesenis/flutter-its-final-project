@@ -14,10 +14,10 @@ class TutorialSwiper extends StatefulWidget {
   });
 
   @override
-  _TutorialSwiperState createState() => _TutorialSwiperState();
+  TutorialSwiperState createState() => TutorialSwiperState();
 }
 
-class _TutorialSwiperState extends State<TutorialSwiper> {
+class TutorialSwiperState extends State<TutorialSwiper> {
   int currentIndex = 0;
 
   @override

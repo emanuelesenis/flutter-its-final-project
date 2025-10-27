@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/api/search_api.dart';
@@ -39,9 +40,13 @@ class _SearchPageState extends State<SearchPage> {
     try {
       // Preload some manga data in the background
       await _searchApi.findRelatedMangas('a'); // This will cache some data
-      print('Preloaded manga data for search');
+      if (kDebugMode) {
+        print('Preloaded manga data for search');
+      }
     } catch (e) {
-      print('Preload failed: $e');
+      if (kDebugMode) {
+        print('Preload failed: $e');
+      }
       // This is fine, we'll handle it when user searches
     }
   }
@@ -61,13 +66,19 @@ class _SearchPageState extends State<SearchPage> {
     });
 
     try {
-      print('Searching for: $query');
+      if (kDebugMode) {
+        print('Searching for: $query');
+      }
       final results = await _searchApi.findRelatedMangas(query);
-      print('Search results: ${results.length} items');
+      if (kDebugMode) {
+        print('Search results: ${results.length} items');
+      }
 
       // Print first few results for debugging
       for (int i = 0; i < results.length && i < 3; i++) {
-        print('Result ${i + 1}: ${results[i].title}');
+        if (kDebugMode) {
+          print('Result ${i + 1}: ${results[i].title}');
+        }
       }
 
       if (mounted) {
@@ -87,7 +98,9 @@ class _SearchPageState extends State<SearchPage> {
         }
       }
     } catch (e) {
-      print('Search error: $e');
+      if (kDebugMode) {
+        print('Search error: $e');
+      }
 
       if (mounted) {
         setState(() {

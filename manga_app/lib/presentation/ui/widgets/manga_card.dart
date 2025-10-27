@@ -12,7 +12,8 @@ class MangaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // Usa le estensioni per accedere alle dimensioni dello schermo
     final cardWidth = context.screenWidth * 0.274; // ≈ 108 su 393
-    final cardHeight = context.screenHeight * 0.15; // Ridotta altezza per evitare overflow
+    final cardHeight =
+        context.screenHeight * 0.15; // Ridotta altezza per evitare overflow
 
     return Flexible(
       child: Column(
@@ -28,7 +29,9 @@ class MangaCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
-                  image: NetworkImage(manga.cover), // Use NetworkImage for network URLs
+                  image: NetworkImage(
+                    manga.cover,
+                  ), // Use NetworkImage for network URLs
                   fit: BoxFit.cover,
                 ),
                 boxShadow: [

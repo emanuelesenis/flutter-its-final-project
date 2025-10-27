@@ -43,7 +43,6 @@ class SwiperWithText extends StatelessWidget {
                   final MangaModel manga = mangaList[index];
                   return GestureDetector(
                     onTap: () {
-                      
                       context.push('/details/${manga.id}');
                     },
                     child: SizedBox(
@@ -86,8 +85,7 @@ class SwiperWithText extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  manga.title ??
-                                      'TITOLO NON DISPONIBILE',
+                                  manga.title ?? 'TITOLO NON DISPONIBILE',
                                   style: context.textStyles.h2.copyWith(
                                     color: context.colors.textSecondary,
                                   ),

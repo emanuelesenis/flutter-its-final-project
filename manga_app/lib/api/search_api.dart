@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
 import 'package:manga_app/providers/providers.dart';
@@ -12,7 +13,9 @@ class SearchApi {
       return <MangaModel>[];
     }
 
-    print('Searching for: $searchQuery');
+    if (kDebugMode) {
+      print('Searching for: $searchQuery');
+    }
 
     // First try to get real API data
     try {
@@ -20,7 +23,9 @@ class SearchApi {
       if (_cachedMangas.isNotEmpty &&
           _lastCacheTime != null &&
           DateTime.now().difference(_lastCacheTime!).inMinutes < 5) {
-        print('Using cached data for search');
+        if (kDebugMode) {
+          print('Using cached data for search');
+        }
         final results = _cachedMangas
             .where(
               (manga) =>
@@ -37,13 +42,17 @@ class SearchApi {
       }
 
       // Try to fetch fresh data with timeout
-      print('Fetching fresh data from API');
+      if (kDebugMode) {
+        print('Fetching fresh data from API');
+      }
       final mangas = await getIt<MangaDexApi>()
           .fetchFeaturedManga(limit: 10)
           .timeout(
             const Duration(seconds: 10),
             onTimeout: () {
-              print('API timeout, using fallback data');
+              if (kDebugMode) {
+                print('API timeout, using fallback data');
+              }
               return <MangaModel>[];
             },
           );
@@ -65,17 +74,23 @@ class SearchApi {
             .toList();
 
         if (results.isNotEmpty) {
-          print('Found ${results.length} real API results');
+          if (kDebugMode) {
+            print('Found ${results.length} real API results');
+          }
           return results;
         }
       }
     } catch (e) {
-      print('Search API error: $e');
+      if (kDebugMode) {
+        print('Search API error: $e');
+      }
     }
 
     // If we have cached data, use it even if it's old
     if (_cachedMangas.isNotEmpty) {
-      print('Using old cached data due to API error');
+      if (kDebugMode) {
+        print('Using old cached data due to API error');
+      }
       final results = _cachedMangas
           .where(
             (manga) =>
@@ -92,7 +107,9 @@ class SearchApi {
     }
 
     // Final fallback: use demo data
-    print('Using fallback demo data');
+    if (kDebugMode) {
+      print('Using fallback demo data');
+    }
     return <MangaModel>[];
   }
 }

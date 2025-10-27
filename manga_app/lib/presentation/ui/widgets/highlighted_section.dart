@@ -42,13 +42,6 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                 const Spacer(),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    'Vedi Tutto',
-                    style: context.textStyles.body.copyWith(
-                      color: context.colors.textPrimary,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -86,7 +79,9 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                             initialIndex: 0,
                             isLoop: true,
                             onPressed: (index) {
-                              context.push('/details/${state.mangaList[index].id}');
+                              context.push(
+                                '/details/${state.mangaList[index].id}',
+                              );
                             },
                             onSwipe: (previousIndex, currentIndex, direction) {
                               debugPrint(

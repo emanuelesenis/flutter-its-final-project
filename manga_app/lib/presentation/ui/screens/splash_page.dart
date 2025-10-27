@@ -26,7 +26,9 @@ class _SplashPageState extends State<SplashPage> {
 
     // Naviga alla schermata successiva dopo il fade-out
     Future.delayed(const Duration(seconds: 4), () {
-      context.read<AuthBloc>().add(CheckAuthStatus());
+      if (mounted) {
+        context.read<AuthBloc>().add(CheckAuthStatus());
+      }
     });
   }
 

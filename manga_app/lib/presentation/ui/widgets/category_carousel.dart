@@ -13,8 +13,9 @@ class CategoryCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CategoryCarouselBloc(mangaDexApi: MangaDexApi())
-        ..add(CategoryCarouselLoad(categoryName: categoryName)),
+      create: (context) =>
+          CategoryCarouselBloc(mangaDexApi: MangaDexApi())
+            ..add(CategoryCarouselLoad(categoryName: categoryName)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,13 +31,6 @@ class CategoryCarousel extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Text(
-                  'Vedi Tutto',
-                  style: context.textStyles.body.copyWith(
-                    color: context.colors.textPrimary,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
               ],
             ),
           ),
@@ -54,12 +48,11 @@ class CategoryCarousel extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     itemCount: state.mangaList.length,
-                    separatorBuilder: (context, index) => const SizedBox(width: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 8),
                     itemBuilder: (context, index) {
                       final MangaModel manga = state.mangaList[index];
-                      return MangaCard(
-                        manga: manga,
-                      );
+                      return MangaCard(manga: manga);
                     },
                   ),
                 );
