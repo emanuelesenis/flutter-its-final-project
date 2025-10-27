@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
 
