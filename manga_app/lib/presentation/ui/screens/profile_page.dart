@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/firebase/firebase_auth_service.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/custom_app_bar.dart';
-import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 import 'package:manga_app/presentation/ui/widgets/badge_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,12 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
   // Metodo per caricare i dati dell'utente
   void _loadUserData() {
     final User? currentUser = FirebaseAuth.instance.currentUser;
-    print('Current user: $currentUser'); // Debug
 
     if (currentUser != null) {
-      print('User email: ${currentUser.email}'); // Debug
-      print('User displayName: ${currentUser.displayName}'); // Debug
-
       setState(() {
         userEmail = currentUser.email;
         userNickname =
