@@ -12,19 +12,18 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  double _opacity = 1.0; // Opacità iniziale
+  double _opacity = 1.0;
 
   @override
   void initState() {
     super.initState();
-    // Avvia la transizione di fade-out
+
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
-        _opacity = 0.0; // Riduce l'opacità a 0
+        _opacity = 0.0;
       });
     });
 
-    // Naviga alla schermata successiva dopo il fade-out
     Future.delayed(const Duration(seconds: 4), () {
       context.read<AuthBloc>().add(CheckAuthStatus());
     });
@@ -35,17 +34,17 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Sfondo
+
           Positioned.fill(
             child: Image.asset(
-              'assets/images/splash.png', // Sostituisci con il percorso corretto
+              'assets/images/splash.png',
               fit: BoxFit.cover,
             ),
           ),
-          // Logo con animazione di fade-out
+
           AnimatedOpacity(
-            duration: const Duration(seconds: 1), // Durata della transizione
-            opacity: _opacity, // Opacità dinamica
+            duration: const Duration(seconds: 1),
+            opacity: _opacity,
             child: Center(
               child: SvgPicture.asset(
                 'assets/icons/app_logo.svg',
