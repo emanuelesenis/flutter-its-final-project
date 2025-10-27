@@ -11,3 +11,5 @@ class CheckFavourite extends FavouriteEvent {
 
   CheckFavourite({required this.mangaId});
 }
+
+class GetFavourite extends FavouriteEvent {}

@@ -175,7 +175,7 @@ class _DetailsPageState extends State<DetailsPage>
                 builder: (context, state) {
                   return Icon(
                     state is FavouriteSuccess
-                        ? state.isLiked
+                        ? state.isLiked!
                               ? Icons.favorite
                               : Icons.favorite_border
                         : Icons.favorite_border,
@@ -382,7 +382,7 @@ class _DetailsPageState extends State<DetailsPage>
               ),
               const SizedBox(width: 16),
               // Age Rating and Stars
-              RatingSection(rating: 12, stars: 4),
+              RatingSection(rating: 12),
             ],
           ),
           const SizedBox(height: 32),

@@ -83,57 +83,6 @@ class SearchPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  spacing: 8,
-                  children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-                      onPressed: () => {},
-                      child: Text("Categoria 1"),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-                      onPressed: () => {},
-                      child: Text("Categoria 2"),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-                      onPressed: () => {},
-                      child: Text("Categoria 3"),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-                      onPressed: () => {},
-                      child: Text("Categoria 4"),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: context.textStyles.h4.color,
-                      ),
-
-                      onPressed: () => {},
-                      child: Text("Categoria 5"),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 16),
 
               BlocBuilder<MangaCubit, List<MangaModel>>(
                 builder: (context, state) {

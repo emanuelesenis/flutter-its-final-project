@@ -7,6 +7,18 @@ import 'package:manga_app/providers/providers.dart';
 
 class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
   FavouriteBloc() : super(FavouriteInitial()) {
+    on<GetFavourite>((event, emit) async {
+      emit(FavouriteLoading());
+      final userId = getIt<FirebaseAuthService>().getCurrentUserId();
+      if (userId != null) {
+        final favouriteMangas = await getIt<FirestoreService>()
+            .getFavouriteMangas(userId);
+        emit(FavouriteSuccess(favouriteMangas: favouriteMangas));
+      } else {
+        emit(FavouriteFailure());
+      }
+    });
+
     on<UpdateFavourite>((event, emit) async {
       emit(FavouriteLoading());
       final userId = getIt<FirebaseAuthService>().getCurrentUserId();

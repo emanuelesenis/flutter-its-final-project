@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 import 'package:manga_app/presentation/ui/widgets/category_carousel.dart';
-import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';
+import 'package:manga_app/presentation/ui/widgets/custom_fab.dart';
 import 'package:manga_app/presentation/ui/widgets/highlighted_section.dart';
+import 'package:manga_app/presentation/ui/widgets/swiper_with_text.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,9 +25,8 @@ class HomePage extends StatelessWidget {
             snap: false,
             backgroundColor: Colors.transparent,
             elevation: 0,
-            expandedHeight:
-                context.screenHeight *
-                0.30, // Stessa altezza del SwiperWithText
+            expandedHeight: context.screenHeight * 0.30,
+            // Stessa altezza del SwiperWithText
             flexibleSpace: FlexibleSpaceBar(background: SwiperWithText()),
             leading: Padding(
               padding: const EdgeInsets.only(left: 16.0),
@@ -60,10 +59,9 @@ class HomePage extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               const HighlightedSection(),
-              CategoryCarousel(categoryName: "Popolari"),
-              CategoryCarousel(categoryName: "Popolari"),
-              CategoryCarousel(categoryName: "Popolari"),
-              CategoryCarousel(categoryName: "Popolari"),
+              CategoryCarousel(categoryName: "Popular"),
+              CategoryCarousel(categoryName: "Shonen"),
+              CategoryCarousel(categoryName: "Adventure"),
             ]),
           ),
         ],

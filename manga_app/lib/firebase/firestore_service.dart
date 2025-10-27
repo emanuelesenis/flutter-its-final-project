@@ -48,12 +48,20 @@ class FirestoreService {
     return !containsMangaId;
   }
 
-  // /// CONTROLLA SE IL MANGA E' NEI PREFERITI
+  /// CONTROLLA SE IL MANGA E' NEI PREFERITI
   Future<bool> checkFavouriteMangas(String userId, String mangaId) async {
-    final user = _firestore.collection("users").doc(userId);
-    final snap = await user.get();
-    final favouriteMangas = List.from(snap.get("favouriteMangas") ?? []);
+    final favouriteMangas = await getFavouriteMangas(userId);
     final containsMangaId = favouriteMangas.contains(mangaId);
     return containsMangaId;
+  }
+
+  /// OTTIENE I MANGA PREFERITI
+  Future<List<String>> getFavouriteMangas(String userId) async {
+    final user = _firestore.collection("users").doc(userId);
+    final snap = await user.get();
+    final favouriteMangas = List<String>.from(
+      snap.get("favouriteMangas") ?? [],
+    );
+    return favouriteMangas;
   }
 }

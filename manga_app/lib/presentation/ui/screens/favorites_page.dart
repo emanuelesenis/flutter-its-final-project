@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manga_app/api/manga_api.dart';
+import 'package:manga_app/bloc/favourite/favourite_bloc.dart';
+import 'package:manga_app/bloc/favourite/favourite_event.dart';
+import 'package:manga_app/bloc/favourite/favourite_state.dart';
+import 'package:manga_app/models/manga/manga_model.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
-import 'package:manga_app/presentation/ui/widgets/manga_favorite_card.dart';
+import 'package:manga_app/presentation/ui/widgets/manga_card.dart';
+import 'package:manga_app/providers/providers.dart';
 
-class FavoritesPage extends StatelessWidget {
+class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Dati di esempio
-    final List<Map<String, dynamic>> mangaList = [
-      {
-        'imageUrl': 'assets/images/tutorial1.png',
-        'title': 'L\'attacco dei giganti',
-        'chapter': 'Cap 1',
-        'isFavorite': true,
-      },
-      {
-        'imageUrl': 'assets/images/tutorial2.png',
-        'title': 'Black Clover',
-        'chapter': 'Cap 11',
-        'isFavorite': true,
-      },
-      {
-        'imageUrl': 'assets/images/tutorial3.png',
-        'title': 'Chainsaw man',
-        'chapter': 'Cap 30',
-        'isFavorite': true,
-      },
-    ];
+  State<FavoritesPage> createState() => _FavoritesPageState();
+}
 
+class _FavoritesPageState extends State<FavoritesPage> {
+  late final List<MangaModel> mangas;
+
+  @override
+  void initState() {
+    super.initState();
+    mangas = getIt<MangaDexApi>().mangas;
+    context.read<FavouriteBloc>().add(GetFavourite());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -93,30 +92,30 @@ class FavoritesPage extends StatelessWidget {
 
             // Lista dei preferiti
             Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 0.6,
-                ),
-                itemCount: mangaList.length,
-                itemBuilder: (context, index) {
-                  final manga = mangaList[index];
-                  return MangaFavoriteCard(
-                    imageUrl: manga['imageUrl'],
-                    title: manga['title'],
-                    chapter: manga['chapter'],
-                    isFavorite: manga['isFavorite'],
-                    onTap: () {
-                      // Azione quando si tocca la card
-                      //TODO: navigare alla pagina dei dettagli del manga
-                    },
-                    onFavoriteToggle: () {
-                      // Azione quando si tocca il cuore
-                      //TODO: implementare funzione di rimozione dai preferiti
-                    },
-                  );
+              child: BlocBuilder<FavouriteBloc, FavouriteState>(
+                builder: (context, state) {
+                  if (state is FavouriteSuccess) {
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                            childAspectRatio: 0.6,
+                          ),
+                      itemCount: state.favouriteMangas?.length,
+                      itemBuilder: (context, index) {
+                        print(mangas[index].id);
+                        final manga =
+                            state.favouriteMangas![index] == mangas[index].id!
+                            ? mangas[index]
+                            : null;
+                        return MangaCard(manga: manga!);
+                      },
+                    );
+                  } else {
+                    return SizedBox.shrink();
+                  }
                 },
               ),
             ),

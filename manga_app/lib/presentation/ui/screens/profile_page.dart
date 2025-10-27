@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/firebase/firebase_auth_service.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/custom_app_bar.dart';
 import 'package:manga_app/presentation/ui/widgets/badge_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -57,6 +57,12 @@ class _ProfilePageState extends State<ProfilePage> {
           appBar: CustomAppBar(
             title: "Profile",
             subtitle: "Check your account details",
+            iconButton: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.brown),
+              onPressed: () {
+                context.pop();
+              },
+            ),
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
@@ -171,7 +177,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         await FirebaseAuthService().signOut();
-                        GoRouter.of(context).go('/login');
+                        context.go('/login');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFB08080),

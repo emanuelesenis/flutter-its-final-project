@@ -5,9 +5,10 @@ class FavouriteInitial extends FavouriteState {}
 class FavouriteLoading extends FavouriteState {}
 
 class FavouriteSuccess extends FavouriteState {
-  final bool isLiked;
+  final bool? isLiked;
+  final List<String>? favouriteMangas;
 
-  FavouriteSuccess({required this.isLiked});
+  FavouriteSuccess({this.isLiked, this.favouriteMangas});
 }
 
 class FavouriteFailure extends FavouriteState {}

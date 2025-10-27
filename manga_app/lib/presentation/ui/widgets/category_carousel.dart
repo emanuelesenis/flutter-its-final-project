@@ -40,13 +40,6 @@ class _CategoryCarouselState extends State<CategoryCarousel> {
                 ),
               ),
               const Spacer(),
-              Text(
-                'Vedi Tutto',
-                style: context.textStyles.body.copyWith(
-                  color: context.colors.textPrimary,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
             ],
           ),
         ),
@@ -58,13 +51,10 @@ class _CategoryCarouselState extends State<CategoryCarousel> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 24),
             itemCount: _mangas.length,
-            separatorBuilder: (context, index) =>
-            const SizedBox(width: 8),
+            separatorBuilder: (context, index) => const SizedBox(width: 8),
             itemBuilder: (context, index) {
               final MangaModel manga = _mangas[index];
-              return MangaCard(
-                manga: manga,
-              );
+              return MangaCard(manga: manga);
             },
           ),
         ),

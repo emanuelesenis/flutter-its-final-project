@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:card_stack_swiper/card_stack_swiper.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:manga_app/bloc/category_carousel_bloc.dart';
+import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
-import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/providers/providers.dart';
 
 class HighlightedSection extends StatefulWidget {
@@ -37,23 +35,13 @@ class _HighlightedSectionState extends State<HighlightedSection> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'IN EVIDENZA',
+                  'HIGHLIGHT',
                   style: context.textStyles.h2.copyWith(
                     color: context.colors.textPrimary,
                   ),
                 ),
               ),
               const Spacer(),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'Vedi Tutto',
-                  style: context.textStyles.body.copyWith(
-                    color: context.colors.textPrimary,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -92,44 +80,42 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                     },
                     cardBuilder:
                         (
-                        context,
-                        index,
-                        horizontalPercentage,
-                        verticalPercentage,
+                          context,
+                          index,
+                          horizontalPercentage,
+                          verticalPercentage,
                         ) {
-                      final MangaModel manga =
-                      _mangas[index];
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withAlpha(25),
-                              blurRadius: 6,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            manga.cover,
-                            fit: BoxFit.cover,
-                            errorBuilder:
-                                (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: const Icon(
-                                  Icons.image_not_supported,
-                                  size: 50,
-                                  color: Colors.grey,
+                          final MangaModel manga = _mangas[index];
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withAlpha(25),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 4),
                                 ),
-                              );
-                            },
-                          ),
-                        ),
-                      );
-                    },
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                manga.cover,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    color: Colors.grey[300],
+                                    child: const Icon(
+                                      Icons.image_not_supported,
+                                      size: 50,
+                                      color: Colors.grey,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        },
                   ),
                 ),
               ],

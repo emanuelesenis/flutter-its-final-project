@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String subtitle;
+  final Widget? iconButton;
 
-  const CustomAppBar({super.key, required this.title, required this.subtitle});
+  const CustomAppBar({super.key, required this.title, required this.subtitle, this.iconButton});
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +42,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   mainAxisAlignment:
                       MainAxisAlignment.spaceBetween, // Sposta leading e titolo
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.brown),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
+                    ?iconButton,
                     Expanded(
                       child: Text(
                         title,
