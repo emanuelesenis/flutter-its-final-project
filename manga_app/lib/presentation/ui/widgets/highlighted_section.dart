@@ -40,9 +40,7 @@ class _HighlightedSectionState extends State<HighlightedSection> {
                   ),
                 ),
                 const Spacer(),
-                Align(
-                  alignment: Alignment.centerRight,
-                ),
+                Align(alignment: Alignment.centerRight),
               ],
             ),
           ),

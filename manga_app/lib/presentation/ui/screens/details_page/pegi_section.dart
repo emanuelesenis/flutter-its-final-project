@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 
-class RatingSection extends StatelessWidget {
-  const RatingSection({super.key, required this.rating, required this.stars});
+class PegiSection extends StatelessWidget {
+  const PegiSection({super.key, required this.rating,});
 
   final int rating;
-  final int stars;
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +33,6 @@ class RatingSection extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        const SizedBox(width: 8),
-        Row(
-          children: List.generate(stars, (index) {
-            return Icon(
-              index < stars ? Icons.star : Icons.star_border,
-              color: colors.primaryColor,
-              size: 16,
-            );
-          }),
         ),
       ],
     );

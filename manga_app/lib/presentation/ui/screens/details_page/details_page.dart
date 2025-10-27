@@ -3,7 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
-import 'package:manga_app/presentation/ui/screens/details_page/rating_section.dart';
+import 'package:manga_app/models/chapter/chapter_model.dart';
+import 'package:manga_app/presentation/ui/screens/details_page/pegi_section.dart';
 import 'package:manga_app/presentation/ui/screens/details_page/tags_section.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
@@ -56,14 +57,40 @@ class _DetailsPageState extends State<DetailsPage>
         throw Exception('Manga with ID ${widget.mangaId} not found');
       }
 
+      // Add sample chapters to the manga
+      final mangaWithChapters = foundManga.copyWith(
+        chapters: [
+          ChapterModel(
+            id: '${foundManga.id}_chapter_1',
+            title: 'Capitolo 1',
+            pages: [
+              'https://via.placeholder.com/800x1200/FF0000/FFFFFF?text=Page+1',
+              'https://via.placeholder.com/800x1200/00FF00/FFFFFF?text=Page+2',
+              'https://via.placeholder.com/800x1200/0000FF/FFFFFF?text=Page+3',
+              'https://via.placeholder.com/800x1200/FFFF00/000000?text=Page+4',
+              'https://via.placeholder.com/800x1200/FF00FF/FFFFFF?text=Page+5',
+            ],
+          ),
+          ChapterModel(
+            id: '${foundManga.id}_chapter_2',
+            title: 'Capitolo 2',
+            pages: [
+              'https://via.placeholder.com/800x1200/00FFFF/000000?text=Page+1',
+              'https://via.placeholder.com/800x1200/FF8000/FFFFFF?text=Page+2',
+              'https://via.placeholder.com/800x1200/8000FF/FFFFFF?text=Page+3',
+            ],
+          ),
+        ],
+      );
+
       setState(() {
-        _manga = foundManga;
+        _manga = mangaWithChapters;
         _isLoading = false;
       });
     } catch (e) {
       setState(() {
         _isLoading = false;
-        // Set fallback data
+        // Set fallback data with sample chapters
         _manga = MangaModel(
           id: widget.mangaId ?? 'demo',
           title: 'Manga non trovato',
@@ -74,7 +101,17 @@ class _DetailsPageState extends State<DetailsPage>
           rating: '',
           minimumAge: 14,
           tags: ['errore', 'non trovato'],
-          chapters: [],
+          chapters: [
+            ChapterModel(
+              id: '${widget.mangaId ?? 'demo'}_chapter_1',
+              title: 'Capitolo Demo',
+              pages: [
+                'https://via.placeholder.com/800x1200/FF0000/FFFFFF?text=Demo+Page+1',
+                'https://via.placeholder.com/800x1200/00FF00/FFFFFF?text=Demo+Page+2',
+                'https://via.placeholder.com/800x1200/0000FF/FFFFFF?text=Demo+Page+3',
+              ],
+            ),
+          ],
         );
       });
     }
@@ -337,12 +374,19 @@ class _DetailsPageState extends State<DetailsPage>
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Avvio lettura capitolo'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
+                        // Navigate to manga reader with the first chapter
+                        if (_manga!.chapters.isNotEmpty) {
+                          context.push(
+                            '/reader/${_manga!.id}/${_manga!.chapters[0].id}',
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Nessun capitolo disponibile'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -355,7 +399,7 @@ class _DetailsPageState extends State<DetailsPage>
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              'Cap 1',
+                              'start reading',
                               style: textStyle.h4.copyWith(
                                 color: colors.backgroundColor,
                                 fontWeight: FontWeight.bold,
@@ -370,7 +414,7 @@ class _DetailsPageState extends State<DetailsPage>
               ),
               const SizedBox(width: 16),
               // Age Rating and Stars
-              RatingSection(rating: 12, stars: 4),
+              PegiSection(rating: _manga!.minimumAge),
             ],
           ),
           const SizedBox(height: 32),
@@ -379,7 +423,9 @@ class _DetailsPageState extends State<DetailsPage>
 
           const SizedBox(height: 32),
           Text(
-            _manga!.description,
+            _manga!.description.contains('---')
+                ? _manga!.description.substring(0, _manga!.description.indexOf('---'))
+                : _manga!.description,
             style: textStyle.body.copyWith(
               color: colors.textPrimary,
               height: 1.6,
