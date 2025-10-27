@@ -1,4 +1,5 @@
 import 'package:be_widgets/be_widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
@@ -385,7 +386,7 @@ class _DetailsPageState extends State<DetailsPage>
               fontSize: 16,
             ),
           ),
-          if (widget.mangaId != null) ...[
+          if (widget.mangaId != null && kDebugMode) ...[
             const SizedBox(height: 24),
             Text(
               'ID: ${widget.mangaId}',
