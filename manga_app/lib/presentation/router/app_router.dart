@@ -8,6 +8,7 @@ import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/login/login_screen.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/registration/registration_screen.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/tutorial/tutorial_screen.dart';
+import 'package:manga_app/presentation/ui/screens/profile_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/splash_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page/details_page.dart';
@@ -98,6 +99,13 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final String? searchedTitle = state.pathParameters['searched_title'];
         return SearchResultsPage(searchedTitle: searchedTitle ?? '');
+      },
+    ),
+    GoRoute(
+      path: '/profile',
+      name: 'profile',
+      builder: (context, state) {
+        return ProfilePage();
       },
     ),
   ],
