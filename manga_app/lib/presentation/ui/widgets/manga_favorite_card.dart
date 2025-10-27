@@ -28,7 +28,7 @@ class MangaFavoriteCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -61,7 +61,7 @@ class MangaFavoriteCard extends StatelessWidget {
                       onTap: onFavoriteToggle,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                           shape: BoxShape.circle,
                         ),
                         padding: const EdgeInsets.all(4),
