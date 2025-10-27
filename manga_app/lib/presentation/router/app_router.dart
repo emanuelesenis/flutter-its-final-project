@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/presentation/ui/screens/favorites_page.dart';
 import 'package:manga_app/bloc/auth/auth_bloc.dart';
-import 'package:manga_app/bloc/auth/auth_event.dart';
 import 'package:manga_app/bloc/auth/auth_state.dart';
 import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/login/login_screen.dart';
@@ -15,7 +13,6 @@ import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/splash_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page/details_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_results_page.dart';
-import 'package:manga_app/providers/providers.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

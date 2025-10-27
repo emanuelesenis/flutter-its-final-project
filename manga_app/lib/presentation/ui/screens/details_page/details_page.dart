@@ -175,7 +175,7 @@ class _DetailsPageState extends State<DetailsPage>
                 builder: (context, state) {
                   return Icon(
                     state is FavouriteSuccess
-                        ? state.isLiked!
+                        ? state.isLiked
                               ? Icons.favorite
                               : Icons.favorite_border
                         : Icons.favorite_border,

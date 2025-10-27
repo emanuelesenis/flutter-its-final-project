@@ -38,11 +38,11 @@ class FirestoreService {
     final containsMangaId = await checkFavouriteMangas(userId, mangaId);
     if (containsMangaId) {
       await user.update({
-        "favouriteMangas": FieldValue.arrayRemove([mangaId]),
+        "favoriteMangas": FieldValue.arrayRemove([mangaId]),
       });
     } else {
       await user.update({
-        "favouriteMangas": FieldValue.arrayUnion([mangaId]),
+        "favoriteMangas": FieldValue.arrayUnion([mangaId]),
       });
     }
     return !containsMangaId;
@@ -60,7 +60,7 @@ class FirestoreService {
     final user = _firestore.collection("users").doc(userId);
     final snap = await user.get();
     final favouriteMangas = List<String>.from(
-      snap.get("favouriteMangas") ?? [],
+      snap.get("favoriteMangas") ?? [],
     );
     return favouriteMangas;
   }

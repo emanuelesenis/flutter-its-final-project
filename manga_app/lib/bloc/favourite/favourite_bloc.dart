@@ -27,6 +27,7 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
           userId,
           event.mangaId,
         );
+        print(isLiked);
         emit(FavouriteSuccess(isLiked: isLiked));
       } else {
         emit(FavouriteFailure());

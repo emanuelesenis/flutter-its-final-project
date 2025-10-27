@@ -4,7 +4,7 @@ import 'package:manga_app/models/manga/manga_model.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 class MangaCard extends StatelessWidget {
-  final MangaModel? manga;
+  final MangaModel manga;
 
   const MangaCard({super.key, required this.manga});
 
@@ -21,7 +21,7 @@ class MangaCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              context.push('/details/${manga!.id}');
+              context.push('/details/${manga.id}');
             },
             child: Container(
               width: cardWidth,
@@ -29,7 +29,7 @@ class MangaCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
-                  image: NetworkImage(manga!.cover),
+                  image: NetworkImage(manga.cover),
                   // Use NetworkImage for network URLs
                   fit: BoxFit.cover,
                 ),
@@ -47,7 +47,7 @@ class MangaCard extends StatelessWidget {
           SizedBox(
             width: cardWidth,
             child: Text(
-              manga!.title ?? 'No Title',
+              manga.title ?? 'No Title',
               textAlign: TextAlign.center,
               style: context.textStyles.h4.copyWith(
                 fontWeight: FontWeight.w600,

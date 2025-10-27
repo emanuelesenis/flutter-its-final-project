@@ -95,22 +95,18 @@ class _FavoritesPageState extends State<FavoritesPage> {
               child: BlocBuilder<FavouriteBloc, FavouriteState>(
                 builder: (context, state) {
                   if (state is FavouriteSuccess) {
+                    final filteredMangas = mangas
+                        .where((e) => state.favouriteMangas.contains(e.id))
+                        .toList();
                     return GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: 0.6,
                           ),
-                      itemCount: state.favouriteMangas?.length,
+                      itemCount: state.favouriteMangas.length,
                       itemBuilder: (context, index) {
-                        print(mangas[index].id);
-                        final manga =
-                            state.favouriteMangas![index] == mangas[index].id!
-                            ? mangas[index]
-                            : null;
-                        return MangaCard(manga: manga!);
+                        return MangaCard(manga: filteredMangas[index]);
                       },
                     );
                   } else {
