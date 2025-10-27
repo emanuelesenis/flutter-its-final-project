@@ -58,7 +58,7 @@ class AppColors extends ThemeExtension<AppColors> {
     backgroundColor: Color(0xFFFFF5F5),
     textPrimary: Colors.black,
     textSecondary: Colors.white,
-    imageOverlay: Color(0xBF353131), // 353131 con 75% opacity
+    imageOverlay: Color(0xBF353131),
   );
 
   // Dark theme colors
@@ -68,6 +68,6 @@ class AppColors extends ThemeExtension<AppColors> {
     backgroundColor: Color(0xFF000000),
     textPrimary: Colors.white,
     textSecondary: Colors.white,
-    imageOverlay: Color(0xBF1A1414), // 1A1414 con 75% opacity
+    imageOverlay: Color(0x801A1414),
   );
 }

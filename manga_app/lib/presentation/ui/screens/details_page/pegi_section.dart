@@ -3,7 +3,7 @@ import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 
 class PegiSection extends StatelessWidget {
-  const PegiSection({super.key, required this.rating,});
+  const PegiSection({super.key, required this.rating});
 
   final int rating;
 
@@ -28,7 +28,7 @@ class PegiSection extends StatelessWidget {
               '+$rating',
 
               style: textStyle.body.copyWith(
-                color: colors.backgroundColor,
+                color: Theme.of(context).extension<AppColors>()?.textSecondary,
                 fontWeight: FontWeight.bold,
               ),
             ),
