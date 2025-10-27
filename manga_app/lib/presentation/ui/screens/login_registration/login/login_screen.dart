@@ -31,26 +31,22 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Immagine di sfondo
         Positioned.fill(
           child: Image.asset('assets/images/login.png', fit: BoxFit.cover),
         ),
 
         Scaffold(
-          backgroundColor:
-              Colors.transparent, // Trasparente per mostrare lo sfondo
+          backgroundColor: Colors.transparent,
           appBar: CustomAppBar(
             title: "Login",
             subtitle: "Already have an account? Enter your details",
           ),
           body: Center(
-            // Centra il contenuto verticalmente
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Column(
-                mainAxisSize: MainAxisSize.min, // Adatta il contenuto
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Form di login
                   Form(
                     key: _formKey,
                     child: Column(
@@ -152,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           context.push('/registration');
                         },
                         child: Text(
-                          'REGISTRATION',
+                          'REGISTER',
                           style: context.textStyles.body.copyWith(
                             color: Theme.of(
                               context,
