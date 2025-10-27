@@ -1,53 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:manga_app/presentation/ui/theme/app_colors.dart';
-import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
-import 'package:manga_app/presentation/ui/widgets/manga_favorite_card.dart';
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Dati di esempio
-    final List<Map<String, dynamic>> mangaList = [
-      {
-        'imageUrl': 'assets/images/tutorial1.png',
-        'title': 'L\'attacco dei giganti',
-        'chapter': 'Cap 1',
-        'isFavorite': true,
-      },
-      {
-        'imageUrl': 'assets/images/tutorial2.png',
-        'title': 'Black Clover',
-        'chapter': 'Cap 11',
-        'isFavorite': true,
-      },
-      {
-        'imageUrl': 'assets/images/tutorial3.png',
-        'title': 'Chainsaw man',
-        'chapter': 'Cap 30',
-        'isFavorite': true,
-      },
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Favorites',
-          style: context.textStyles.h1.copyWith(
-            color: Theme.of(context).extension<AppColors>()!.primaryColor,
+        title: const Text(
+          'FAVORITES',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.brown,
           ),
         ),
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(255, 245, 245, 0.9),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).extension<AppColors>()!.primaryColor,
-          ),
+          icon: const Icon(Icons.arrow_back, color: Colors.brown),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(); // Torna indietro
           },
         ),
       ),
@@ -59,38 +33,48 @@ class FavoritesPage extends StatelessWidget {
             // Campo di ricerca
             TextField(
               decoration: InputDecoration(
-                hintText: 'Search for a title...',
-                hintStyle: TextStyle(
-                  color: Colors.white.withOpacity(0.8),
-                  fontSize: 16,
-                ),
-                suffixIcon: Icon(
-                  Icons.search,
-                  color: Colors.white.withOpacity(0.8),
-                ),
+                hintText: 'Scrivi un titolo...',
+                prefixIcon: const Icon(Icons.search, color: Colors.brown),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide.none,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: const BorderSide(color: Colors.brown),
                 ),
                 filled: true,
-                fillColor: const Color.fromARGB(175, 176, 128, 128),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 16,
-                ),
+                fillColor: const Color.fromRGBO(255, 245, 245, 0.9),
               ),
-              style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
             const SizedBox(height: 16),
-
+            // Sezione filtri
+            const Text(
+              'FILTRI',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.brown,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              children: [
+                Chip(
+                  label: const Text('Sport'),
+                  backgroundColor: const Color.fromRGBO(256, 245, 245, 0.9),
+                  labelStyle: const TextStyle(color: Colors.brown),
+                ),
+                Chip(
+                  label: const Text('Azione'),
+                  backgroundColor: const Color.fromRGBO(255, 245, 245, 0.9),
+                  labelStyle: const TextStyle(color: Colors.brown),
+                ),
+                Chip(
+                  label: const Text('Fantasy'),
+                  backgroundColor: const Color.fromRGBO(255, 245, 245, 0.9),
+                  labelStyle: const TextStyle(color: Colors.brown),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
             // Lista dei preferiti
             Expanded(
               child: GridView.builder(
@@ -98,26 +82,55 @@ class FavoritesPage extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 0.6,
+                  childAspectRatio: 0.7,
                 ),
-                itemCount: mangaList.length,
+                itemCount: 6, // Numero di elementi
                 itemBuilder: (context, index) {
-                  final manga = mangaList[index];
-                  return MangaFavoriteCard(
-                    imageUrl: manga['imageUrl'],
-                    title: manga['title'],
-                    chapter: manga['chapter'],
-                    isFavorite: manga['isFavorite'],
-                    onTap: () {
-                      // Azione quando si tocca la card
-                      //TODO: navigare alla pagina dei dettagli del manga
-                      print('Tapped on ${manga['title']}');
-                    },
-                    onFavoriteToggle: () {
-                      // Azione quando si tocca il cuore
-                      //TODO: implementare funzione di rimozione dai preferiti
-                      print('Favorite toggled for ${manga['title']}');
-                    },
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                            child: Image.asset(
+                              'assets/images/registrazione.png', // Sostituisci con il percorso corretto
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Titolo Manga',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.brown,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'Cap 1',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.brown,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

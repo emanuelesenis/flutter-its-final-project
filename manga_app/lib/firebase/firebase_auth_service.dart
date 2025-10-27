@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:manga_app/firebase/firestore_service.dart';
 import 'package:manga_app/models/user/user_model.dart';
-import 'package:flutter/foundation.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,8 +28,7 @@ class FirebaseAuthService {
         username: username,
         email: email,
         password: password,
-        profilePicure: "",
-        readMangas: [],
+        favoriteMangas: [],
       );
 
       // Salva i dati utente nel Firestore
@@ -66,8 +65,7 @@ class FirebaseAuthService {
         username: "",
         email: email,
         password: password,
-        profilePicure: "",
-        readMangas: [],
+        favoriteMangas: [],
       );
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
@@ -105,7 +103,7 @@ class FirebaseAuthService {
   }
 
   /// OTTIENE ID UTENTE CORRENTE
-  String? getCurrentUser() {
+  String? getCurrentUserId() {
     return _auth.currentUser?.uid;
   }
 

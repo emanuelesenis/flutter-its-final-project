@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
@@ -11,8 +10,7 @@ abstract class UserModel with _$UserModel {
     required String username,
     required String email,
     required String password,
-    required String profilePicure,
-    required List<String> readMangas,
+    required List<String> favoriteMangas,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

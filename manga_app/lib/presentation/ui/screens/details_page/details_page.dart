@@ -1,13 +1,17 @@
 import 'package:be_widgets/be_widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manga_app/api/manga_api.dart';
+import 'package:manga_app/bloc/favourite/favourite_bloc.dart';
+import 'package:manga_app/bloc/favourite/favourite_event.dart';
+import 'package:manga_app/bloc/favourite/favourite_state.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
 import 'package:manga_app/presentation/ui/screens/details_page/rating_section.dart';
 import 'package:manga_app/presentation/ui/screens/details_page/tags_section.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
-import 'package:go_router/go_router.dart';
 import 'package:manga_app/providers/providers.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -22,7 +26,6 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  bool _isFavorite = false;
   MangaModel? _manga;
   bool _isLoading = true;
 
@@ -167,15 +170,23 @@ class _DetailsPageState extends State<DetailsPage>
           Container(
             margin: const EdgeInsets.only(right: 24, top: 8),
             child: IconButton(
-              icon: Icon(
-                _isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: Colors.white,
-                size: 28,
+              icon: BlocBuilder<FavouriteBloc, FavouriteState>(
+                builder: (context, state) {
+                  return Icon(
+                    state is FavouriteSuccess
+                        ? state.isLiked
+                              ? Icons.favorite
+                              : Icons.favorite_border
+                        : Icons.favorite_border,
+                    color: Colors.white,
+                    size: 28,
+                  );
+                },
               ),
               onPressed: () {
-                setState(() {
-                  _isFavorite = !_isFavorite;
-                });
+                context.read<FavouriteBloc>().add(
+                  UpdateFavourite(mangaId: _manga!.id!),
+                );
               },
             ),
           ),

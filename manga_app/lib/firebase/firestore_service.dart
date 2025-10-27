@@ -31,4 +31,36 @@ class FirestoreService {
   ) async {
     await _firestore.collection(collectionName).doc(id).delete();
   }
+
+  /// AGGIORNA LA LISTA DEI PREFERITI SUL FIRESTORE
+  Future<bool> updateFavouriteMangas(String userId, String mangaId) async {
+    final user = _firestore.collection("users").doc(userId);
+    // final containsMangaId = await checkFavouriteMangas(userId, mangaId);
+    final snap = await user.get();
+    final favouriteMangas = List.from(snap.get("favouriteMangas") ?? []);
+    final containsMangaId = favouriteMangas.contains(mangaId);
+    if (containsMangaId) {
+      await user.update({
+        "favouriteMangas": FieldValue.arrayRemove([mangaId]),
+      });
+    } else {
+      await user.update({
+        "favouriteMangas": FieldValue.arrayUnion([mangaId]),
+      });
+    }
+    return containsMangaId;
+  }
+
+  // /// CONTROLLA SE IL MANGA E' NEI PREFERITI
+  // Future<bool> checkFavouriteMangas(String userId, String mangaId) async {
+  //   final user = _firestore.collection("users").doc(userId);
+  //   final snap = await user.get();
+  //   final favouriteMangas = List.from(snap.get("favouriteMangas") ?? []);
+  //   final containsMangaId = favouriteMangas.contains(mangaId);
+  //   if (containsMangaId) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 }
