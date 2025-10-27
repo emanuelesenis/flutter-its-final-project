@@ -12,7 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      toolbarHeight: 140, // Aumenta l'altezza dell'AppBar
+      //toolbarHeight: 140,
       backgroundColor: Colors.transparent,
       flexibleSpace: Container(
         padding: const EdgeInsets.all(16),
@@ -33,15 +33,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment:
-                  CrossAxisAlignment.end, // Allinea i contenuti a destra
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween, // Sposta leading e titolo
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.brown),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Theme.of(
+                          context,
+                        ).extension<AppColors>()!.primaryColor,
+                      ),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -54,7 +57,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             context,
                           ).extension<AppColors>()!.primaryColor,
                         ),
-                        textAlign: TextAlign.right, // Allinea il testo a destra
+                        textAlign: TextAlign.right,
                       ),
                     ),
                   ],
@@ -68,7 +71,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       context,
                     ).extension<AppColors>()!.primaryColor,
                   ),
-                  textAlign: TextAlign.right, // Allinea il sottotitolo a destra
+                  textAlign: TextAlign.right,
                 ),
               ],
             ),
@@ -79,5 +82,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(130); // Altezza personalizzata
+  Size get preferredSize => const Size.fromHeight(140); // Altezza personalizzata
 }
