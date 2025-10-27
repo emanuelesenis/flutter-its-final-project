@@ -58,8 +58,7 @@ class CategoryCarousel extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final MangaModel manga = state.mangaList[index];
                       return MangaCard(
-                        imageUrl: manga.cover,
-                        title: manga.title ?? 'No Title',
+                        manga: manga,
                       );
                     },
                   ),

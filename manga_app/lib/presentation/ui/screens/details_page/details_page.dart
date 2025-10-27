@@ -1,4 +1,5 @@
 import 'package:be_widgets/be_widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
@@ -12,7 +13,7 @@ import 'package:manga_app/providers/providers.dart';
 class DetailsPage extends StatefulWidget {
   final String? mangaId;
 
-  const DetailsPage({super.key, this.mangaId});
+  const DetailsPage({super.key, required this.mangaId});
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -38,16 +39,25 @@ class _DetailsPageState extends State<DetailsPage>
         _isLoading = true;
       });
 
-      // For demo purposes, we'll use the fallback data
-      // In a real app, you'd fetch the specific manga by ID
+      // Fetch manga data using the provided mangaId
       final mangaApi = getIt<MangaDexApi>();
-      final mangas = await mangaApi.fetchFeaturedManga(limit: 10);
+      final mangas = await mangaApi.fetchFeaturedManga(limit: 50);
 
       if (mangas.isEmpty) {
-        throw Exception('Manga not found');
+        throw Exception('No mangas found');
       }
+
+      // Find the manga with the matching ID
+      final foundManga = mangas
+          .where((manga) => manga.id == widget.mangaId)
+          .firstOrNull;
+
+      if (foundManga == null) {
+        throw Exception('Manga with ID ${widget.mangaId} not found');
+      }
+
       setState(() {
-        _manga = mangas.where((manga) => manga.id == widget.mangaId).first;
+        _manga = foundManga;
         _isLoading = false;
       });
     } catch (e) {
@@ -56,14 +66,14 @@ class _DetailsPageState extends State<DetailsPage>
         // Set fallback data
         _manga = MangaModel(
           id: widget.mangaId ?? 'demo',
-          title: 'not found',
+          title: 'Manga non trovato',
           cover: '',
-          status: 'not found',
+          status: 'Non disponibile',
           description:
-              'not found',
+              'Impossibile caricare i dettagli del manga. Verifica la connessione e riprova.',
           rating: '',
           minimumAge: 14,
-          tags: ['not', 'found'],
+          tags: ['errore', 'non trovato'],
           chapters: [],
         );
       });
@@ -251,8 +261,11 @@ class _DetailsPageState extends State<DetailsPage>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                _manga!.title?.toUpperCase() ??
-                                    'TITOLO NON DISPONIBILE',
+                                _manga!.title?.toUpperCase() != null
+                                    ? (_manga!.title!.length > 12
+                                          ? '${_manga!.title!.toUpperCase().substring(0, 12)}...'
+                                          : _manga!.title!.toUpperCase())
+                                    : 'TITOLO NON DISPONIBILE',
                                 style: textStyle.h1.copyWith(
                                   color: Colors.white,
                                   fontSize: 24,
@@ -373,7 +386,7 @@ class _DetailsPageState extends State<DetailsPage>
               fontSize: 16,
             ),
           ),
-          if (widget.mangaId != null) ...[
+          if (widget.mangaId != null && kDebugMode) ...[
             const SizedBox(height: 24),
             Text(
               'ID: ${widget.mangaId}',

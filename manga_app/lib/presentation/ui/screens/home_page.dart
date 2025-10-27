@@ -28,16 +28,7 @@ class HomePage extends StatelessWidget {
             expandedHeight:
                 context.screenHeight *
                 0.30, // Stessa altezza del SwiperWithText
-            flexibleSpace: FlexibleSpaceBar(
-              background: SwiperWithText(
-                imagePaths: [
-                  'assets/images/episode1.jpg',
-                  'assets/images/episode2.jpg',
-                  'assets/images/episode3.jpg',
-                ],
-                titles: ['Titolo Opera 1', 'Titolo Opera 2', 'Titolo Opera 3'],
-              ),
-            ),
+            flexibleSpace: FlexibleSpaceBar(background: SwiperWithText()),
             leading: Padding(
               padding: const EdgeInsets.only(left: 16.0),
               child: SvgPicture.asset(
