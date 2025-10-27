@@ -2,6 +2,8 @@ import 'package:be_widgets/be_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
+import 'package:manga_app/presentation/ui/screens/details_page/rating_section.dart';
+import 'package:manga_app/presentation/ui/screens/details_page/tags_section.dart';
 import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
 import 'package:go_router/go_router.dart';
@@ -39,45 +41,29 @@ class _DetailsPageState extends State<DetailsPage>
       // For demo purposes, we'll use the fallback data
       // In a real app, you'd fetch the specific manga by ID
       final mangaApi = getIt<MangaDexApi>();
-      final mangas = await mangaApi.fetchFeaturedManga(limit: 1);
+      final mangas = await mangaApi.fetchFeaturedManga(limit: 10);
 
-      if (mangas.isNotEmpty) {
-        setState(() {
-          _manga = mangas.first;
-          _isLoading = false;
-        });
-      } else {
-        // Fallback to demo data
-        setState(() {
-          _manga = MangaModel(
-            id: widget.mangaId ?? 'demo',
-            title: 'Attack on Titan',
-            cover: '',
-            status: 'completed',
-            description:
-                'In un mondo in cui l\'umanità vive circondata da gigantesche mura per difendersi da creature colossali chiamate Titani, la pace sembra solo un fragile equilibrio. La storia segue un gruppo di giovani determinati a scoprire la verità dietro l\'esistenza dei Titani e a lottare per la libertà.',
-            rating: 'suggestive',
-            minimumAge: 14,
-            tags: ['action', 'drama', 'fantasy'],
-            chapters: [],
-          );
-          _isLoading = false;
-        });
+      if (mangas.isEmpty) {
+        throw Exception('Manga not found');
       }
+      setState(() {
+        _manga = mangas.where((manga) => manga.id == widget.mangaId).first;
+        _isLoading = false;
+      });
     } catch (e) {
       setState(() {
         _isLoading = false;
         // Set fallback data
         _manga = MangaModel(
           id: widget.mangaId ?? 'demo',
-          title: 'Attack on Titan',
+          title: 'not found',
           cover: '',
-          status: 'completed',
+          status: 'not found',
           description:
-              'In un mondo in cui l\'umanità vive circondata da gigantesche mura per difendersi da creature colossali chiamate Titani, la pace sembra solo un fragile equilibrio.',
-          rating: 'suggestive',
+              'not found',
+          rating: '',
           minimumAge: 14,
-          tags: ['action', 'drama', 'fantasy'],
+          tags: ['not', 'found'],
           chapters: [],
         );
       });
@@ -273,12 +259,6 @@ class _DetailsPageState extends State<DetailsPage>
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                'Autore',
-                                style: textStyle.body.copyWith(
-                                  color: Colors.white.withValues(alpha: 0.8),
-                                ),
-                              ),
                               const SizedBox(height: 4),
                               Text(
                                 _manga!.status.toUpperCase(),
@@ -386,7 +366,7 @@ class _DetailsPageState extends State<DetailsPage>
 
           const SizedBox(height: 32),
           Text(
-            'In un mondo in cui l’umanità vive circondata da gigantesche mura per difendersi da creature colossali chiamate Titani, la pace sembra solo un fragile equilibrio. La storia segue un gruppo di giovani determinati a scoprire la verità dietro l’esistenza dei Titani e a lottare per la libertà. Tra battaglie spettacolari, misteri e colpi di scena, il manga intreccia azione e dramma in un racconto epico sulla sopravvivenza e sul desiderio di libertà.',
+            _manga!.description,
             style: textStyle.body.copyWith(
               color: colors.textPrimary,
               height: 1.6,
@@ -568,151 +548,6 @@ class _DetailsPageState extends State<DetailsPage>
           ),
         );
       },
-    );
-  }
-}
-
-class Tag extends StatelessWidget {
-  final String label;
-
-  const Tag({super.key, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: colors.primaryColor.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: colors.primaryColor.withValues(alpha: 0.5)),
-      ),
-      child: Text(
-        label,
-        style: textStyle.body.copyWith(
-          color: colors.primaryColor,
-          fontSize: 14,
-        ),
-      ),
-    );
-  }
-}
-
-class TagWithIcon extends StatelessWidget {
-  final String label;
-  final IconData icon;
-
-  const TagWithIcon({super.key, required this.label, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: colors.primaryColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: colors.primaryColor.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: colors.primaryColor),
-          const SizedBox(width: 6),
-          Text(
-            label,
-            style: textStyle.body.copyWith(
-              color: colors.primaryColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TagsSection extends StatelessWidget {
-  final List<String> tags;
-
-  const TagsSection({super.key, required this.tags});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'TAG',
-          style: textStyle.h3.copyWith(
-            color: colors.textPrimary,
-            fontWeight: FontWeight.normal,
-            fontFamily: 'Aboreto',
-          ),
-        ),
-        const SizedBox(height: 12),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: tags.map((tag) => Tag(label: tag)).toList(),
-        ),
-      ],
-    );
-  }
-}
-
-class RatingSection extends StatelessWidget {
-  const RatingSection({super.key, required this.rating, required this.stars});
-
-  final int rating;
-  final int stars;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
-    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(12, 8, 20, 8),
-          margin: const EdgeInsets.fromLTRB(12, 0, 0, 4),
-          transform: Matrix4.skewX(-.3),
-          decoration: BoxDecoration(
-            color: colors.primaryColor.withValues(alpha: 0.4),
-          ),
-          child: Container(
-            transform: Matrix4.skewX(.3),
-            child: Text(
-              '+$rating',
-
-              style: textStyle.body.copyWith(
-                color: colors.backgroundColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Row(
-          children: List.generate(stars, (index) {
-            return Icon(
-              index < stars ? Icons.star : Icons.star_border,
-              color: colors.primaryColor,
-              size: 16,
-            );
-          }),
-        ),
-      ],
     );
   }
 }

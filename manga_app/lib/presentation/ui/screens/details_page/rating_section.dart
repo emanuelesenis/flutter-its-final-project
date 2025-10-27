@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:manga_app/presentation/ui/theme/app_colors.dart';
+import 'package:manga_app/presentation/ui/theme/app_text_style.dart';
+
+class RatingSection extends StatelessWidget {
+  const RatingSection({super.key, required this.rating, required this.stars});
+
+  final int rating;
+  final int stars;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<AppColors>()!;
+    final textStyle = Theme.of(context).extension<AppTextStyle>()!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(12, 8, 20, 8),
+          margin: const EdgeInsets.fromLTRB(12, 0, 0, 4),
+          transform: Matrix4.skewX(-.3),
+          decoration: BoxDecoration(
+            color: colors.primaryColor.withValues(alpha: 0.4),
+          ),
+          child: Container(
+            transform: Matrix4.skewX(.3),
+            child: Text(
+              '+$rating',
+
+              style: textStyle.body.copyWith(
+                color: colors.backgroundColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Row(
+          children: List.generate(stars, (index) {
+            return Icon(
+              index < stars ? Icons.star : Icons.star_border,
+              color: colors.primaryColor,
+              size: 16,
+            );
+          }),
+        ),
+      ],
+    );
+  }
+}
