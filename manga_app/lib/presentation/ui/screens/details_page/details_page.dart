@@ -61,6 +61,7 @@ class _DetailsPageState extends State<DetailsPage>
 
       setState(() {
         _manga = foundManga;
+        context.read<FavouriteBloc>().add(CheckFavourite(mangaId: _manga!.id!));
         _isLoading = false;
       });
     } catch (e) {

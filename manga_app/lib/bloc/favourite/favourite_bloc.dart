@@ -15,25 +15,24 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
           userId,
           event.mangaId,
         );
-        print(isLiked);
         emit(FavouriteSuccess(isLiked: isLiked));
       } else {
         emit(FavouriteFailure());
       }
     });
 
-    // on<CheckFavourite>((event, emit) async {
-    //   emit(FavouriteLoading());
-    //   final userId = getIt<FirebaseAuthService>().getCurrentUserId();
-    //   if (userId != null) {
-    //     final isLiked = await getIt<FirestoreService>().checkFavouriteMangas(
-    //       userId,
-    //       event.mangaId,
-    //     );
-    //     emit(FavouriteSuccess(isLiked: isLiked));
-    //   } else {
-    //     emit(FavouriteFailure());
-    //   }
-    // });
+    on<CheckFavourite>((event, emit) async {
+      emit(FavouriteLoading());
+      final userId = getIt<FirebaseAuthService>().getCurrentUserId();
+      if (userId != null) {
+        final isLiked = await getIt<FirestoreService>().checkFavouriteMangas(
+          userId,
+          event.mangaId,
+        );
+        emit(FavouriteSuccess(isLiked: isLiked));
+      } else {
+        emit(FavouriteFailure());
+      }
+    });
   }
 }

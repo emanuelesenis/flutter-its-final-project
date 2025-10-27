@@ -35,10 +35,7 @@ class FirestoreService {
   /// AGGIORNA LA LISTA DEI PREFERITI SUL FIRESTORE
   Future<bool> updateFavouriteMangas(String userId, String mangaId) async {
     final user = _firestore.collection("users").doc(userId);
-    // final containsMangaId = await checkFavouriteMangas(userId, mangaId);
-    final snap = await user.get();
-    final favouriteMangas = List.from(snap.get("favouriteMangas") ?? []);
-    final containsMangaId = favouriteMangas.contains(mangaId);
+    final containsMangaId = await checkFavouriteMangas(userId, mangaId);
     if (containsMangaId) {
       await user.update({
         "favouriteMangas": FieldValue.arrayRemove([mangaId]),
@@ -48,19 +45,15 @@ class FirestoreService {
         "favouriteMangas": FieldValue.arrayUnion([mangaId]),
       });
     }
-    return containsMangaId;
+    return !containsMangaId;
   }
 
   // /// CONTROLLA SE IL MANGA E' NEI PREFERITI
-  // Future<bool> checkFavouriteMangas(String userId, String mangaId) async {
-  //   final user = _firestore.collection("users").doc(userId);
-  //   final snap = await user.get();
-  //   final favouriteMangas = List.from(snap.get("favouriteMangas") ?? []);
-  //   final containsMangaId = favouriteMangas.contains(mangaId);
-  //   if (containsMangaId) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
+  Future<bool> checkFavouriteMangas(String userId, String mangaId) async {
+    final user = _firestore.collection("users").doc(userId);
+    final snap = await user.get();
+    final favouriteMangas = List.from(snap.get("favouriteMangas") ?? []);
+    final containsMangaId = favouriteMangas.contains(mangaId);
+    return containsMangaId;
+  }
 }
