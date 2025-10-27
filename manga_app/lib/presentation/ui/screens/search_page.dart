@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manga_app/bloc/manga/manga_cubit.dart';
 import 'package:manga_app/models/manga/manga_model.dart';
+import 'package:manga_app/presentation/ui/theme/app_colors.dart';
 import 'package:manga_app/presentation/ui/theme/theme_extensions.dart';
 
 class SearchPage extends StatelessWidget {
@@ -14,9 +15,20 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Esplora"),
+        title: Text(
+          'Explore',
+          style: context.textStyles.h1.copyWith(
+            color: Theme.of(context).extension<AppColors>()!.primaryColor,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color.fromRGBO(255, 245, 245, 0.9),
+        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).extension<AppColors>()!.primaryColor,
+          ),
           onPressed: () {
             if (context.canPop()) {
               context.pop();
@@ -32,22 +44,43 @@ class SearchPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 64),
-              TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Search for a title...',
+                    hintStyle: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.8),
+                      fontSize: 16,
+                    ),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white.withValues(alpha: 0.8),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: const Color.fromARGB(175, 176, 128, 128),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 16,
+                    ),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                  labelText: 'Cerca un titolo',
-                  suffixIcon: Icon(Icons.search),
+                  onChanged: (value) {
+                    context.read<MangaCubit>().filterMangas(value);
+                  },
                 ),
-                // onSubmitted: _performSearch,
-                onChanged: (value) {
-                  context.read<MangaCubit>().filterMangas(value);
-                },
               ),
               SizedBox(height: 16),
               SingleChildScrollView(
