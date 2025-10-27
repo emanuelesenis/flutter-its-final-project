@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/presentation/ui/screens/favorites_page.dart';
 import 'package:manga_app/bloc/auth/auth_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_event.dart';
@@ -14,6 +15,7 @@ import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/splash_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page/details_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_results_page.dart';
+import 'package:manga_app/providers/providers.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -55,10 +57,6 @@ final GoRouter appRouter = GoRouter(
       name: 'login',
       builder: (context, state) => BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthInitial) {
-            context.read<AuthBloc>().add(CheckAuthStatus());
-          }
-
           if (state is AuthSuccess) {
             context.go('/home');
           }
@@ -71,10 +69,6 @@ final GoRouter appRouter = GoRouter(
       name: 'registration',
       builder: (context, state) => BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthInitial) {
-            context.read<AuthBloc>().add(CheckAuthStatus());
-          }
-
           if (state is AuthSuccess) {
             context.go('/home');
           }

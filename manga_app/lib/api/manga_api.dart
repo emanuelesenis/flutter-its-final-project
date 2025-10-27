@@ -4,7 +4,7 @@ import 'package:manga_app/models/manga/manga_model.dart';
 
 class MangaDexApi {
   final Dio _dio;
-
+  List<MangaModel> mangas = [];
 
   MangaDexApi({Dio? dio})
     : _dio =
@@ -103,6 +103,8 @@ class MangaDexApi {
         ),
       );
     }
+
+    mangas = result;
 
     return result;
   }

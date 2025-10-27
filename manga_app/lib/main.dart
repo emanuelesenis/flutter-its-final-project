@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_bloc.dart';
 import 'package:manga_app/bloc/favourite/favourite_bloc.dart';
+import 'package:manga_app/bloc/manga/manga_cubit.dart';
 // import 'package:manga_app/firebase/firebase_auth_service.dart';
 import 'package:manga_app/firebase/firebase_options.dart';
 import 'package:manga_app/my_app.dart';
@@ -18,7 +19,11 @@ void main() async {
   setup();
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => AuthBloc()), BlocProvider(create: (_) => FavouriteBloc())],
+      providers: [
+        BlocProvider(create: (_) => AuthBloc()),
+        BlocProvider(create: (_) => FavouriteBloc()),
+        BlocProvider(create: (_) => MangaCubit()),
+      ],
       child: const MyApp(),
     ),
   );

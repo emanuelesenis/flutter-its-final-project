@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:manga_app/api/manga_api.dart';
 import 'package:manga_app/bloc/auth/auth_bloc.dart';
 import 'package:manga_app/bloc/auth/auth_event.dart';
+import 'package:manga_app/providers/providers.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -17,6 +19,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    getIt<MangaDexApi>().fetchFeaturedManga(limit: 10);
     // Avvia la transizione di fade-out
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
