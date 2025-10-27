@@ -34,9 +34,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<CheckAuthStatus>((event, emit) async {
       emit(AuthLoading());
-      final user = getIt<FirebaseAuthService>().getCurrentUser();
+      final uid = getIt<FirebaseAuthService>().getCurrentUser();
 
-      if (user != null) {
+      if (uid != null) {
         emit(AuthSuccess());
       } else {
         emit(AuthFailure());

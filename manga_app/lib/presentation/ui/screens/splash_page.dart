@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manga_app/bloc/auth/auth_bloc.dart';
+import 'package:manga_app/bloc/auth/auth_event.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -24,9 +27,7 @@ class _SplashPageState extends State<SplashPage> {
 
     // Naviga alla schermata successiva dopo il fade-out
     Future.delayed(const Duration(seconds: 4), () {
-      GoRouter.of(
-        context,
-      ).go('/tutorial'); // Sostituisci '/tutorial' con la tua route
+      context.read<AuthBloc>().add(CheckAuthStatus());
     });
   }
 

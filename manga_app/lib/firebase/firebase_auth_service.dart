@@ -33,7 +33,14 @@ class FirebaseAuthService {
       );
 
       // Salva i dati utente nel Firestore
-      _firestore.saveCollectionDocument('users', user.copyWith(password: password.replaceAll(password, '*' * password.length)).toJson());
+      _firestore.saveCollectionDocument(
+        'users',
+        user
+            .copyWith(
+              password: password.replaceAll(password, '*' * password.length),
+            )
+            .toJson(),
+      );
 
       return user;
     } on FirebaseAuthException catch (e) {

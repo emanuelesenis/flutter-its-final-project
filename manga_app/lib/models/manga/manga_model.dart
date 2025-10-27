@@ -9,11 +9,13 @@ part 'manga_model.g.dart';
 abstract class MangaModel with _$MangaModel {
   const factory MangaModel({
     String? id,
+    String? title,
     @Default("") String cover,
     @Default("") String status,
-    @Default("") String descrisione,
-    @Default(0) int rating,
+    @Default("") String description,
+    @Default("") String rating,
     @Default(0) int minimumAge,
+    @Default([]) List<String> tags,
     @Default([]) List<ChapterModel> chapters,
   }) = _MangaModel;
 
