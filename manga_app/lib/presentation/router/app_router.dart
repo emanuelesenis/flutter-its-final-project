@@ -11,7 +11,6 @@ import 'package:manga_app/presentation/ui/screens/login_registration/tutorial/tu
 import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/splash_page.dart';
 import 'package:manga_app/presentation/ui/screens/details_page/details_page.dart';
-import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_results_page.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -39,20 +38,12 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/tutorial',
       name: 'tutorial',
-      builder: (context, state) => const TutorialScreen()
+      builder: (context, state) => const TutorialScreen(),
     ),
     GoRoute(
       path: '/home',
       name: 'home',
       builder: (context, state) => const HomePage(),
-    ),
-    GoRoute(
-      path: '/details',
-      name: 'details',
-      builder: (context, state) {
-        final mangaId = state.uri.queryParameters['id'];
-        return DetailsPage(mangaId: mangaId);
-      },
     ),
     GoRoute(
       path: '/login',
@@ -88,7 +79,7 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/details/:id',
-      name: 'details_with_id',
+      name: 'details',
       builder: (context, state) {
         final id = state.pathParameters['id'];
         return DetailsPage(mangaId: id);

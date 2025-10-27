@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:manga_app/api/manga_api.dart';
-import 'package:manga_app/models/manga/manga_model.dart';
 
 part 'category_carousel_event.dart';
 part 'category_carousel_state.dart';
