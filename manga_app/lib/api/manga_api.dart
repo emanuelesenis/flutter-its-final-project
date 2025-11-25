@@ -137,6 +137,8 @@ class MangaDexApi {
       result.add(ChapterModel(id: chapterId, title: title, pages: pages));
     }
 
+    print(result);
+
     return result;
   }
 

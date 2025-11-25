@@ -8,6 +8,7 @@ import 'package:manga_app/presentation/ui/screens/home_page.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/login/login_screen.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/registration/registration_screen.dart';
 import 'package:manga_app/presentation/ui/screens/login_registration/tutorial/tutorial_screen.dart';
+import 'package:manga_app/presentation/ui/screens/manga_reader_page.dart';
 import 'package:manga_app/presentation/ui/screens/profile_page.dart';
 import 'package:manga_app/presentation/ui/screens/search_page.dart';
 import 'package:manga_app/presentation/ui/screens/splash_page.dart';
@@ -18,7 +19,6 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 /// Router configuration for the app
 String initialLocation = '/';
-
 
 final GoRouter appRouter = GoRouter(
   routerNeglect: true,
@@ -79,6 +79,19 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final id = state.pathParameters['id'];
         return DetailsPage(mangaId: id);
+      },
+    ),
+    GoRoute(
+      path: '/reader/:mangaId/:chapterId',
+      name: 'manga_reader',
+      builder: (context, state) {
+        final mangaId = state.pathParameters['mangaId'];
+        final chapterId = state.pathParameters['chapterId'];
+
+        return MangaReaderPage(
+          mangaId: mangaId ?? '',
+          chapterId: chapterId ?? '',
+        );
       },
     ),
     GoRoute(

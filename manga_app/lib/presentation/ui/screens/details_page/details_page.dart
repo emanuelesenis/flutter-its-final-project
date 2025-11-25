@@ -27,7 +27,6 @@ class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   MangaModel? _manga;
-  bool _isLoading = true;
 
   @override
   void initState() {
@@ -36,52 +35,18 @@ class _DetailsPageState extends State<DetailsPage>
     _loadMangaData();
   }
 
-  Future<void> _loadMangaData() async {
-    try {
-      setState(() {
-        _isLoading = true;
-      });
+  void _loadMangaData() async {
+    _manga = getIt<MangaDexApi>().mangas.firstWhere(
+      (e) => e.id == widget.mangaId,
+    );
 
-      // Fetch manga data using the provided mangaId
-      final mangaApi = getIt<MangaDexApi>();
-      final mangas = await mangaApi.fetchFeaturedManga(limit: 50);
+    // Fetch chapters using the provided mangaId
+    final chapters = await getIt<MangaDexApi>().fetchChaptersForManga(
+      widget.mangaId!,
+    );
 
-      if (mangas.isEmpty) {
-        throw Exception('No mangas found');
-      }
+    _manga?.chapters.addAll(chapters);
 
-      // Find the manga with the matching ID
-      final foundManga = mangas
-          .where((manga) => manga.id == widget.mangaId)
-          .firstOrNull;
-
-      if (foundManga == null) {
-        throw Exception('Manga with ID ${widget.mangaId} not found');
-      }
-
-      setState(() {
-        _manga = foundManga;
-        context.read<FavouriteBloc>().add(CheckFavourite(mangaId: _manga!.id!));
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        // Set fallback data
-        _manga = MangaModel(
-          id: widget.mangaId ?? 'demo',
-          title: 'Manga non trovato',
-          cover: '',
-          status: 'Non disponibile',
-          description:
-              'Impossibile caricare i dettagli del manga. Verifica la connessione e riprova.',
-          rating: '',
-          minimumAge: 14,
-          tags: ['errore', 'non trovato'],
-          chapters: [],
-        );
-      });
-    }
   }
 
   @override
@@ -95,61 +60,7 @@ class _DetailsPageState extends State<DetailsPage>
     final colors = Theme.of(context).extension<AppColors>()!;
     final textStyle = Theme.of(context).extension<AppTextStyle>()!;
 
-    if (_isLoading) {
-      return Scaffold(
-        backgroundColor: colors.backgroundColor,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          foregroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              if (context.canPop()) {
-                context.pop();
-              } else {
-                context.go('/search');
-              }
-            },
-          ),
-        ),
-        body: const Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    if (_manga == null) {
-      return Scaffold(
-        backgroundColor: colors.backgroundColor,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          foregroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              if (context.canPop()) {
-                context.pop();
-              } else {
-                context.go('/search');
-              }
-            },
-          ),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, size: 64),
-              const SizedBox(height: 16),
-              Text('Errore nel caricamento del manga'),
-              const SizedBox(height: 16),
-              ElevatedButton(onPressed: _loadMangaData, child: Text('Riprova')),
-            ],
-          ),
-        ),
-      );
-    }
-
+    print(_manga?.chapters);
     return Scaffold(
       backgroundColor: colors.backgroundColor,
       extendBodyBehindAppBar: true,
@@ -349,11 +260,8 @@ class _DetailsPageState extends State<DetailsPage>
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Avvio lettura capitolo'),
-                            duration: Duration(seconds: 2),
-                          ),
+                        context.push(
+                          '/reader/${_manga!.id}/${_manga!.chapters[0].id}',
                         );
                       },
                       child: Padding(
